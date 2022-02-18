@@ -1,0 +1,575 @@
+{
+   "antimage":{
+      "id":"1",
+      "name":"Anti-Mage",
+      "team":"radiant",
+      "type":"melee",
+      "primary_attr":"agi",
+      "base_str":"23",
+      "str_per_level":"1.600000",
+      "base_agi":"24",
+      "agi_per_level":"2.8",
+      "base_int":"12",
+      "int_per_level":"1.800000",
+      "base_damage_min":"29",
+      "base_damage_max":"33",
+      "base_movement_speed":"310",
+      "turn_rate":null,
+      "base_armor":"0",
+      "active":1,
+      "bio":"",
+      "spells":{
+         "antimage_mana_break":{
+            "id":"5003",
+            "name":"",
+            "mana_cost":"",
+            "cooldown":"",
+            "damage":"",
+            "targets":"Passive",
+            "affects":"",
+            "damage_type":"Physical",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "percent_damage_per_burn":{
+                  "name":"",
+                  "value":"50"
+               },
+               "mana_per_hit":{
+                  "name":"",
+                  "value":"28 40 52 64"
+               },
+               "mana_per_hit_pct":{
+                  "name":"",
+                  "value":"1 1.8 2.6 3.4"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_antimage_7"
+               },
+               "silence_chance":{
+                  "name":"",
+                  "value":"15"
+               },
+               "silence_duration":{
+                  "name":"",
+                  "value":"3"
+               },
+               "illusion_percentage":{
+                  "name":"",
+                  "value":"50"
+               }
+            }
+         },
+         "antimage_blink":{
+            "id":"5004",
+            "name":"",
+            "mana_cost":"60",
+            "cooldown":"15 12 9 6",
+            "damage":"",
+            "targets":"Target Point",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "blink_range":{
+                  "name":"",
+                  "value":"925 1000 1075 1150"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_antimage_3"
+               },
+               "min_blink_range":{
+                  "name":"",
+                  "value":"200"
+               }
+            }
+         },
+         "antimage_counterspell":{
+            "id":"7314",
+            "name":"",
+            "mana_cost":"45 50 55 60",
+            "cooldown":"15 11 7 3",
+            "damage":"",
+            "targets":"No Target",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "magic_resistance":{
+                  "name":"",
+                  "value":"15 25 35 45"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_antimage_4"
+               },
+               "duration":{
+                  "name":"",
+                  "value":"1.2"
+               }
+            }
+         },
+         "antimage_mana_overload":{
+            "id":"543",
+            "name":"",
+            "mana_cost":"50",
+            "cooldown":"0",
+            "damage":"",
+            "targets":"Target Point, Target Unit ",
+            "affects":"Enemy Heroes",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "duration":{
+                  "name":"",
+                  "value":"7"
+               },
+               "outgoing_damage":{
+                  "name":"",
+                  "value":"-25"
+               },
+               "incoming_damage":{
+                  "name":"",
+                  "value":"100"
+               }
+            }
+         },
+         "generic_hidden":{
+            "id":"6251",
+            "name":"",
+            "mana_cost":"",
+            "cooldown":"",
+            "damage":"",
+            "targets":"",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":[
+               
+            ]
+         },
+         "antimage_mana_void":{
+            "id":"5006",
+            "name":"",
+            "mana_cost":"100 200 300",
+            "cooldown":"70.0 70.0 70.0",
+            "damage":"",
+            "targets":"Target Unit",
+            "affects":"Enemy Heroes",
+            "damage_type":"Magical",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "mana_void_damage_per_mana":{
+                  "name":"",
+                  "value":"0.8 0.95 1.1"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_antimage_8"
+               },
+               "mana_void_ministun":{
+                  "name":"",
+                  "value":"0.3"
+               },
+               "mana_void_aoe_radius":{
+                  "name":"",
+                  "value":"500"
+               }
+            }
+         }
+      }
+   },
+   "axe":{
+      "id":"2",
+      "name":"Axe",
+      "team":"dire",
+      "type":"melee",
+      "primary_attr":"str",
+      "base_str":"25",
+      "str_per_level":"3.400000",
+      "base_agi":"20",
+      "agi_per_level":"2.200000",
+      "base_int":"18",
+      "int_per_level":"1.6",
+      "base_damage_min":"27",
+      "base_damage_max":"31",
+      "base_movement_speed":"310",
+      "turn_rate":null,
+      "base_armor":"-1",
+      "active":1,
+      "bio":"",
+      "spells":{
+         "axe_berserkers_call":{
+            "id":"5007",
+            "name":"",
+            "mana_cost":"80 90 100 110",
+            "cooldown":"17 15 13 11",
+            "damage":"0 0 0 0",
+            "targets":"No Target",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":1,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "radius":{
+                  "name":"",
+                  "value":"300"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_axe_2"
+               },
+               "bonus_armor":{
+                  "name":"",
+                  "value":"30"
+               },
+               "duration":{
+                  "name":"",
+                  "value":"2.0 2.4 2.8 3.2"
+               }
+            }
+         },
+         "axe_battle_hunger":{
+            "id":"5008",
+            "name":"",
+            "mana_cost":"50 60 70 80",
+            "cooldown":"20 15 10 5",
+            "damage":"",
+            "targets":"Target Unit",
+            "affects":"Enemy Heroes",
+            "damage_type":"Magical",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "duration":{
+                  "name":"",
+                  "value":"12.0"
+               },
+               "slow":{
+                  "name":"",
+                  "value":"-12 -13 -14 -15"
+               },
+               "speed_bonus":{
+                  "name":"",
+                  "value":"12 13 14 15"
+               },
+               "damage_per_second":{
+                  "name":"",
+                  "value":"16 24 32 40"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_axe"
+               },
+               "damage_reduction_scepter":{
+                  "name":"",
+                  "value":"30"
+               },
+               "CalculateSpellDamageTooltip":{
+                  "name":"",
+                  "value":"0"
+               },
+               "RequiresScepter":{
+                  "name":"",
+                  "value":"1"
+               },
+               "scepter_range":{
+                  "name":"",
+                  "value":"400"
+               }
+            }
+         },
+         "axe_counter_helix":{
+            "id":"5009",
+            "name":"",
+            "mana_cost":"",
+            "cooldown":"0.3",
+            "damage":"",
+            "targets":"Passive",
+            "affects":"",
+            "damage_type":"Pure",
+            "pierces_spell_immunity":1,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "damage":{
+                  "name":"",
+                  "value":"60 100 140 180"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_axe_4"
+               },
+               "radius":{
+                  "name":"",
+                  "value":"275"
+               },
+               "trigger_chance":{
+                  "name":"",
+                  "value":"17 18 19 20"
+               },
+               "cooldown":{
+                  "name":"",
+                  "value":"0.3"
+               }
+            }
+         },
+         "generic_hidden":{
+            "id":"6251",
+            "name":"",
+            "mana_cost":"",
+            "cooldown":"",
+            "damage":"",
+            "targets":"",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":[
+               
+            ]
+         },
+         "axe_culling_blade":{
+            "id":"5010",
+            "name":"",
+            "mana_cost":"60 120 180",
+            "cooldown":"75.0 65.0 55.0",
+            "damage":"",
+            "targets":"Target Unit",
+            "affects":"Enemy Heroes",
+            "damage_type":"Magical",
+            "pierces_spell_immunity":1,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "kill_threshold":{
+                  "name":"",
+                  "value":"250 350 450"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_axe_5"
+               },
+               "damage":{
+                  "name":"",
+                  "value":"150 250 300"
+               },
+               "speed_bonus":{
+                  "name":"",
+                  "value":"30"
+               },
+               "atk_speed_bonus":{
+                  "name":"",
+                  "value":"30"
+               },
+               "speed_duration":{
+                  "name":"",
+                  "value":"6"
+               },
+               "speed_aoe":{
+                  "name":"",
+                  "value":"900"
+               },
+               "charge_speed":{
+                  "name":"",
+                  "value":"1200"
+               }
+            }
+         }
+      }
+   },
+   "bane":{
+      "id":"3",
+      "name":"Bane",
+      "team":"dire",
+      "type":"ranged",
+      "primary_attr":"int",
+      "base_str":"22",
+      "str_per_level":"2.500000",
+      "base_agi":"22",
+      "agi_per_level":"2.500000",
+      "base_int":"22",
+      "int_per_level":"2.500000",
+      "base_damage_min":"33",
+      "base_damage_max":"39",
+      "base_movement_speed":"305",
+      "turn_rate":null,
+      "base_armor":"1",
+      "active":1,
+      "bio":"",
+      "spells":{
+         "bane_enfeeble":{
+            "id":"5012",
+            "name":"",
+            "mana_cost":"40 50 60 70",
+            "cooldown":"28 21 14 7",
+            "damage":"",
+            "targets":"Target Unit",
+            "affects":"Enemy Heroes",
+            "damage_type":"Magical",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "damage_reduction":{
+                  "name":"",
+                  "value":"45 50 55 60"
+               },
+               "heal_reduction":{
+                  "name":"",
+                  "value":"45 50 55 60"
+               },
+               "cast_reduction":{
+                  "name":"",
+                  "value":"30"
+               },
+               "duration":{
+                  "name":"",
+                  "value":"8 9 10 11"
+               }
+            }
+         },
+         "bane_brain_sap":{
+            "id":"5011",
+            "name":"",
+            "mana_cost":"100 120 140 160",
+            "cooldown":"17 15 13 11",
+            "damage":"",
+            "targets":"Target Unit",
+            "affects":"Enemy Heroes",
+            "damage_type":"Pure",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "brain_sap_damage":{
+                  "name":"",
+                  "value":"75 150 225 300"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_bane_2"
+               },
+               "cooldown_scepter":{
+                  "name":"",
+                  "value":"1.5"
+               },
+               "RequiresScepter":{
+                  "name":"",
+                  "value":"1"
+               }
+            }
+         },
+         "bane_nightmare":{
+            "id":"5014",
+            "name":"",
+            "mana_cost":"165",
+            "cooldown":"24 21 18 15",
+            "damage":"",
+            "targets":"Target Unit",
+            "affects":"Heroes",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "nightmare_invuln_time":{
+                  "name":"",
+                  "value":"1.0"
+               },
+               "duration":{
+                  "name":"",
+                  "value":"4.0 5.0 6.0 7.0"
+               },
+               "animation_rate":{
+                  "name":"",
+                  "value":"0.2 0.2 0.2 0.2"
+               },
+               "nightmare_tick_damage":{
+                  "name":"",
+                  "value":"5 15 25 35"
+               }
+            }
+         },
+         "generic_hidden":{
+            "id":"6251",
+            "name":"",
+            "mana_cost":"",
+            "cooldown":"",
+            "damage":"",
+            "targets":"",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":[
+               
+            ]
+         },
+         "bane_fiends_grip":{
+            "id":"5013",
+            "name":"",
+            "mana_cost":"200 300 400",
+            "cooldown":"120 110 100",
+            "damage":"",
+            "targets":"Target Unit, Channeled",
+            "affects":"Enemy Heroes",
+            "damage_type":"Pure",
+            "pierces_spell_immunity":1,
+            "description":"",
+            "lore":"",
+            "properties":{
+               "fiend_grip_tick_interval":{
+                  "name":"",
+                  "value":"0.5"
+               },
+               "fiend_grip_mana_drain":{
+                  "name":"",
+                  "value":"5"
+               },
+               "LinkedSpecialBonus":{
+                  "name":"",
+                  "value":"special_bonus_unique_bane_3"
+               },
+               "fiend_grip_damage":{
+                  "name":"",
+                  "value":"80 120 160"
+               }
+            }
+         },
+         "bane_nightmare_end":{
+            "id":"5523",
+            "name":"",
+            "mana_cost":"",
+            "cooldown":"",
+            "damage":"",
+            "targets":"No Target",
+            "affects":"",
+            "damage_type":"",
+            "pierces_spell_immunity":0,
+            "description":"",
+            "lore":"",
+            "properties":[
+               
+            ]
+         }
+      }
+   }   
+}

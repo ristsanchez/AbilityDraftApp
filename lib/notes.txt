@@ -1,0 +1,53 @@
+Find:                           by searching for:
+    unfinished but not indispensable            $FINISH LATER$
+    lazy/not optimal                            $LAZY$
+    Double Check for functionality              $CHECK$
+    idk write more comments
+
+TODO:
+
+-S
+    MAKE python script to scrap and store valve api match history with details
+    use open api to find ability details of the match
+    MAKE script, to compute aggregate data from all the matches stored 
+                (check which language is best, e.g. for maybe runnign afk)
+    store data in firebase? to be accessed and updated by the client 
+
+-T
+    TEST database for abilities and heroes to move at least hero stuff into semiworking
+
+-H
+    PARSER for the abilities_english.txt file
+    DB for the         ^                 file
+    FRONT-END for displaying both the abilities numbers and the language part
+
+    IMAGE-loading error exception / e.g. from web when no internet available
+                                    maybe have just name if no image is available
+
+    CACHE web images into local storage
+                    check if images exist in storage if not ask to download or just load
+
+-L
+    FINISH FRONT_END for hero and abilities homes
+    POLISH FRONT-END
+    BACKGROUND for whole app so there is no white background
+
+    POLISH APP OVERALL THEME
+    IMPLEMENT DARK AND LIGHT THEME
+
+-M
+    MAKE HERO DIALOG
+    MAKE ABILITY DIALOG
+
+-E
+    nothing is easy lmao
+
+-I
+    Investigate talent trees and possibly implement it (PII)
+    Investigate ags scepter and shard PII
+    Investigate ohter langauges and PII
+
+
+
+DONE:
+
