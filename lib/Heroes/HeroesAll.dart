@@ -1,90 +1,138 @@
 import 'dart:convert';
 
+import 'package:ability_draft/Heroes/HeoresDBWorker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 
 import 'HeroesModel.dart';
+import 'AHero.dart';
 
-Future<List<String>> loadHeroNames(BuildContext context) async {
-  String data =
-      await DefaultAssetBundle.of(context).loadString('lib/utils/dota2.json');
-  //starts at the <nameofprojectdirectory> level, in this case "ability_draft"
-  //Then we go to lib/utils and then find the file.
-  Map<String, dynamic> map = json.decode(data);
-  List<String> oops = map.keys.toList();
-  //REMOVE find better way to do
-  oops.remove('target_dummy');
-  return oops;
-}
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HeroesAll extends StatelessWidget {
   const HeroesAll({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<HeroesModel>(//Might get problems later
+    return ScopedModelDescendant<HeroesModel>(
         builder: (BuildContext context, Widget child, HeroesModel model) {
       return Scaffold(
         body: Center(
-          child: FutureBuilder<List<String>>(
-            future: loadHeroNames(context),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              } else {
-                List<String>? temp = snapshot.data;
-                return GridView.builder(
+          child: _buildContents(context, model),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.next_plan, color: Colors.white),
+            onPressed: () async {
+              model.setStackIndex(1);
+
+              // Map<String, dynamic> tempPress;
+              // tempPress = await loadAllHeroData(context);
+              // initializeDB(context, tempPress);
+            }),
+      );
+    });
+  }
+
+  //$CHECK$Do this when the app is opened
+  initializeDB(BuildContext context, Map<String, dynamic> data) {
+    AHero temp;
+    data.forEach((key, value) async {
+      temp = AHero.fromJson(value, key.toString());
+      await HeroesDBWorker.db.create(temp);
+    });
+    Scaffold.of(context).showSnackBar(const SnackBar(
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 1),
+      content: Text('Success'),
+    ));
+  }
+}
+
+_buildContents(BuildContext context, HeroesModel model) {
+  return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints viewportConstraints) {
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: viewportConstraints.maxHeight,
+        ),
+        child: IntrinsicHeight(
+          child: Column(children: <Widget>[
+            Container(
+              // A fixed-height child.
+              color: const Color(0xffeeee00), // Yellow
+              height: 120.0,
+              alignment: Alignment.center,
+
+              //get all from db, count it, display it as string
+              child: CachedNetworkImage(
+                imageUrl:
+                    'http://cdn.dota2.com/apps/dota2/images/heroes/axe_lg.png',
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Text(error.toString()),
+              ),
+            ),
+            Expanded(
+              // A flexible child that will grow to fit the viewport but
+              // still be at least as big as necessary to fit its contents.
+              child: Container(
+                color: Colors.white, // Red
+                height: 120.0,
+                alignment: Alignment.center,
+                child: GridView.builder(
+                    shrinkWrap: true,
                     padding: const EdgeInsets.all(5),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 1.66,
                       crossAxisCount: 3,
                     ),
-                    itemCount: temp!.length,
+                    itemCount: model.entryList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {
-                          _showHeroDetails(context, temp[index]);
+                          _tempCreateStats(model, context);
                         },
                         child: Card(
                           color: Colors.indigo,
-                          child: Stack(
-                            children: <Widget>[
-                              FadeInImage.assetNetwork(
-                                placeholder: 'graphics/loading.gif',
-                                image:
-                                    'http://cdn.dota2.com/apps/dota2/images/heroes/${temp[index]}_lg.png',
-                              ),
-                              Center(child: Text(temp[index])),
-                              //$LAZY$ VERISON, FIND A WAY TO WRITE THE PROPER HERO NAME
-                            ],
-                          ),
+                          child: Stack(children: <Widget>[
+                            CachedNetworkImage(
+                              imageUrl:
+                                  'http://cdn.dota2.com/apps/dota2/images/heroes/${model.entryList[index].base_name}_lg.png',
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              //$LATER$ make sure progess indicator appears centered and right size
+                              errorWidget: (context, url, error) =>
+                                  Text(error.toString()),
+                            ),
+                            Center(
+                              child:
+                                  Text(model.entryList[index].name ?? "empty"),
+                            ),
+                            //$LAZY$ VERISON, FIND A WAY TO WRITE THE PROPER HERO NAME
+                          ]),
                         ),
                       );
-                    });
-              }
-            },
-          ),
+                    }),
+              ),
+            )
+          ]),
         ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.next_plan, color: Colors.white),
-            onPressed: () {
-              //Switch to heroes all?
-              // model.setStackIndex(0);
-              //Create DB once
-              initializeDB();
-            }),
-      );
-    });
-  }
+      ),
+    );
+  });
 }
 
-initializeDB() {
-  //if db exists init
+_tempCreateStats(HeroesModel model, BuildContext context) {
+  // List<AHero> temst = [];
+  // temst = await HeroesDBWorker.db.getAll();
+
+  Scaffold.of(context).showSnackBar(SnackBar(
+    backgroundColor: Colors.green,
+    duration: Duration(seconds: 1),
+    content: Text(model.entryList.length.toString()),
+  ));
 }
 
 _showHeroDetails(BuildContext context, String nameraw) {
@@ -99,31 +147,6 @@ _showHeroDetails(BuildContext context, String nameraw) {
     ),
   );
 }
-
-//205:115 <- ratio
-String abc = 'http://cdn.dota2.com/apps/dota2/images/heroes/axe_lg.png';
-/*
-  ListView.builder(
-                  itemCount: temp!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var heroName = temp[index];
-                    return Column(
-                      children: <Widget>[
-                        Container(
-                          width: 300,
-                          height: 60,
-                          color: Colors.indigo[(600 / (index + 1)).floor()],
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'graphics/loading.gif',
-                            image:
-                                'http://cdn.dota2.com/apps/dota2/images/heroes/${heroName}_lg.png',
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ); 
- */
 
 getAttributeColumn(var heroDetails) {
   return Column(
