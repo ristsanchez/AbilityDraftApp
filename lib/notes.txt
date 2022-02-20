@@ -1,20 +1,22 @@
 Find:                           by searching for:
-    unfinished but not indispensable            $FINISH LATER$
+    unfinished but not indispensable            $LATER$
     lazy/not optimal                            $LAZY$
     Double Check for functionality              $CHECK$
+
     idk write more comments
 
 TODO:
 
 -S
+            make fake data to test how this component would behave
     MAKE python script to scrap and store valve api match history with details
     use open api to find ability details of the match
     MAKE script, to compute aggregate data from all the matches stored 
                 (check which language is best, e.g. for maybe runnign afk)
-    store data in firebase? to be accessed and updated by the client 
+    store data in firebase? to be accessed and updated by the clientssidething
 
 -T
-    TEST database for abilities and heroes to move at least hero stuff into semiworking
+    TEST database for abilities
 
 -H
     PARSER for the abilities_english.txt file
@@ -40,7 +42,7 @@ TODO:
     MAKE ABILITY DIALOG
 
 -E
-    nothing is easy lmao
+    nothing
 
 -I
     Investigate talent trees and possibly implement it (PII)
@@ -51,3 +53,4 @@ TODO:
 
 DONE:
 
+TEST database for heroes 
