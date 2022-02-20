@@ -1,0 +1,4 @@
+images pixel ratio
+205:115 
+'_lg.png'
+large
