@@ -31,3 +31,15 @@ class AbilitiesHome extends StatelessWidget {
     });
   }
 }
+
+//Populate hero database with all heroes, start with 1
+Future<List<String>> loadHeroNames(BuildContext context) async {
+  String data =
+      await DefaultAssetBundle.of(context).loadString('lib/utils/dota2.json');
+  //starts at the <nameofprojectdirectory> level, in this case "ability_draft"
+  //Then we go to lib/utils and then find the file.
+  Map<String, dynamic> map = json.decode(data);
+  List<String> oops = map.keys.toList();
+  //REMOVE find better way to do
+  return oops;
+}
