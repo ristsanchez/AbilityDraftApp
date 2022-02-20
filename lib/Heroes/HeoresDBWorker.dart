@@ -1,27 +1,29 @@
 import 'package:sqflite/sqflite.dart';
+import 'AHero.dart';
 import 'HeroesModel.dart';
 
 abstract class HeroesDBWorker {
   static final HeroesDBWorker db = _SqfliteHeroesDBWorker._();
 
   /// Create and add the given hero in this database.
-  Future<int> create(Hero hero);
+  Future<int> create(AHero hero);
 
   /// Update the given hero of this database.
-  Future<void> update(Hero hero);
+  Future<void> update(AHero hero);
 
   /// Delete the specified hero.
   Future<void> delete(int id);
 
   /// Return the specified hero by id.
-  Future<Hero> get(int id);
+  Future<AHero> get(int id);
 
   /// Return all the heros of this database.
-  Future<List<Hero>> getAll();
+  Future<List<AHero>> getAll();
 }
 
+//forbidden names for now dota2herodata dota2 ad2data
 class _SqfliteHeroesDBWorker implements HeroesDBWorker {
-  static const String DB_NAME = 'dota2.db';
+  static const String DB_NAME = 'ukbest.db';
   static const String TBL_NAME = 'heroes';
 
   //Variables from the game data
@@ -46,6 +48,8 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
   static const String KEY_APL = 'agi_per_level';
   static const String KEY_IPL = 'int_per_level';
 
+  static const String KEY_BASE_NAME = 'base_name';
+
   Database? _db;
 
   _SqfliteHeroesDBWorker._();
@@ -63,24 +67,28 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
           "$KEY_BASE_DAMAGE_MIN INTEGER,"
           "$KEY_BASE_DAMAGE_MAX INTEGER,"
           "$KEY_BASE_MSPEED INTEGER,"
-          "$KEY_BASE_ARMOR INTEGER,"
+          "$KEY_BASE_ARMOR TEXT,"
           "$KEY_NAME TEXT,"
           "$KEY_TYPE TEXT,"
           "$KEY_PRIMARY_ATTR TEXT,"
           "$KEY_SPL TEXT,"
           "$KEY_APL TEXT,"
-          "$KEY_IPL TEXT"
+          "$KEY_IPL TEXT,"
+          "$KEY_BASE_NAME TEXT"
           ")");
     });
   }
 
+  //create hero from json
+  //then pass it to this
+
   //DOUBLECHECK IF PARAMTERS MATCH AND EVERYTHING******************
   @override
-  Future<int> create(Hero hero) async {
+  Future<int> create(AHero hero) async {
     Database db = await database;
     int id = await db.rawInsert(
-        "INSERT INTO $TBL_NAME ($KEY_HERO_ID, $KEY_BASE_STR, $KEY_BASE_AGI, $KEY_BASE_INT, $KEY_BASE_DAMAGE_MIN, $KEY_BASE_DAMAGE_MAX, $KEY_BASE_MSPEED, $KEY_BASE_ARMOR, $KEY_NAME, $KEY_TYPE, $KEY_PRIMARY_ATTR, $KEY_SPL, $KEY_APL, $KEY_IPL) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO $TBL_NAME ($KEY_HERO_ID, $KEY_BASE_STR, $KEY_BASE_AGI, $KEY_BASE_INT, $KEY_BASE_DAMAGE_MIN, $KEY_BASE_DAMAGE_MAX, $KEY_BASE_MSPEED, $KEY_BASE_ARMOR, $KEY_NAME, $KEY_TYPE, $KEY_PRIMARY_ATTR, $KEY_SPL, $KEY_APL, $KEY_IPL, $KEY_BASE_NAME) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           hero.id,
           hero.base_str,
@@ -95,7 +103,8 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
           hero.primary_attr,
           hero.str_per_level,
           hero.agi_per_level,
-          hero.int_per_level
+          hero.int_per_level,
+          hero.base_name
         ]);
     return id;
   }
@@ -107,14 +116,14 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
   }
 
   @override
-  Future<void> update(Hero hero) async {
+  Future<void> update(AHero hero) async {
     Database db = await database;
     await db.update(TBL_NAME, _heroToMap(hero),
         where: "$KEY_HERO_ID = ?", whereArgs: [hero.id]);
   }
 
   @override
-  Future<Hero> get(int id) async {
+  Future<AHero> get(int id) async {
     Database db = await database;
     var values =
         //WE NEED TO TEST THIS TO SEE HOW IT RESPONDS********************
@@ -127,19 +136,19 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
       return _heroFromMap(values.first);
     }
     //lazy way of returning null
-    return Hero(0, 0, 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0);
+    return AHero(0, 0, 0, 0, 0, 0, 0, "", "", "", "", "", "", "", "");
   }
 
   @override
-  Future<List<Hero>> getAll() async {
+  Future<List<AHero>> getAll() async {
     Database db = await database;
     var values = await db.query(TBL_NAME);
     return values.isNotEmpty ? values.map((m) => _heroFromMap(m)).toList() : [];
   }
 
   //Oldmethod replaced by _heroFromMap below
-  // Hero _heroFromMapOLD(Map map) {
-  //   return Hero()
+  // AHero _heroFromMapOLD(Map map) {
+  //   return AHero()
   //     ..id = map[KEY_HERO_ID]
   //     ..base_str = map[KEY_BASE_STR]
   //     ..name = map[KEY_NAME]
@@ -147,8 +156,8 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
   //     ..primary_attr = map[KEY_PRIMARY_ATTR];
   // }
 
-  Hero _heroFromMap(Map map) {
-    return Hero(
+  AHero _heroFromMap(Map map) {
+    return AHero(
         map[KEY_HERO_ID],
         map[KEY_BASE_STR],
         map[KEY_BASE_AGI],
@@ -162,10 +171,11 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
         map[KEY_PRIMARY_ATTR],
         map[KEY_SPL],
         map[KEY_APL],
-        map[KEY_IPL]);
+        map[KEY_IPL],
+        map[KEY_BASE_NAME]);
   }
 
-  Map<String, dynamic> _heroToMap(Hero hero) {
+  Map<String, dynamic> _heroToMap(AHero hero) {
     return Map<String, dynamic>()
       ..[KEY_HERO_ID] = hero.id
       ..[KEY_BASE_STR] = hero.base_str
@@ -180,6 +190,7 @@ class _SqfliteHeroesDBWorker implements HeroesDBWorker {
       ..[KEY_PRIMARY_ATTR] = hero.primary_attr
       ..[KEY_SPL] = hero.str_per_level
       ..[KEY_APL] = hero.agi_per_level
-      ..[KEY_IPL] = hero.int_per_level;
+      ..[KEY_IPL] = hero.int_per_level
+      ..[KEY_BASE_NAME] = hero.base_name;
   }
 }
