@@ -1,3 +1,4 @@
+import 'package:ability_draft/Heroes/HeoresDBWorker.dart';
 import 'package:ability_draft/Heroes/HeroesAll.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -7,7 +8,7 @@ import 'HeroesHome.dart';
 
 class Heroes extends StatelessWidget {
   Heroes() {
-    // appointmentsModel.loadData(AbilitiesDBWorker.db);
+    heroesModel.loadData(HeroesDBWorker.db);
   }
 
   @override
@@ -18,7 +19,7 @@ class Heroes extends StatelessWidget {
             builder: (BuildContext context, Widget child, HeroesModel model) {
           return IndexedStack(
             index: model.stackIndex,
-            children: const <Widget>[HeroesHome(), HeroesAll()],
+            children: const <Widget>[HeroesAll(), HeroesHome()],
           );
         }));
   }
