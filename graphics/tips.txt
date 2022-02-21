@@ -2,3 +2,5 @@ images pixel ratio
 205:115 
 '_lg.png'
 large
+
+DOTA_Tooltip_ability_antimage_mana_break
