@@ -69,7 +69,8 @@ _buildContents(BuildContext context, HeroesModel model) {
               child: CachedNetworkImage(
                 imageUrl:
                     'http://cdn.dota2.com/apps/dota2/images/heroes/axe_lg.png',
-                placeholder: (context, url) => CircularProgressIndicator(),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => Text(error.toString()),
               ),
             ),
@@ -77,7 +78,7 @@ _buildContents(BuildContext context, HeroesModel model) {
               // A flexible child that will grow to fit the viewport but
               // still be at least as big as necessary to fit its contents.
               child: Container(
-                color: Colors.white, // Red
+                color: Colors.blueGrey, // Red
                 height: 120.0,
                 alignment: Alignment.center,
                 child: GridView.builder(
@@ -92,27 +93,38 @@ _buildContents(BuildContext context, HeroesModel model) {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {
-                          _tempCreateStats(model, context);
+                          _showHeroDialog(context, model.entryList[index]);
                         },
-                        child: Card(
-                          color: Colors.indigo,
-                          child: Stack(children: <Widget>[
-                            CachedNetworkImage(
+                        child: Stack(children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: CachedNetworkImage(
                               imageUrl:
                                   'http://cdn.dota2.com/apps/dota2/images/heroes/${model.entryList[index].base_name}_lg.png',
                               placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
+                                  const CircularProgressIndicator(),
                               //$LATER$ make sure progess indicator appears centered and right size
                               errorWidget: (context, url, error) =>
                                   Text(error.toString()),
                             ),
-                            Center(
-                              child:
-                                  Text(model.entryList[index].name ?? "empty"),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                  text: model.entryList[index].name ?? "empty",
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                            //$LAZY$ VERISON, FIND A WAY TO WRITE THE PROPER HERO NAME
-                          ]),
-                        ),
+                          ),
+                          //$LAZY$ VERISON, FIND A WAY TO WRITE THE PROPER HERO NAME
+                        ]),
                       );
                     }),
               ),
@@ -130,99 +142,245 @@ _tempCreateStats(HeroesModel model, BuildContext context) {
 
   Scaffold.of(context).showSnackBar(SnackBar(
     backgroundColor: Colors.green,
-    duration: Duration(seconds: 1),
+    duration: const Duration(seconds: 1),
     content: Text(model.entryList.length.toString()),
   ));
 }
 
-_showHeroDetails(BuildContext context, String nameraw) {
+Color? dom = Colors.grey[800];
+Color? lig = Colors.grey[700];
+
+_showHeroDialog(BuildContext context, AHero hero) {
   return showDialog(
     context: context,
     builder: (context) => SimpleDialog(
-      title: const Text('help'),
-      contentPadding: const EdgeInsets.all(9),
+      backgroundColor: lig,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+      contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 10),
       children: [
-        Text("more help $nameraw"),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.fromLTRB(12, 0, 0, 12),
+              color: lig,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  SizedBox(
+                    height: 60,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'http://cdn.dota2.com/apps/dota2/images/heroes/${hero.base_name}_lg.png',
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        //$LATER$ make sure progess indicator appears centered and right size
+                        errorWidget: (context, url, error) =>
+                            Text(error.toString()),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                            text: hero.name,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                            text: primaryAtt(hero.primary_attr ?? ""),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(
+                            text: heroType(hero.type),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              color: dom,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: <Widget>[
+                        const Icon(
+                          Icons.sensor_window_rounded,
+                          color: Colors.red,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                '${hero.base_str} + ${hero.str_per_level!.substring(0, 3)}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: (hero.primary_attr == 'str')
+                                    ? FontWeight.bold
+                                    : FontWeight.normal),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: <Widget>[
+                        const Icon(
+                          Icons.upcoming_sharp,
+                          color: Colors.green,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                '${hero.base_agi} + ${hero.agi_per_level!.substring(0, 3)}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: (hero.primary_attr == 'agi')
+                                    ? FontWeight.bold
+                                    : FontWeight.normal),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: <Widget>[
+                        const Icon(
+                          Icons.grain_sharp,
+                          color: Colors.blue,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                '${hero.base_int} + ${hero.int_per_level!.substring(0, 3)}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: (hero.primary_attr == 'int')
+                                    ? FontWeight.bold
+                                    : FontWeight.normal),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 10, 0, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          text: 'Move-speed: ${hero.base_movement_speed}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const VerticalDivider(
+                        width: 30,
+                      ),
+                      RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          text:
+                              'Armor: ${heroArmor(hero.base_armor, hero.base_agi).toStringAsFixed(1)}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  RichText(
+                    textAlign: TextAlign.left,
+                    text: TextSpan(
+                      text:
+                          'Damage: ${hero.base_damage_min}-${hero.base_damage_max}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    height: 4,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     ),
   );
 }
+/*
+$LATER$ make 3 rows in the last column 2 rows with a double entry
 
-getAttributeColumn(var heroDetails) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          const Icon(
-            Icons.looks_one,
-            color: Colors.red,
-          ),
-          RichText(
-            text: TextSpan(
-              text: heroDetails['base_str'].toString(),
-              style: const TextStyle(color: Colors.white),
-              children: <TextSpan>[
-                TextSpan(
-                  text: ' (+' +
-                      heroDetails['str_gain'].toString() +
-                      ' per level)',
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      Row(
-        children: <Widget>[
-          const Icon(
-            Icons.looks_two,
-            color: Colors.blue,
-          ),
-          RichText(
-            text: TextSpan(
-              text: heroDetails['base_int'].toString(),
-              style: const TextStyle(color: Colors.white),
-              children: <TextSpan>[
-                TextSpan(
-                  text: ' (+' +
-                      heroDetails['int_gain'].toString() +
-                      ' per level)',
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      Row(
-        children: <Widget>[
-          const Icon(
-            Icons.looks_3,
-            color: Colors.lightGreen,
-          ),
-          RichText(
-            text: TextSpan(
-              text: heroDetails['base_agi'].toString(),
-              style: const TextStyle(color: Colors.white),
-              children: <TextSpan>[
-                TextSpan(
-                  text: ' (+' +
-                      heroDetails['agi_gain'].toString() +
-                      ' per level)',
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ],
-  );
+-
+-
+-
+ 
+- -
+- 
+
+*/
+
+double heroArmor(String? base, int? agi) {
+  return double.parse(base!) + (agi! / 6);
+}
+
+heroType(String? t) {
+  return '${t!.substring(0, 1).toUpperCase()}${t.substring(1, t.length)}';
+}
+
+primaryAtt(String att) {
+  switch (att) {
+    case 'str':
+      return "Strength";
+    case 'agi':
+      return "Agility";
+    case 'int':
+      return "Intelligence";
+    default:
+      return "";
+  }
 }
