@@ -19,7 +19,7 @@ TODO:
     TEST database for abilities
 
 -H
-    PARSER for the abilities_english.txt file
+    PARSER for the abilities_english.txt file CORE COMPLETE
     DB for the         ^                 file
     FRONT-END for displaying both the abilities numbers and the language part
 
