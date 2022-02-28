@@ -1,56 +1,95 @@
 class AHero {
-  int? id,
+  String? id,
       base_str,
       base_agi,
       base_int,
       base_damage_min,
       base_damage_max,
-      base_movement_speed;
-  String? name,
-      type,
+      base_movement_speed,
+      name,
+      att_type,
       base_armor,
       primary_attr,
       str_per_level,
       agi_per_level,
       int_per_level,
-      base_name;
+      base_name,
+      abilities,
+      a1,
+      a2,
+      a3,
+      ult,
+      att_rate,
+      att_range,
+      roles_condensed,
+      role_levels_condensed,
+      magic_resist;
 
   AHero(
-      this.id,
-      this.base_str,
-      this.base_agi,
-      this.base_int,
-      this.base_damage_min,
-      this.base_damage_max,
-      this.base_movement_speed,
-      this.base_armor,
-      this.name,
-      this.type,
-      this.primary_attr,
-      this.str_per_level,
-      this.agi_per_level,
-      this.int_per_level,
-      this.base_name);
-  factory AHero.fromJson(dynamic json, String baseName) {
+    this.id,
+    this.name,
+    this.base_name,
+    this.a1,
+    this.a2,
+    this.a3,
+    this.ult,
+    this.base_armor,
+    this.att_type,
+    this.base_damage_min,
+    this.base_damage_max,
+    this.att_rate,
+    this.att_range,
+    this.primary_attr,
+    this.base_str,
+    this.str_per_level,
+    this.base_int,
+    this.int_per_level,
+    this.base_agi,
+    this.agi_per_level,
+    this.base_movement_speed,
+    this.roles_condensed,
+    this.role_levels_condensed,
+    this.magic_resist,
+  );
+  factory AHero.fromJson(
+    String baseName,
+    dynamic json,
+  ) {
     return AHero(
-        int.parse(json['id']),
-        int.parse(json['base_str']),
-        int.parse(json['base_agi']),
-        int.parse(json['base_int']),
-        int.parse(json['base_damage_min']),
-        int.parse(json['base_damage_max']),
-        int.parse(json['base_movement_speed']),
-        json['base_armor'],
-        json['name'],
-        json['type'],
-        json['primary_attr'],
-        json['str_per_level'],
-        json['agi_per_level'],
-        json['int_per_level'],
-        baseName);
+      json["HeroID"],
+      json["workshop_guide_name"],
+      baseName,
+      json["Ability1"],
+      json["Ability2"],
+      json["Ability3"],
+      json["Ability6"],
+      json["ArmorPhysical"],
+      (json["AttackCapabilities"] == 'DOTA_UNIT_CAP_MELEE_ATTACK'
+          ? 'Melee'
+          : 'Ranged'),
+      json["AttackDamageMin"],
+      json["AttackDamageMax"],
+      json["AttackRate"],
+      json["AttackRange"],
+      (json["AttributePrimary"] == 'DOTA_ATTRIBUTE_AGILITY'
+          ? 'Agility'
+          : json["AttributePrimary"] == 'DOTA_ATTRIBUTE_STRENGTH'
+              ? 'Strength'
+              : 'Intelligence'), //'DOTA_ATTRIBUTE_INTELLECT'
+      json["AttributeBaseStrength"],
+      json["AttributeStrengthGain"],
+      json["AttributeBaseIntelligence"],
+      json["AttributeIntelligenceGain"],
+      json["AttributeBaseAgility"],
+      json["AttributeAgilityGain"],
+      json["MovementSpeed"],
+      json["Role"],
+      json["Rolelevels"],
+      json["MagicalResistance"],
+    );
   }
   @override
   String toString() {
-    return '{ ${this.base_name}, ${this.name}, ${this.id}, ${this.base_str}, ${this.base_agi}, ${this.base_int}, ${this.base_damage_min}, ${this.base_damage_max}, ${this.base_movement_speed}, ${this.base_armor}, ${this.type}, ${this.primary_attr}, ${this.str_per_level}, ${this.agi_per_level}, ${this.int_per_level} }';
+    return '${this.base_name}, ${this.name}, ${this.id}, ${this.base_str}, ${this.base_agi}, ${this.base_int}, ${this.base_damage_min}, ${this.base_damage_max}, ${this.base_movement_speed}, ${this.base_armor}, ${this.att_type}, ${this.primary_attr}, ${this.str_per_level}, ${this.agi_per_level}, ${this.int_per_level} ${this.abilities}';
   }
 }
