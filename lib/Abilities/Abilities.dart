@@ -1,3 +1,5 @@
+import 'package:ability_draft/Abilities/AbilitiesAll.dart';
+import 'package:ability_draft/Abilities/AbilitiesDBWorker.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 // import 'AppointmentsEntry.dart';
@@ -5,7 +7,9 @@ import 'AbilitiesModel.dart' show AbilitiesModel, abilitiesModel;
 import 'AbilitiesHome.dart';
 
 class Abilities extends StatelessWidget {
-  Abilities() {}
+  Abilities() {
+    abilitiesModel.loadData(AbilitiesDBWorker.db);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class Abilities extends StatelessWidget {
             (BuildContext context, Widget child, AbilitiesModel model) {
           return IndexedStack(
             index: model.stackIndex,
-            children: <Widget>[AbilitiesHome()],
+            children: <Widget>[AbilitiesHome(), AbilitiesAll()],
           );
         }));
   }
