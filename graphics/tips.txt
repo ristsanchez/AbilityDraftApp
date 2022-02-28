@@ -4,3 +4,16 @@ images pixel ratio
 large
 
 DOTA_Tooltip_ability_antimage_mana_break
+
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png
+
+http://cdn.dota2.com/apps/dota2/images/heroes/${heroList[index].base_name}_lg.png
+
+
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crops/puck.png
+for hero teams STACKED IMAGES 5 on 5
+e.g
+
+12345
+
+12345
