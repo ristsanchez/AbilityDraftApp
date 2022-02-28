@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -63,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage>
     Abilities(),
     Heroes(),
   ];
-
   late TabController _tabController;
 
   // int _counter = 0;
@@ -80,17 +81,6 @@ class _MyHomePageState extends State<MyHomePage>
     _tabController.dispose();
     super.dispose();
   }
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //     // This call to setState tells the Flutter framework that something has
-  //     // changed in this State, which causes it to rerun the build method below
-  //     // so that the display can reflect the updated values. If we changed
-  //     // _counter without calling setState(), then the build method would not be
-  //     // called again, and so nothing would appear to happen.
-  //     _counter++;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -129,49 +119,7 @@ class _MyHomePageState extends State<MyHomePage>
               label: ("Heroes"), icon: Icon(Icons.carpenter_rounded)),
         ],
       ),
-      // body: Center(
-      //   // Center is a layout widget. It takes a single child and positions it
-      //   // in the middle of the parent.
-      //   child: Column(
-      //     // Column is also a layout widget. It takes a list of children and
-      //     // arranges them vertically. By default, it sizes itself to fit its
-      //     // children horizontally, and tries to be as tall as its parent.
-      //     //
-      //     // Invoke "debug painting" (press "p" in the console, choose the
-      //     // "Toggle Debug Paint" action from the Flutter Inspector in Android
-      //     // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-      //     // to see the wireframe for each widget.
-      //     //
-      //     // Column has various properties to control how it sizes itself and
-      //     // how it positions its children. Here we use mainAxisAlignment to
-      //     // center the children vertically; the main axis here is the vertical
-      //     // axis because Columns are vertical (the cross axis would be
-      //     // horizontal).
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: <Widget>[
-      //       const Text(
-      //         'put the text here:',
-      //       ),
-      //       Text(
-      //         '$_counter',
-      //         style: Theme.of(context).textTheme.headline4,
-      //       ),
-      //       Image(image: AssetImage('graphics/riki_backstab_lg.png')),
-      //       Center(
-      //         child: FadeInImage.assetNetwork(
-      //           placeholder: 'graphics/loading.gif',
-      //           image:
-      //               'https://cdn.dota2.com/apps/dota2/images/abilities/antimage_mana_break_lg.png',
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
+// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
