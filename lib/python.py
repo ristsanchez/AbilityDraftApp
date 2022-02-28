@@ -13,10 +13,6 @@ img = 'https://cdn.dota2.com/apps/dota2/images/heroes/axe_full.png'
 
 
 url = 'https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=D53FE560AEBBD9A3A3EE066E90C7C16D&language=en_us&format=JSON' 
-response = requests.get(url)        # To execute get request 
-print(response.status_code)     # To print http response code  
-print(response.text)
-
 
 
 # MATCH history
