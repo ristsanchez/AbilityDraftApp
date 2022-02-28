@@ -8,7 +8,7 @@ import 'HeroesHome.dart';
 
 class Heroes extends StatelessWidget {
   Heroes() {
-    heroesModel.loadData(HeroesDBWorker.db);
+    // heroesModel.loadData(HeroesDBWorker.db);
   }
 
   @override
