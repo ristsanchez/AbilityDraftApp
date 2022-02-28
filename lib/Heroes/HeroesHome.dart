@@ -21,7 +21,8 @@ class HeroesHome extends StatelessWidget {
     return ScopedModelDescendant<HeroesModel>(//Might get problems later
         builder: (BuildContext context, Widget child, HeroesModel model) {
       return Scaffold(
-        body: _buildHomeContents(context, model),
+        body: Text("all"),
+        // _buildHomeContents(context, model),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.skip_previous, color: Colors.white),
             onPressed: () {

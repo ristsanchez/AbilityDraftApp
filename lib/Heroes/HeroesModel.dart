@@ -13,9 +13,11 @@ class HeroesModel extends Model {
     notifyListeners();
   }
 
-  void loadData(database) async {
+  void loadData(Map<String, dynamic> data) {
     entryList.clear();
-    entryList.addAll(await database.getAll());
+    data.forEach((key, value) {
+      entryList.add(AHero.fromJson(value, key));
+    });
     notifyListeners();
   }
 
