@@ -1,10 +1,9 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'dart:convert';
-
-import 'package:ability_draft/Heroes/HeoresDBWorker.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-
 import 'package:scoped_model/scoped_model.dart';
-
 import '../utils/jsonUtils.dart';
 import 'HeroDialogs/HeroStatsDialog.dart';
 import 'HeroesModel.dart';
@@ -80,7 +79,7 @@ Future<List<AHero>> _allHeroData(BuildContext context) async {
   //Then we go to lib/utils and then find the file.
   Map<String, dynamic> map = json.decode(data);
   List<AHero> list = [];
-  map.forEach((k, v) => list.add(AHero.fromJson(k, v)));
+  map.forEach((k, v) => list.add(AHero.fromJson(k, v, [])));
   return list;
 }
 
@@ -109,37 +108,24 @@ _buildContents(BuildContext context, List<AHero> heroList) {
         child: IntrinsicHeight(
           child: Column(children: <Widget>[
             Container(
-              // A fixed-height child.
-              color: Colors.black, // Yellow
-              height: 120.0,
+              color: Colors.grey, // Yellow
+              height: 27.0,
               alignment: Alignment.center,
-
+            ),
+            Container(
+              // A fixed-height child.
+              color: Colors.grey, // Yellow
+              height: 70.0,
+              alignment: Alignment.center,
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
               //get all from db, count it, display it as string
-              child: GestureDetector(
-                onTap: () async {
-                  Scaffold.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Colors.blueAccent,
-                    duration: Duration(seconds: 2),
-                    content: Text('Working'),
-                  ));
-                  // Map<String, dynamic> tempPress;
-                  // tempPress = await loadAllHeroData(context);
-                  //_initializeDB(context, tempPress);
-                },
-                child: CachedNetworkImage(
-                  imageUrl:
-                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png',
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Text(error.toString()),
-                ),
-              ),
+              child: getIconsFilterBar(context),
             ),
             Expanded(
               // A flexible child that will grow to fit the viewport but
               // still be at least as big as necessary to fit its contents.
               child: Container(
-                color: Colors.black, // Red
+                color: Color.fromARGB(255, 110, 110, 110), // Red
                 height: 120.0,
                 alignment: Alignment.center,
                 child: GridView.builder(
@@ -149,6 +135,8 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 1.78,
                       crossAxisCount: 3,
+                      mainAxisSpacing: 3,
+                      crossAxisSpacing: 3,
                     ),
                     itemCount: heroList.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -195,6 +183,90 @@ _buildContents(BuildContext context, List<AHero> heroList) {
       ),
     );
   });
+}
+
+getIconsFilterBar(BuildContext context) {
+  return Container(
+    margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(5),
+            ),
+            border: Border.all(
+              width: 1.5,
+              color: Colors.white.withOpacity(0.2),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              getElevatedButton('hero_strength'),
+              getElevatedButton('hero_agility'),
+              getElevatedButton('hero_intelligence'),
+              Container(
+                height: 35,
+                width: 100,
+                child: InputDecorator(
+                  decoration: InputDecoration(
+                    labelText: 'XP',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: Text('co'),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+getElevatedButton(String icon) {
+  return ElevatedButton(
+    onPressed: () {},
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned(
+          top: 3,
+          left: 1,
+          child: Opacity(
+              child: Image.asset(
+                'assets/stats_icons_small/$icon.png',
+                color: Colors.black,
+                width: 30,
+              ),
+              opacity: 0.6),
+        ),
+        Positioned(
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+              child: Image.asset(
+                'assets/stats_icons_small/$icon.png',
+                width: 30,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+    style: ElevatedButton.styleFrom(
+      shape: CircleBorder(),
+      padding: EdgeInsets.all(4),
+      primary: Color.fromARGB(255, 126, 126, 126), // <-- Button color
+      onPrimary: Colors.white, // <-- Splash color
+    ),
+  );
 }
 
 primaryAtt(String att) {
