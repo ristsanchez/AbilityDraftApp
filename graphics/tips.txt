@@ -17,3 +17,21 @@ e.g
 12345
 
 12345
+
+
+abilites url doesnt have primal beast and other abilities
+old
+http://cdn.dota2.com/apps/dota2/images/abilities/techies_sticky_bomb_lg.png'
+
+new
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/techies_sticky_bomb.png
+
+
+sandking name doesnt match in abilit_english file sandking/sand_king
+
+icons
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_damage.png
+
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_movement_speed.png
+
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_armor.png

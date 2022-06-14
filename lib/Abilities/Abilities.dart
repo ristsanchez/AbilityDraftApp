@@ -8,7 +8,7 @@ import 'AbilitiesHome.dart';
 
 class Abilities extends StatelessWidget {
   Abilities() {
-    abilitiesModel.loadData(AbilitiesDBWorker.db);
+    // abilitiesModel.loadData(AbilitiesDBWorker.db);
   }
 
   @override
@@ -19,7 +19,7 @@ class Abilities extends StatelessWidget {
             (BuildContext context, Widget child, AbilitiesModel model) {
           return IndexedStack(
             index: model.stackIndex,
-            children: <Widget>[AbilitiesHome(), AbilitiesAll()],
+            children: <Widget>[AbilitiesAll()],
           );
         }));
   }
