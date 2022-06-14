@@ -1,4 +1,7 @@
+import 'package:ability_draft/Abilities/Ability.dart';
+
 class AHero {
+  List<Ability>? abilityList;
   String? id,
       base_str,
       base_agi,
@@ -50,10 +53,12 @@ class AHero {
     this.roles_condensed,
     this.role_levels_condensed,
     this.magic_resist,
+    this.abilityList,
   );
   factory AHero.fromJson(
     String baseName,
     dynamic json,
+    List<Ability> abs,
   ) {
     return AHero(
       json["HeroID"],
@@ -86,6 +91,7 @@ class AHero {
       json["Role"],
       json["Rolelevels"],
       json["MagicalResistance"],
+      abs,
     );
   }
   @override
