@@ -1,4 +1,3 @@
-import 'package:ability_draft/Heroes/HeoresDBWorker.dart';
 import 'package:ability_draft/Heroes/HeroesAll.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';

@@ -1,13 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-
-import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart' show rootBundle;
-
 import 'Abilities/index.dart';
 import 'Heroes/index.dart';
-import 'dart:convert';
+import 'Matches/index.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +25,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.grey,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       debugShowCheckedModeBanner: false,
@@ -61,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
 
-  List<Widget> _tabList = [
+  final List<Widget> _tabList = [
+    Matches(),
     Abilities(),
     Heroes(),
   ];
@@ -91,19 +86,15 @@ class _MyHomePageState extends State<MyHomePage>
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+      appBar: null,
       body: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: _tabList,
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color.fromARGB(255, 64, 20, 94),
+        backgroundColor: Colors.grey,
         fixedColor: Colors.white,
         unselectedItemColor: Colors.white54,
         currentIndex: _currentIndex,
@@ -113,10 +104,10 @@ class _MyHomePageState extends State<MyHomePage>
           });
           _tabController.animateTo(_currentIndex);
         },
-        items: [
-          BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.apps)),
-          BottomNavigationBarItem(
-              label: ("Heroes"), icon: Icon(Icons.carpenter_rounded)),
+        items: const [
+          BottomNavigationBarItem(label: ("Matches"), icon: Icon(Icons.apps)),
+          BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.face)),
+          BottomNavigationBarItem(label: ("Heroes"), icon: Icon(Icons.cabin)),
         ],
       ),
 // This trailing comma makes auto-formatting nicer for build methods.
