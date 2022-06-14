@@ -305,7 +305,7 @@ _showAbilityDialog(BuildContext context, Ability ability) {
                         RichText(
                           textAlign: TextAlign.left,
                           text: TextSpan(
-                            text: ability.fmt!.substring(0, 10),
+                            text: ability.cooldown,
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -317,7 +317,7 @@ _showAbilityDialog(BuildContext context, Ability ability) {
                   RichText(
                     textAlign: TextAlign.left,
                     text: TextSpan(
-                      text: ability.properties!.substring(0, 100),
+                      text: ability.id, //props
                       style: const TextStyle(
                         color: Colors.white,
                       ),
@@ -334,37 +334,4 @@ _showAbilityDialog(BuildContext context, Ability ability) {
       ],
     ),
   );
-}
-
-//$CHECK$Do this when the app is opened
-_populateDB(BuildContext context) async {
-  Map<String, dynamic> allHeroData;
-  allHeroData = await loadAllHeroData(context);
-
-  Map<String, dynamic> engData;
-  engData = await loadEngData(context);
-
-  Ability temp;
-  Map<String, dynamic> spells;
-
-  allHeroData.forEach((key, value) {
-    spells = value['spells'];
-    spells.forEach((k, v) async {
-      if (k != 'generic_hidden') {
-        temp = Ability.fromJson(
-          v,
-          k,
-          v['properties'].toString(),
-          json.encode(engData[key]),
-        );
-        await AbilitiesDBWorker.db.create(temp);
-      }
-    });
-  });
-
-  Scaffold.of(context).showSnackBar(const SnackBar(
-    backgroundColor: Colors.green,
-    duration: Duration(seconds: 3),
-    content: Text('success'),
-  ));
 }
