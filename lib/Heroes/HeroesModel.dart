@@ -16,7 +16,7 @@ class HeroesModel extends Model {
   void loadData(Map<String, dynamic> data) {
     entryList.clear();
     data.forEach((key, value) {
-      entryList.add(AHero.fromJson(value, key));
+      entryList.add(AHero.fromJson(value, key, []));
     });
     notifyListeners();
   }
