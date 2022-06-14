@@ -1,43 +1,98 @@
 class Ability {
-  // Map<String, String> properties;
-  int? id, pierces_spell_immunity;
-  String? name,
-      mana_cost,
+  Map<String, String> propertyDescriptions;
+  String id, name, description;
+  String? baseName,
+      type,
+      behavior,
+      castRange,
+      castPoint,
+      channelTime,
+      charges,
+      chargeRestoreTime,
       cooldown,
+      duration,
       damage,
-      targets,
-      affects,
-      damage_type,
-      properties,
-      fmt;
+      manaCost,
+      unitDamageType,
+      spellImmunityType,
+      special,
+      values,
+      unitTargetTeam,
+      hasScepterUpgrade,
+      spellDispellableType,
+      hasShardUpgrade,
+      unitTargetType,
+      isGrantedByScepter,
+      isGrantedByShard,
+      linkedAbility,
+      isShardUpgrade;
 
   Ability(
-      this.id,
-      this.pierces_spell_immunity,
-      this.name,
-      this.mana_cost,
-      this.cooldown,
-      this.damage,
-      this.targets,
-      this.affects,
-      this.damage_type,
-      this.properties,
-      this.fmt);
+    this.propertyDescriptions,
+    this.id,
+    this.name,
+    this.description, {
+
+    //optional arguments
+    this.baseName,
+    this.type,
+    this.behavior,
+    this.castRange,
+    this.castPoint,
+    this.channelTime,
+    this.charges,
+    this.chargeRestoreTime,
+    this.cooldown,
+    this.duration,
+    this.damage,
+    this.manaCost,
+    this.unitDamageType,
+    this.spellImmunityType,
+    this.special,
+    this.values,
+    this.unitTargetTeam,
+    this.hasScepterUpgrade,
+    this.spellDispellableType,
+    this.hasShardUpgrade,
+    this.unitTargetType,
+    this.isGrantedByScepter,
+    this.isGrantedByShard,
+    this.linkedAbility,
+    this.isShardUpgrade,
+  });
 
   factory Ability.fromJson(
-      dynamic json, String baseName, String formg, String props) {
+      String key, Map<String, dynamic> json, Map<String, String> props) {
     return Ability(
-      int.parse(json['id']),
-      json['pierces_spell_immunity'],
-      baseName,
-      json['mana_cost'],
-      json['cooldown'],
-      json['damage'],
-      json['targets'],
-      json['affects'],
-      json['damage_type'],
       props,
-      formg,
+      json['ID'] ?? '0',
+      key,
+      props['DOTA_Tooltip_ability_${key}_Description'].toString(),
+      baseName: props['DOTA_Tooltip_ability_$key'],
+      type: json['AbilityType'] ?? 'DOTA_ABILITY_TYPE_BASIC',
+      behavior: json['AbilityBehavior'] ?? 'DOTA_ABILITY_BEHAVIOR_NONE',
+      castRange: json['AbilityCastRange'] ?? '0',
+      castPoint: json['AbilityCastPoint'] ?? '',
+      channelTime: json['AbilityChannelTime'] ?? '',
+      charges: json['AbilityCharges'] ?? '',
+      chargeRestoreTime: json['AbilityChargeRestoreTime'] ?? '',
+      cooldown: json['AbilityCooldown'] ?? '',
+      duration: json['AbilityDuration'] ?? '',
+      damage: json['AbilityDamage'] ?? '',
+      manaCost: json['AbilityManaCost'] ?? '',
+      unitDamageType: json['AbilityUnitDamageType'] ?? '',
+      spellImmunityType: json['SpellImmunityType'] ?? '',
+      special: json['AbilitySpecial'].toString(), //map of string/dynamic
+      values: json['AbilityValues'].toString(), //map of string/dynamic
+      unitTargetTeam: json['AbilityUnitTargetTeam'] ?? '',
+      hasScepterUpgrade: json['HasScepterUpgrade'] ?? '',
+      spellDispellableType: json['SpellDispellableType'] ?? '',
+      hasShardUpgrade: json['HasShardUpgrade'] ?? '',
+      unitTargetType: json['AbilityUnitTargetType'] ?? '',
+      isGrantedByScepter: json['IsGrantedByScepter'] ?? '',
+      isGrantedByShard: json['IsGrantedByShard'] ?? '',
+      linkedAbility: json['LinkedAbility'] ?? '',
+      isShardUpgrade: json['IsShardUpgrade'] ?? '',
     );
   }
   //$FINISH LATER$
@@ -47,10 +102,30 @@ class Ability {
   // }
 }
 
-
-//make array of hero ids,
-//get hero by id e.g. 1
-  //get hero base_name e.g. antimage
-//get hero abilities by ids e.g. 5004, 5005, ...
-//for each main ability id
-  //
+List shoe = [
+  'ID',
+  'AbilityType',
+  'AbilityBehavior',
+  'AbilityCastRange',
+  'AbilityCastPoint',
+  'AbilityChannelTime',
+  'AbilityCooldown',
+  'AbilityDuration',
+  'AbilityDamage',
+  'AbilityManaCost',
+  'AbilityUnitDamageType',
+  'SpellImmunityType',
+  'AbilitySpecial',
+  'HasScepterUpgrade',
+  'AbilityValues',
+  'SpellDispellableType',
+  'HasShardUpgrade',
+  'AbilityUnitTargetTeam',
+  'AbilityUnitTargetType',
+  'IsGrantedByScepter',
+  'AbilityCharges',
+  'AbilityChargeRestoreTime',
+  'IsGrantedByShard',
+  'LinkedAbility',
+  'IsShardUpgrade'
+];
