@@ -1,17 +1,23 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:ui';
 
+import 'package:ability_draft/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 
+import 'package:fl_chart/fl_chart.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:scoped_model/scoped_model.dart';
 
+import '../gameData/jsonUtil.dart';
 import 'MatchModel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../utils/idTable.dart';
 import '../utils/idTable.dart';
 
 //$LATE$ find widget that allows sorting values in columns
@@ -98,7 +104,8 @@ class MatchesHome extends StatelessWidget {
                       height: 60,
                     ),
                     getOverall(context, matchData),
-                    getAbilitySequence(context),
+                    getGoldXpGraph(context, matchData['radiant_gold_adv']),
+                    getHeroesAbilityOrder(context, matchData['players']),
                   ],
                 ),
               ),
@@ -111,7 +118,179 @@ class MatchesHome extends StatelessWidget {
   }
 }
 
-getAbilitySequence(BuildContext context) {
+getGoldXpGraph(BuildContext context, matchData) {
+  //min max lenght of matchData Array
+  return Container(
+    height: 250,
+    margin: EdgeInsets.all(15),
+    child: Center(
+      child: LineChart(mainData(matchData)),
+    ),
+    color: Color.fromARGB(57, 255, 255, 255),
+  );
+}
+
+List<Color> gradientColors = [
+  Color.fromARGB(255, 45, 240, 19),
+  Color.fromARGB(255, 245, 54, 54),
+];
+List<Color> gradientColors2 = [
+  Color.fromARGB(255, 236, 250, 38),
+  Color.fromARGB(255, 212, 192, 6),
+];
+LineChartData mainData(List data) {
+  int min = data.reduce((value, element) => value < element ? value : element);
+  int max = data.reduce((value, element) => value > element ? value : element);
+  int length = data.length;
+  List<FlSpot> tenpy = [];
+
+  for (int i = 0; i < length; i++) {
+    tenpy.add(FlSpot((i).toDouble(), data[i].toDouble()));
+    if (i == length - 1) {
+      tenpy.add(FlSpot((i + 1).toDouble(), data[i].toDouble()));
+    }
+  }
+
+  return LineChartData(
+    gridData: FlGridData(
+      show: true,
+      drawVerticalLine: true,
+      horizontalInterval: 1,
+      verticalInterval: 1,
+      getDrawingHorizontalLine: (value) {
+        return FlLine(
+          color: Color.fromARGB(71, 55, 67, 77),
+          strokeWidth: 1,
+        );
+      },
+      getDrawingVerticalLine: (value) {
+        return FlLine(
+          color: Color.fromARGB(71, 55, 67, 77),
+          strokeWidth: 1,
+        );
+      },
+    ),
+    titlesData: FlTitlesData(
+      show: true,
+      rightTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 20,
+          getTitlesWidget: rightTitleWidgets,
+        ),
+      ),
+      topTitles: AxisTitles(
+        sideTitles: SideTitles(showTitles: false),
+      ),
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 20,
+          interval: 10,
+          getTitlesWidget: bottomTitleWidgets,
+        ),
+      ),
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          interval: 1500,
+          getTitlesWidget: leftTitleWidgets,
+          reservedSize: 20,
+        ),
+      ),
+    ),
+    borderData: FlBorderData(
+        show: true,
+        border: Border.all(color: const Color(0xff37434d), width: 1)),
+    minX: 0,
+    maxX: length.toDouble(),
+    minY: min.toDouble(),
+    maxY: max.toDouble(),
+    lineBarsData: [
+      LineChartBarData(
+        spots: tenpy,
+        isCurved: false,
+        gradient: LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        barWidth: 3,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: false,
+        ),
+        belowBarData: BarAreaData(
+          show: true,
+          gradient: LinearGradient(
+            colors:
+                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget bottomTitleWidgets(double value, TitleMeta meta) {
+  const style = TextStyle(
+    color: Color(0xff68737d),
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+  );
+  Widget text = Text(
+    '${value.toInt()}"',
+    style: style,
+  );
+
+  return SideTitleWidget(
+    axisSide: meta.axisSide,
+    space: 0.0,
+    child: text,
+  );
+}
+
+Widget leftTitleWidgets(double value, TitleMeta meta) {
+  const style = TextStyle(
+    color: Color(0xff67727d),
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+  );
+  String text = '';
+  if (value < 6001 && value > -6001) {
+    text = '${value ~/ 1000}k';
+  }
+
+  return Text(text, style: style, textAlign: TextAlign.right);
+}
+
+Widget rightTitleWidgets(double value, TitleMeta meta) {
+  return const Text('');
+}
+
+getHeroesAbilityOrder(BuildContext context, var statsList) {
+  List<Widget> tempColumn = [];
+  for (int i = 0; i < 10; i++) {
+    tempColumn.add(
+      getAbilitySequence(
+        context,
+        statsList[i]['ability_upgrades_arr'],
+        statsList[i]['hero_id'],
+        statsList[i]['isRadiant'],
+      ),
+    );
+  }
+
+  return Column(
+    children: tempColumn,
+  );
+}
+
+getAbilitySequence(BuildContext context, var aa, var hn, var boob) {
+  List temp = aa;
+  int heroname = hn;
   return Container(
     padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
     child: ClipRRect(
@@ -130,37 +309,60 @@ getAbilitySequence(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'This is the heading of the 1st row',
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                height: 160,
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                height: 36,
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Column(children: [
-                      Container(
-                        height: 32,
-                        width: 32,
-                        color: Color.fromARGB(24, 255, 255, 255),
+                    const Expanded(
+                      child: Text(
+                        'Ability Build',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
                       ),
-                    ]),
+                    ),
                     Expanded(
-                      child: GridView(
-                        padding: EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: getUniquenum(ability_upgrades_arr),
-                          childAspectRatio: 1,
+                      child: Center(
+                        child: Image.asset(
+                          'assets/hero_icons_small/${getNameById(heroname.toString())}.jpg',
+                          fit: BoxFit.fill,
                         ),
-                        children: getAbilityArray(ability_upgrades_arr),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          (boob ? 'Radiant' : 'Dire'),
+                          style: TextStyle(
+                              color: boob ? Colors.red : Colors.lightGreen),
+                        ),
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                height: (32 * 5),
+                child: Stack(
+                  children: [
+                    GridView(
+                      padding: const EdgeInsets.fromLTRB(32, 0, 0, 0),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 5,
+                        childAspectRatio: 1,
+                      ),
+                      children: getAbilityArray(temp),
+                    ),
+                    getAbilitiesColumn(context, temp),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -169,41 +371,84 @@ getAbilitySequence(BuildContext context) {
   );
 }
 
+getAbilitiesColumn(BuildContext context, List abilitiesInOrder) {
+  List uniqueList = abilitiesInOrder.toSet().toList();
+
+  List<Widget> tempColumn = [];
+
+  for (int i = 0; i < 5; i++) {
+    tempColumn.add(makeImageContainer(context, uniqueList[i]));
+  }
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Column(
+        children: tempColumn,
+      ),
+    ],
+  );
+}
+
+makeImageContainer(BuildContext context, int id) {
+  return Center(
+    child: Container(
+      padding: const EdgeInsets.all(2),
+      child: SizedBox(
+        height: 28,
+        width: 28,
+        child: getImageFromFuture(context, id),
+      ),
+    ),
+  );
+}
+
+getImageFromFuture(BuildContext context, int id) {
+  return FutureBuilder(
+    future: getAbilityNameById(context, id),
+    builder: (BuildContext context, AsyncSnapshot snapshot) {
+      if (snapshot.hasData) {
+        return CachedNetworkImage(
+          imageUrl:
+              'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${snapshot.data}.png',
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(
+            Icons.star,
+            color: Colors.yellow,
+          ),
+        );
+      } else if (snapshot.hasError) {
+        return const Icon(
+          Icons.error_outline,
+          color: Colors.red,
+        );
+      } else {
+        return const CircularProgressIndicator();
+      }
+    },
+  );
+}
+
 getUniquenum(List upArr) {
   List uniqueElements = upArr.toSet().toList();
   return uniqueElements.length;
 }
 
-var ability_upgrades_arr = [
-  5585,
-  5464,
-  5585,
-  5515,
-  5585,
-  5588,
-  5585,
-  5464,
-  5515,
-  5959,
-  5464,
-  5588,
-  5464,
-  5515,
-  5515
-];
-
 getAbilityArray(List upArr) {
   List uniqueElements = upArr.toSet().toList();
 
-  int rows = uniqueElements.length;
+  // int rows = uniqueElements.length;
+
   int columns = upArr.length;
 
   List<Widget> tempColumn = [];
 
   for (int i = 0; i < columns; i++) {
-    for (int j = 0; j < rows; j++) {
+    for (int j = 0; j < 5; j++) {
       if (uniqueElements.indexOf(upArr[i]) == j) {
         tempColumn.add(nonEmptyBox(i, j));
+      } else if (uniqueElements.indexOf(upArr[i]) > 4 && j == 4) {
+        tempColumn.add(nonEmptyBox(i, 4));
       } else {
         tempColumn.add(emptyBox());
       }
@@ -216,13 +461,8 @@ getAbilityArray(List upArr) {
 emptyBox() {
   return Center(
     child: Container(
-      color: Color.fromARGB(15, 255, 255, 255),
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     color: Colors.red,
-      //   ),
-      // ),
-      margin: EdgeInsets.all(1),
+      color: const Color.fromARGB(15, 255, 255, 255),
+      margin: const EdgeInsets.all(1),
       height: 30,
       width: 30,
       child: const Center(),
@@ -230,21 +470,42 @@ emptyBox() {
   );
 }
 
-nonEmptyBox(var num, var colorIndex) {
+nonEmptyBox(var num, int colorIndex) {
+  Color temp = Colors.black;
+  switch (colorIndex) {
+    case 0:
+      temp = const Color.fromARGB(255, 54, 187, 248);
+      break;
+    case 1:
+      temp = const Color.fromARGB(255, 3, 244, 164);
+      break;
+
+    case 2:
+      temp = Colors.lightGreen;
+      break;
+    case 3:
+      temp = const Color.fromARGB(255, 219, 255, 59);
+      break;
+    case 4:
+      temp = Colors.orange;
+      break;
+    default:
+  }
+
   return Center(
     child: Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: colorIndex == 0 ? Colors.red : Colors.blue,
+          color: temp,
         ),
       ),
-      margin: EdgeInsets.all(1),
+      margin: const EdgeInsets.all(1),
       height: 30,
       width: 30,
       child: Center(
         child: Text(
           '${num + 1}',
-          style: TextStyle(color: colorIndex == 0 ? Colors.red : Colors.blue),
+          style: TextStyle(color: temp),
         ),
       ),
     ),
@@ -253,7 +514,7 @@ nonEmptyBox(var num, var colorIndex) {
 
 getOverall(BuildContext context, Map<String, dynamic> matchData) {
   return Container(
-    padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
     height: 320,
     child: ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -289,7 +550,7 @@ getOverall(BuildContext context, Map<String, dynamic> matchData) {
 
 Future<Map<String, dynamic>> getMatchJson(BuildContext context) async {
   String data =
-      await DefaultAssetBundle.of(context).loadString('lib/utils/match.json');
+      await DefaultAssetBundle.of(context).loadString('lib/utils/match1.json');
   //starts at the <nameofprojectdirectory> level, in this case "ability_draft"
   //Then we go to lib/utils and then find the file.
   Map<String, dynamic> map = json.decode(data);
@@ -305,23 +566,23 @@ getTopBar() {
         color: const Color.fromARGB(255, 0, 0, 0),
       ),
       Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         height: 55.0,
         alignment: Alignment.center,
-        color: Color.fromARGB(129, 0, 0, 0),
+        color: const Color.fromARGB(129, 0, 0, 0),
         child: Row(
           children: [
             Expanded(
               flex: 1,
               child: Container(
                 alignment: Alignment.centerRight,
-                child: FaIcon(
+                child: const FaIcon(
                   FontAwesomeIcons.circleChevronLeft,
                   color: Color.fromARGB(123, 255, 255, 255),
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 3,
               child: Center(
                 child: Text(
@@ -338,17 +599,17 @@ getTopBar() {
               flex: 1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                children: const [
                   FaIcon(
                     FontAwesomeIcons.circleChevronRight,
-                    color: Color.fromARGB(123, 255, 255, 255),
+                    color: const Color.fromARGB(123, 255, 255, 255),
                   ),
                   SizedBox(
                     width: 20,
                   ),
                   FaIcon(
                     FontAwesomeIcons.magnifyingGlass,
-                    color: Color.fromARGB(123, 255, 255, 255),
+                    color: const Color.fromARGB(123, 255, 255, 255),
                   ),
                 ],
               ),
@@ -372,8 +633,8 @@ getHeader(BuildContext context) {
           flex: 1,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text(
+            children: const [
+              Text(
                 'Score',
                 style: TextStyle(
                   fontSize: 18,
