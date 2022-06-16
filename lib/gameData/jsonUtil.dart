@@ -38,3 +38,9 @@ Future<String> getAbilityNameById(BuildContext context, int id) async {
   Map<String, dynamic> map = json.decode(data);
   return map[id.toString()] ?? 'Error';
 }
+
+
+/*
+
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bracer.png
+*/
