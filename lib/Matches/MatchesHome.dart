@@ -1,13 +1,8 @@
 import 'dart:convert';
-import 'dart:math';
 import 'dart:ui';
 
-import 'package:ability_draft/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 
 import 'package:fl_chart/fl_chart.dart';
 
@@ -17,7 +12,6 @@ import 'package:scoped_model/scoped_model.dart';
 import '../gameData/jsonUtil.dart';
 import 'MatchModel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../utils/idTable.dart';
 import '../utils/idTable.dart';
 
 //$LATE$ find widget that allows sorting values in columns
@@ -104,7 +98,11 @@ class MatchesHome extends StatelessWidget {
                       height: 60,
                     ),
                     getOverall(context, matchData),
-                    getGoldXpGraph(context, matchData['radiant_gold_adv']),
+                    getGoldXpGraph(
+                      context,
+                      matchData['radiant_gold_adv'],
+                      matchData['radiant_xp_adv'],
+                    ),
                     getHeroesAbilityOrder(context, matchData['players']),
                   ],
                 ),
@@ -118,54 +116,180 @@ class MatchesHome extends StatelessWidget {
   }
 }
 
-getGoldXpGraph(BuildContext context, matchData) {
+getGoldXpGraph(BuildContext context, var matchData, var other) {
   //min max lenght of matchData Array
   return Container(
-    height: 250,
-    margin: EdgeInsets.all(15),
-    child: Center(
-      child: LineChart(mainData(matchData)),
+    margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+    height: 256,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            color: Colors.white.withOpacity(0.15),
+            border: Border.all(
+              width: 2,
+              color: Colors.white.withOpacity(0.05),
+            ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                height: 50,
+                child: Row(
+                  children: const [
+                    Expanded(
+                      child: Text(
+                        'Team Advantages',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Icon(
+                      Icons.more_horiz_outlined,
+                      color: Color.fromARGB(167, 255, 255, 255),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                height: 200,
+                child: Stack(
+                  children: [
+                    LineChart(
+                      mainData(matchData, other),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(27, 0, 0, 0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 45,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    height: 10,
+                                    color: Color.fromARGB(223, 255, 255, 255),
+                                  ),
+                                ),
+                                const Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    'Gold',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(155, 255, 255, 255),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 45,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    height: 10,
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            Color.fromARGB(169, 45, 240, 19),
+                                            Color.fromARGB(171, 245, 54, 54),
+                                          ]),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    'Exp',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Color.fromARGB(137, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ),
-    color: Color.fromARGB(57, 255, 255, 255),
   );
 }
 
 List<Color> gradientColors = [
-  Color.fromARGB(255, 45, 240, 19),
-  Color.fromARGB(255, 245, 54, 54),
+  const Color.fromARGB(255, 45, 240, 19),
+  const Color.fromARGB(255, 245, 54, 54),
 ];
 List<Color> gradientColors2 = [
-  Color.fromARGB(255, 236, 250, 38),
-  Color.fromARGB(255, 212, 192, 6),
+  const Color.fromARGB(255, 236, 250, 38),
+  const Color.fromARGB(255, 212, 192, 6),
 ];
-LineChartData mainData(List data) {
-  int min = data.reduce((value, element) => value < element ? value : element);
-  int max = data.reduce((value, element) => value > element ? value : element);
+
+LineChartData mainData(List data, List xp) {
+  int min0 = data.reduce((value, element) => value < element ? value : element);
+  int max0 = data.reduce((value, element) => value > element ? value : element);
+
+  int min1 = xp.reduce((value, element) => value < element ? value : element);
+  int max1 = xp.reduce((value, element) => value > element ? value : element);
+
+  int min = min0 < min1 ? min0 : min1;
+  int max = max0 > max1 ? max0 : max1;
+
   int length = data.length;
-  List<FlSpot> tenpy = [];
+  List<FlSpot> goldPerMin = [];
+  List<FlSpot> expPerMin = [];
 
   for (int i = 0; i < length; i++) {
-    tenpy.add(FlSpot((i).toDouble(), data[i].toDouble()));
-    if (i == length - 1) {
-      tenpy.add(FlSpot((i + 1).toDouble(), data[i].toDouble()));
-    }
+    goldPerMin.add(FlSpot((i).toDouble(), data[i].toDouble()));
+    expPerMin.add(FlSpot((i).toDouble(), xp[i].toDouble()));
   }
 
   return LineChartData(
     gridData: FlGridData(
       show: true,
       drawVerticalLine: true,
-      horizontalInterval: 1,
-      verticalInterval: 1,
+      horizontalInterval: 5000,
+      verticalInterval: 10,
       getDrawingHorizontalLine: (value) {
         return FlLine(
-          color: Color.fromARGB(71, 55, 67, 77),
+          color: const Color.fromARGB(60, 255, 255, 255),
           strokeWidth: 1,
         );
       },
       getDrawingVerticalLine: (value) {
         return FlLine(
-          color: Color.fromARGB(71, 55, 67, 77),
+          color: const Color.fromARGB(60, 255, 255, 255),
           strokeWidth: 1,
         );
       },
@@ -193,29 +317,30 @@ LineChartData mainData(List data) {
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          interval: 1500,
+          interval: 5000,
           getTitlesWidget: leftTitleWidgets,
-          reservedSize: 20,
+          reservedSize: 25,
         ),
       ),
     ),
     borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d), width: 1)),
+        show: false,
+        border:
+            Border.all(color: const Color.fromARGB(82, 217, 255, 0), width: 1)),
     minX: 0,
-    maxX: length.toDouble(),
-    minY: min.toDouble(),
-    maxY: max.toDouble(),
+    maxX: (length - 1).toDouble(),
+    minY: (min - 500).toDouble(),
+    maxY: (max + 500).toDouble(),
     lineBarsData: [
       LineChartBarData(
-        spots: tenpy,
-        isCurved: false,
+        spots: expPerMin,
+        isCurved: true,
         gradient: LinearGradient(
           colors: gradientColors,
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        barWidth: 3,
+        barWidth: 3.5,
         isStrokeCapRound: true,
         dotData: FlDotData(
           show: false,
@@ -224,10 +349,20 @@ LineChartData mainData(List data) {
           show: true,
           gradient: LinearGradient(
             colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+                gradientColors.map((color) => color.withOpacity(0.15)).toList(),
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
+        ),
+      ),
+      LineChartBarData(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        spots: goldPerMin,
+        isCurved: true,
+        barWidth: 1,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: false,
         ),
       ),
     ],
@@ -238,7 +373,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
     color: Color(0xff68737d),
     fontWeight: FontWeight.bold,
-    fontSize: 12,
+    fontSize: 10,
   );
   Widget text = Text(
     '${value.toInt()}"',
@@ -256,13 +391,12 @@ Widget leftTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
     color: Color(0xff67727d),
     fontWeight: FontWeight.bold,
-    fontSize: 12,
+    fontSize: 10,
   );
   String text = '';
-  if (value < 6001 && value > -6001) {
+  if (value % 1000 == 0) {
     text = '${value ~/ 1000}k';
   }
-
   return Text(text, style: style, textAlign: TextAlign.right);
 }
 
@@ -288,9 +422,8 @@ getHeroesAbilityOrder(BuildContext context, var statsList) {
   );
 }
 
-getAbilitySequence(BuildContext context, var aa, var hn, var boob) {
-  List temp = aa;
-  int heroname = hn;
+getAbilitySequence(
+    BuildContext context, List abilityList, int heroname, bool isTeamRadiant) {
   return Container(
     padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
     child: ClipRRect(
@@ -334,9 +467,11 @@ getAbilitySequence(BuildContext context, var aa, var hn, var boob) {
                     Expanded(
                       child: Center(
                         child: Text(
-                          (boob ? 'Radiant' : 'Dire'),
+                          (isTeamRadiant ? 'Radiant' : 'Dire'),
                           style: TextStyle(
-                              color: boob ? Colors.red : Colors.lightGreen),
+                            color:
+                                isTeamRadiant ? Colors.lightGreen : Colors.red,
+                          ),
                         ),
                       ),
                     ),
@@ -357,9 +492,9 @@ getAbilitySequence(BuildContext context, var aa, var hn, var boob) {
                         crossAxisCount: 5,
                         childAspectRatio: 1,
                       ),
-                      children: getAbilityArray(temp),
+                      children: getAbilityArray(abilityList),
                     ),
-                    getAbilitiesColumn(context, temp),
+                    getAbilitiesColumn(context, abilityList),
                   ],
                 ),
               ),
@@ -477,17 +612,17 @@ nonEmptyBox(var num, int colorIndex) {
       temp = const Color.fromARGB(255, 54, 187, 248);
       break;
     case 1:
-      temp = const Color.fromARGB(255, 3, 244, 164);
+      temp = Color.fromARGB(255, 54, 248, 206);
       break;
 
     case 2:
-      temp = Colors.lightGreen;
+      temp = Color.fromARGB(255, 54, 248, 70);
       break;
     case 3:
-      temp = const Color.fromARGB(255, 219, 255, 59);
+      temp = Color.fromARGB(255, 196, 248, 54);
       break;
     case 4:
-      temp = Colors.orange;
+      temp = Color.fromARGB(255, 251, 255, 0);
       break;
     default:
   }
@@ -514,10 +649,10 @@ nonEmptyBox(var num, int colorIndex) {
 
 getOverall(BuildContext context, Map<String, dynamic> matchData) {
   return Container(
-    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-    height: 320,
+    margin: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+    height: 260,
     child: ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
@@ -535,11 +670,12 @@ getOverall(BuildContext context, Map<String, dynamic> matchData) {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              getHeader(context),
-              getGroups(context, matchData['players']),
-              getBottom(context),
-              // getGroupPic2(context),
-              //rows
+              getHeader(context, matchData['radiant_score'],
+                  matchData['dire_score'], matchData['radiant_win']),
+              getGroups(
+                context,
+                matchData['players'],
+              ), // matchData['radiant_win']),
             ],
           ),
         ),
@@ -621,9 +757,9 @@ getTopBar() {
   );
 }
 
-getHeader(BuildContext context) {
+getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
   return Container(
-    margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+    margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
     width: MediaQuery.of(context).size.width,
     height: 30,
     child: Row(
@@ -647,17 +783,29 @@ getHeader(BuildContext context) {
         ),
         Expanded(
           flex: 1,
+          child: Container(
+            alignment: Alignment.centerRight,
+            child: radiantWin
+                ? const FaIcon(
+                    FontAwesomeIcons.crown,
+                    color: Colors.yellow,
+                    size: 14,
+                  )
+                : const Center(),
+          ),
+        ),
+        Expanded(
+          flex: 2,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const FaIcon(
                 FontAwesomeIcons.shieldHalved,
                 color: Colors.lightGreen,
               ),
-              const Text(
-                ' 32 - 12 ',
-                style: TextStyle(
+              Text(
+                ' $radiantScore - $direScore ',
+                style: const TextStyle(
                   color: Color.fromARGB(176, 255, 255, 255),
                   fontWeight: FontWeight.bold,
                 ),
@@ -671,7 +819,26 @@ getHeader(BuildContext context) {
         ),
         Expanded(
           flex: 1,
-          child: Container(),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: !radiantWin
+                ? const FaIcon(
+                    FontAwesomeIcons.crown,
+                    color: Colors.yellow,
+                    size: 14,
+                  )
+                : const Center(),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.centerRight,
+            child: const FaIcon(
+              FontAwesomeIcons.share,
+              color: Color.fromARGB(132, 255, 255, 255),
+            ),
+          ),
         ),
       ],
     ),
@@ -715,17 +882,29 @@ getGroups(BuildContext context, List<dynamic> matchData) {
   return Expanded(
     child: Row(
       children: [
-        getGroup(context, teams['radiant'] ?? [], 'Radiant'),
-        getGroup(context, teams['dire'] ?? [], 'Dire'),
+        getGroup(
+          context,
+          teams['radiant'] ?? [],
+          'Radiant',
+        ),
+        getGroup(
+          context,
+          teams['dire'] ?? [],
+          'Dire',
+        ),
       ],
     ),
   );
 }
 
-getGroup(BuildContext context, List<Map<String, dynamic>> team, String side) {
+getGroup(
+  BuildContext context,
+  List<Map<String, dynamic>> team,
+  String side,
+) {
   var txtfi = <ClipRRect>[];
   team.forEach((hero) {
-    return txtfi.add(getHeroMatchData(context, hero));
+    return txtfi.add(getHeroMatchData(context, hero, side));
   });
   return Expanded(
     child: Container(
@@ -733,11 +912,11 @@ getGroup(BuildContext context, List<Map<String, dynamic>> team, String side) {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 13),
             child: Row(
               mainAxisAlignment: (side == 'Radiant')
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.center,
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
               children: [
                 Text(
                   side,
@@ -746,7 +925,7 @@ getGroup(BuildContext context, List<Map<String, dynamic>> team, String side) {
                         ? Colors.lightGreen
                         : Colors.redAccent,
                     fontWeight: FontWeight.normal,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ],
@@ -766,7 +945,7 @@ getGroup(BuildContext context, List<Map<String, dynamic>> team, String side) {
   );
 }
 
-getHeroMatchData(BuildContext context, Map<String, dynamic> hero) {
+getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(20),
     child: BackdropFilter(
@@ -774,7 +953,10 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero) {
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 2, 0, 0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: ((side == 'Radiant')
+                  ? Colors.lightGreen
+                  : const Color.fromARGB(255, 255, 94, 94))
+              .withOpacity(0.1),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           // border: Border.all(
           //   width: 2,
@@ -951,8 +1133,8 @@ getBottom(BuildContext context) {
           flex: 1,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text(
+            children: const [
+              Text(
                 'Match Id: 10932874',
                 style: TextStyle(
                   fontSize: 12,
@@ -988,111 +1170,6 @@ getBottom(BuildContext context) {
   );
 }
 
-getGroupPic(BuildContext context) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    width: MediaQuery.of(context).size.width,
-    height: 75,
-    color: Colors.grey,
-    child: Stack(
-      children: <Widget>[
-        Positioned(
-          left: -15,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('antimage'),
-          ),
-        ),
-        Positioned(
-          left: 50,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('invoker'),
-          ),
-        ),
-        Positioned(
-          left: 110,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('storm_spirit'),
-          ),
-        ),
-        Positioned(
-          left: 175,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('axe'),
-          ),
-        ),
-        Positioned(
-          right: 0,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('pudge'),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-getGroupPic2(BuildContext context) {
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    height: 75,
-    color: Colors.grey,
-    child: Stack(
-      children: <Widget>[
-        Positioned(
-          left: -15,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('furion'),
-          ),
-        ),
-        Positioned(
-          left: 50,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('clinkz'),
-          ),
-        ),
-        Positioned(
-          left: 110,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('omniknight'),
-          ),
-        ),
-        Positioned(
-          left: 175,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('dark_seer'),
-          ),
-        ),
-        Positioned(
-          right: 0,
-          child: SizedBox(
-            width: 120,
-            height: 75,
-            child: getCachedImageWidget('juggernaut'),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
 getCachedImageWidget(String name) {
   return CachedNetworkImage(
     imageUrl:
@@ -1101,37 +1178,3 @@ getCachedImageWidget(String name) {
     errorWidget: (context, url, error) => const Icon(Icons.fire_hydrant),
   );
 }
-/*
-SizedBox(
-                        width: 300,
-                        height: 200,
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned(
-                              left: 0,
-                              child: SizedBox(
-                                width: 160,
-                                height: 100,
-                                child: getCachedImageWidget('puck'),
-                              ),
-                            ),
-                            Positioned(
-                              left: 50,
-                              child: SizedBox(
-                                width: 160,
-                                height: 100,
-                                child: getCachedImageWidget('axe'),
-                              ),
-                            ),
-                            Positioned(
-                              right: 0,
-                              child: SizedBox(
-                                width: 160,
-                                height: 100,
-                                child: getCachedImageWidget('pudge'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-*/
