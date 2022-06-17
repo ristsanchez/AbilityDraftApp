@@ -1,3 +1,4 @@
+import 'package:ability_draft/Stats/Stats.dart';
 import 'package:flutter/material.dart';
 import 'Abilities/index.dart';
 import 'Heroes/index.dart';
@@ -59,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage>
     Matches(),
     Abilities(),
     Heroes(),
+    Stats(),
   ];
   late TabController _tabController;
 
@@ -108,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage>
           BottomNavigationBarItem(label: ("Matches"), icon: Icon(Icons.apps)),
           BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.face)),
           BottomNavigationBarItem(label: ("Heroes"), icon: Icon(Icons.cabin)),
+          BottomNavigationBarItem(label: ("Stats"), icon: Icon(Icons.dangerous))
         ],
       ),
 // This trailing comma makes auto-formatting nicer for build methods.
