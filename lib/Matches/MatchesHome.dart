@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:ability_draft/Matches/MatchData/match_entry.dart';
 import 'package:ability_draft/Matches/MatchesWidgets/OverallScoreWidget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class MatchesHome extends StatelessWidget {
                       height: 60,
                     ),
                     getCarousel(),
-                    getOverall(context, matchData),
+                    getOverall(context, MatchEntry.fromJson(matchData)),
                     getGoldXpGraph(
                       context,
                       matchData['radiant_gold_adv'],
@@ -155,7 +156,7 @@ final List<Widget> imageSliders = imgList
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         child: Text(
-                          'No. ${imgList.indexOf(item)} image',
+                          'No. ${imgList.indexOf(item)}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,
@@ -175,15 +176,15 @@ getCarousel() {
     child: CarouselSlider(
       options: CarouselOptions(
         padEnds: true,
-        viewportFraction: .8,
+        viewportFraction: .6,
         autoPlay: true,
-        aspectRatio: 2.0,
+        aspectRatio: 1.78,
         enlargeCenterPage: true,
       ),
       items: imageSliders,
     ),
-    color: Colors.white,
-    height: 200,
+    color: Colors.black,
+    height: 140,
   );
 }
 
@@ -614,14 +615,21 @@ getImageFromFuture(BuildContext context, int id) {
     future: getAbilityNameById(context, id),
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       if (snapshot.hasData) {
-        return CachedNetworkImage(
-          imageUrl:
-              'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${snapshot.data}.png',
-          placeholder: (context, url) => const CircularProgressIndicator(),
-          errorWidget: (context, url, error) => const Icon(
-            Icons.star,
-            color: Colors.yellow,
-          ),
+        String name = snapshot.data.toString();
+        if (!name.startsWith('special')) {
+          return CachedNetworkImage(
+            imageUrl:
+                'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${snapshot.data}.png',
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(
+              Icons.star,
+              color: Colors.yellow,
+            ),
+          );
+        }
+        return const Icon(
+          Icons.star,
+          color: Color.fromARGB(255, 219, 200, 23),
         );
       } else if (snapshot.hasError) {
         return const Icon(
@@ -719,10 +727,11 @@ nonEmptyBox(var num, int colorIndex) {
 }
 
 Future<Map<String, dynamic>> getMatchJson(BuildContext context) async {
-  String data =
-      await DefaultAssetBundle.of(context).loadString('lib/utils/match1.json');
   //starts at the <nameofprojectdirectory> level, in this case "ability_draft"
   //Then we go to lib/utils and then find the file.
+  String data =
+      await DefaultAssetBundle.of(context).loadString('lib/utils/match1.json');
+
   Map<String, dynamic> map = json.decode(data);
   return map;
 }
