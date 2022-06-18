@@ -69,6 +69,8 @@ flutter:
   assets:
     - assets/hero_icons_small/
     - assets/stats_icons_small/
+    - assets/hero_portraits_big/
+    - assets/ability_images/
     - graphics/
     - lib/utils/
     - lib/gameData/
