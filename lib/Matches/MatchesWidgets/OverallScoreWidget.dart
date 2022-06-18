@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:ability_draft/Matches/MatchData/match_entry.dart';
+import 'package:ability_draft/Matches/MatchData/player_entry.dart';
 import 'package:ability_draft/Matches/ScoreboardScreen/ScoreboardBig.dart';
 import 'package:ability_draft/utils/idTable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-getOverall(BuildContext context, Map<String, dynamic> matchData) {
+getOverall(BuildContext context, MatchEntry matchData) {
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 0, 15, 5),
     height: 260,
@@ -28,11 +30,10 @@ getOverall(BuildContext context, Map<String, dynamic> matchData) {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              getHeader(context, matchData['radiant_score'],
-                  matchData['dire_score'], matchData['radiant_win']),
+              getHeader(context, matchData),
               getGroups(
                 context,
-                matchData['players'],
+                matchData.playerList,
               ), // matchData['radiant_win']),
             ],
           ),
@@ -42,7 +43,7 @@ getOverall(BuildContext context, Map<String, dynamic> matchData) {
   );
 }
 
-getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
+getHeader(BuildContext context, MatchEntry matchData) {
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
     width: MediaQuery.of(context).size.width,
@@ -70,7 +71,7 @@ getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
           flex: 1,
           child: Container(
             alignment: Alignment.centerRight,
-            child: radiantWin
+            child: matchData.radiantWin
                 ? const FaIcon(
                     FontAwesomeIcons.crown,
                     color: Colors.yellow,
@@ -89,7 +90,7 @@ getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
                 color: Colors.lightGreen,
               ),
               Text(
-                ' $radiantScore - $direScore ',
+                ' ${matchData.radiantScore} - ${matchData.direScore} ',
                 style: const TextStyle(
                   color: Color.fromARGB(176, 255, 255, 255),
                   fontWeight: FontWeight.bold,
@@ -106,7 +107,7 @@ getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
           flex: 1,
           child: Container(
             alignment: Alignment.centerLeft,
-            child: !radiantWin
+            child: !matchData.radiantWin
                 ? const FaIcon(
                     FontAwesomeIcons.crown,
                     color: Colors.yellow,
@@ -122,9 +123,13 @@ getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
             child: IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ScoreboardBig()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScoreboardBig(
+                      matchData: matchData,
+                    ),
+                  ),
+                );
               },
               icon: const FaIcon(
                 FontAwesomeIcons.upRightAndDownLeftFromCenter,
@@ -139,39 +144,26 @@ getHeader(BuildContext context, int radiantScore, direScore, bool radiantWin) {
   );
 }
 
-getMatchPlayersInfo(BuildContext context, List<dynamic> matchData) {
-  final minInfo = <Map<String, dynamic>>[];
-  Map<String, dynamic> temp = {};
-  for (var element in matchData) {
-    temp['net_worth'] = element['net_worth'];
-    temp['kills'] = element['kills'];
-    temp['assists'] = element['assists'];
-    temp['deaths'] = element['deaths'];
-    temp['hero_id'] = element['hero_id'];
-    temp['isRadiant'] = element['isRadiant'];
-    minInfo.add(temp);
-    temp = {};
+getTeamsMap(BuildContext context, List<Player> playerList) {
+  List<Player> dire = [];
+  List<Player> radiant = [];
+
+  for (Player player in playerList) {
+    if (player.isRadiant) {
+      radiant.add(player);
+    } else {
+      dire.add(player);
+    }
   }
 
-  List<Map<String, dynamic>> dire = [];
-  List<Map<String, dynamic>> radiant = [];
-  minInfo.forEach((element) {
-    if (element['isRadiant']) {
-      radiant.add(element);
-    } else {
-      dire.add(element);
-    }
-  });
-
-  Map<String, List<Map<String, dynamic>>> teams = {};
+  Map<String, List<Player>> teams = {};
   teams['dire'] = dire;
   teams['radiant'] = radiant;
   return teams;
 }
 
-getGroups(BuildContext context, List<dynamic> matchData) {
-  Map<String, List<Map<String, dynamic>>> teams =
-      getMatchPlayersInfo(context, matchData);
+getGroups(BuildContext context, List<Player> matchData) {
+  Map<String, List<Player>> teams = getTeamsMap(context, matchData);
 
   return Expanded(
     child: Row(
@@ -179,27 +171,25 @@ getGroups(BuildContext context, List<dynamic> matchData) {
         getGroup(
           context,
           teams['radiant'] ?? [],
-          'Radiant',
+          true,
         ),
         getGroup(
           context,
           teams['dire'] ?? [],
-          'Dire',
+          false,
         ),
       ],
     ),
   );
 }
 
-getGroup(
-  BuildContext context,
-  List<Map<String, dynamic>> team,
-  String side,
-) {
-  var txtfi = <ClipRRect>[];
-  team.forEach((hero) {
-    return txtfi.add(getHeroMatchData(context, hero, side));
-  });
+getGroup(BuildContext context, List<Player> team, bool isRadiant) {
+  var groupArea = <ClipRRect>[];
+
+  for (Player player in team) {
+    groupArea.add(getHeroMatchData(context, player, isRadiant));
+  }
+
   return Expanded(
     child: Container(
       padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
@@ -208,16 +198,13 @@ getGroup(
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 13),
             child: Row(
-              mainAxisAlignment: (side == 'Radiant')
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.start,
+              mainAxisAlignment:
+                  isRadiant ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: [
                 Text(
-                  side,
+                  isRadiant ? 'Radiant' : 'Dire',
                   style: TextStyle(
-                    color: (side == 'Radiant')
-                        ? Colors.lightGreen
-                        : Colors.redAccent,
+                    color: isRadiant ? Colors.lightGreen : Colors.redAccent,
                     fontWeight: FontWeight.normal,
                     fontSize: 14,
                   ),
@@ -230,7 +217,7 @@ getGroup(
           ),
           getHeroMatchDataHeader(),
           Column(
-            children: txtfi,
+            children: groupArea,
           )
           // getHeroMatchDat2(context, boobie),
         ],
@@ -239,7 +226,7 @@ getGroup(
   );
 }
 
-getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
+getHeroMatchData(BuildContext context, Player player, bool isRadiant) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(20),
     child: BackdropFilter(
@@ -247,7 +234,7 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 2, 0, 0),
         decoration: BoxDecoration(
-          color: ((side == 'Radiant')
+          color: (isRadiant
                   ? Colors.lightGreen
                   : const Color.fromARGB(255, 255, 94, 94))
               .withOpacity(0.1),
@@ -265,7 +252,7 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
             SizedBox(
               width: 32,
               child: Image.asset(
-                'assets/hero_icons_small/${getNameById(hero['hero_id'].toString())}.jpg',
+                'assets/hero_icons_small/${getNameById(player.heroId.toString())}.jpg',
                 fit: BoxFit.fill,
               ),
             ),
@@ -273,7 +260,7 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
               flex: 1,
               child: Center(
                 child: Text(
-                  hero['kills'].toString(),
+                  player.kills.toString(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -297,12 +284,12 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
               flex: 1,
               child: Center(
                 child: Text(
-                  hero['deaths'].toString(),
+                  player.deaths.toString(),
                   style: const TextStyle(
                     color: Colors.white,
                     shadows: <Shadow>[
-                      const Shadow(
-                        offset: const Offset(1.0, 1.0),
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
                         blurRadius: 3.0,
                         color: Color.fromARGB(255, 0, 0, 0),
                       ),
@@ -315,7 +302,7 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
               flex: 1,
               child: Center(
                 child: Text(
-                  hero['assists'].toString(),
+                  player.assists.toString(),
                   style: const TextStyle(
                     color: Colors.white,
                     shadows: <Shadow>[
@@ -333,7 +320,7 @@ getHeroMatchData(BuildContext context, Map<String, dynamic> hero, String side) {
               flex: 2,
               child: Center(
                 child: Text(
-                  hero['net_worth'].toString(),
+                  player.netWorth.toString(),
                   style: const TextStyle(
                     color: Color.fromARGB(200, 255, 223, 0),
                     shadows: <Shadow>[
