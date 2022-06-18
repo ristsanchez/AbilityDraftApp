@@ -1,7 +1,19 @@
+import 'dart:convert';
+
+import 'package:ability_draft/Matches/MatchData/player_entry.dart';
+import 'package:flutter/rendering.dart';
+
 class MatchEntry {
+  List<Player> playerList;
   bool radiantWin;
   List<int> radiantGoldAdv, radiantXpAdv;
-  int matchId, direScore, duration, gameMode, humanPlayers, lobbyType;
+  int matchId,
+      direScore,
+      radiantScore,
+      duration,
+      gameMode,
+      humanPlayers,
+      lobbyType;
 
   MatchEntry(
     this.radiantWin,
@@ -9,6 +21,7 @@ class MatchEntry {
     this.radiantXpAdv,
     this.matchId,
     this.direScore,
+    this.radiantScore,
     this.duration,
     this.gameMode,
     this.humanPlayers, //number of players in match eg 5v5 = 10 players
@@ -17,19 +30,30 @@ class MatchEntry {
     // {
     // this.bae,
     // },
+    this.playerList,
   );
 
   factory MatchEntry.fromJson(Map<String, dynamic> jsonData) {
+    List<Player> turtle = [];
+
+    List<dynamic> rawPlayerList = jsonData['players'] ?? [];
+
+    for (var player in rawPlayerList) {
+      turtle.add(Player.fromJson(player));
+    }
+
     return MatchEntry(
       jsonData['radiant_win'] ?? false,
-      jsonData['radiant_gold_adv'] ?? [],
-      jsonData['radiant_xp_adv'] ?? [],
+      jsonData['radiant_gold_adv'].cast<int>() ?? [],
+      jsonData['radiant_xp_adv'].cast<int>() ?? [],
       jsonData['match_id'] ?? 0,
       jsonData['dire_score'] ?? 0,
+      jsonData['radiant_score'] ?? 0,
       jsonData['duration'] ?? 0,
       jsonData['game_mode'] ?? 0,
       jsonData['human_players'] ?? 0,
       jsonData['lobby_type'] ?? 0,
+      turtle,
     );
   }
   //$FINISH LATER$
