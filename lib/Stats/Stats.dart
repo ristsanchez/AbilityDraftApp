@@ -12,13 +12,8 @@ class Stats extends StatelessWidget {
         child: Container(
           color: Colors.deepPurple,
           child: TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ScoreboardBig()));
-            },
-            child: Text('gola'),
+            onPressed: () {},
+            child: Text('testScreen'),
           ),
         ),
       ),
