@@ -14,14 +14,16 @@ class AbilitiesAll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<AbilityListProvider>(context).initializeList();
     //maybe later//List abis = Provider.of<List<Ability>>(context);
     return Center(
       child: Container(
         color: Colors.black,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [getSearchPartRENAME(context), customGrid(context)],
+          children: [
+            getSearchPartRENAME(context),
+            customGrid(context),
+          ],
         ),
       ),
     );
@@ -68,7 +70,9 @@ getSearchPartRENAME(BuildContext context) {
 }
 
 customGrid(BuildContext context) {
-  List<Ability> abilityList = Provider.of<AbilityListProvider>(context).list;
+  Provider.of<AbilityListProvider>(context, listen: false).initializeList();
+  List<Ability> abilityList =
+      Provider.of<AbilityListProvider>(context, listen: false).list;
 
   return abilityList.isEmpty
       ? smallProg()
