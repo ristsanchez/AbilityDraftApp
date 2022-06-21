@@ -1,5 +1,4 @@
-import 'package:ability_draft/Matches/MatchData/match_entry.dart';
-import 'package:ability_draft/Matches/MatchData/player_entry.dart';
+import '../match_objects/index.dart';
 import 'package:ability_draft/utils/idTable.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +13,7 @@ class ScoreboardBig extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 40,
-        title: const Text('Scoreboard'),
-        centerTitle: true,
+        toolbarHeight: 0,
       ),
       backgroundColor: Colors.black87,
       body: Center(
