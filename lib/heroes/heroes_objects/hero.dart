@@ -1,4 +1,4 @@
-import '../abilities/ability_objects/ability.dart';
+import '../../abilities/ability_objects/ability.dart';
 
 class AHero {
   List<Ability>? abilityList;

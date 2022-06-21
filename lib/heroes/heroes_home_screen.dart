@@ -3,72 +3,61 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-import '../utils/jsonUtils.dart';
-import 'HeroDialogs/HeroStatsDialog.dart';
-import 'HeroesModel.dart';
-import 'AHero.dart';
+import 'hero_dialogs/hero_stats_dialog.dart';
+import 'heroes_objects/hero.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 
-class HeroesAll extends StatelessWidget {
-  const HeroesAll({Key? key}) : super(key: key);
+class HeroesHome extends StatelessWidget {
+  const HeroesHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<HeroesModel>(
-        builder: (BuildContext context, Widget child, HeroesModel model) {
-      return Scaffold(
-        body: Center(
-            child: FutureBuilder(
-          future: _allHeroData(context),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            List<Widget> children;
-            if (snapshot.hasData) {
-              return _buildContents(context, snapshot.data);
-            } else if (snapshot.hasError) {
-              children = <Widget>[
-                const Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                  size: 60,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Text('Error: ${snapshot.error}'),
-                )
-              ];
-            } else {
-              children = const <Widget>[
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: CircularProgressIndicator(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Loading...'),
-                )
-              ];
-            }
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: children,
+    return Scaffold(
+      body: Center(
+          child: FutureBuilder(
+        future: _allHeroData(context),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          List<Widget> children;
+          if (snapshot.hasData) {
+            return _buildContents(context, snapshot.data);
+          } else if (snapshot.hasError) {
+            children = <Widget>[
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
               ),
-            );
-          },
-        )
-
-            // _buildContents(context, model),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              )
+            ];
+          } else {
+            children = const <Widget>[
+              SizedBox(
+                width: 60,
+                height: 60,
+                child: CircularProgressIndicator(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Loading...'),
+              )
+            ];
+          }
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
             ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.next_plan, color: Colors.white),
-            onPressed: () async {
-              model.setStackIndex(1);
-            }),
-      );
-    });
+          );
+        },
+      )
+
+          // _buildContents(context, model),
+          ),
+    );
   }
 }
 

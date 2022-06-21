@@ -1,2 +1,1 @@
-export 'Heroes.dart';
-export 'HeroesAll.dart';
+export 'heroes_home_screen.dart';

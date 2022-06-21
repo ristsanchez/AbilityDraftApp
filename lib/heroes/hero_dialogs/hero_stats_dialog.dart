@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../AHero.dart';
+import '../heroes_objects/hero.dart';
 
 Color? dom = Colors.grey[800];
 Color? lig = Colors.grey[850];
