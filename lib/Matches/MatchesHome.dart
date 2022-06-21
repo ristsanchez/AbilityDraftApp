@@ -1,24 +1,11 @@
 import 'dart:convert';
-import 'dart:ui';
 
-import 'package:ability_draft/Matches/MatchData/match_entry.dart';
-import 'package:ability_draft/Matches/MatchesWidgets/OverallScoreWidget.dart';
-import 'package:ability_draft/Matches/MatchesWidgets/ability_path_widget.dart';
-import 'package:ability_draft/Matches/MatchesWidgets/carousel_widget.dart';
-import 'package:ability_draft/Matches/MatchesWidgets/gold_xp_graph_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fl_chart/fl_chart.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:scoped_model/scoped_model.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-
-import '../gameData/jsonUtil.dart';
-import 'MatchModel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../utils/idTable.dart';
+
+import 'match_widgets/indext.dart';
+import 'match_objects/index.dart';
 
 //$LATE$ find widget that allows sorting values in columns
 
@@ -32,55 +19,50 @@ class MatchesHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MatchModel>(
-      //Might get problems later
-      builder: (BuildContext context, Widget child, MatchModel model) {
-        return Scaffold(
-          body: Center(
-              child: FutureBuilder(
-            future: getMatchJson(context),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              List<Widget> children;
-              if (snapshot.hasData) {
-                return _buildMatchesContents(context, snapshot.data);
-              } else if (snapshot.hasError) {
-                children = <Widget>[
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text('Error: ${snapshot.error}'),
-                  )
-                ];
-              } else {
-                children = <Widget>[
-                  const SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Text('Loading...'),
-                  )
-                ];
-              }
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: children,
-                ),
-              );
-            },
-          )
-
-              // _buildContents(context, model),
+    return Scaffold(
+      body: Center(
+          child: FutureBuilder(
+        future: getMatchJson(context),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          List<Widget> children;
+          if (snapshot.hasData) {
+            return _buildMatchesContents(context, snapshot.data);
+          } else if (snapshot.hasError) {
+            children = <Widget>[
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
               ),
-        );
-      },
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              )
+            ];
+          } else {
+            children = <Widget>[
+              const SizedBox(
+                width: 60,
+                height: 60,
+                child: CircularProgressIndicator(),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Loading...'),
+              )
+            ];
+          }
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            ),
+          );
+        },
+      )
+
+          // _buildContents(context, model),
+          ),
     );
   }
 
