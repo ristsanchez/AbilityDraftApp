@@ -2,9 +2,11 @@ import 'package:ability_draft/Matches/matches_home_screen.dart';
 import 'package:ability_draft/Stats/Stats.dart';
 import 'package:ability_draft/abilities/ability_providers/ability_list_provider.dart';
 import 'package:flutter/material.dart';
-import 'Heroes/index.dart';
+import 'heroes/index.dart';
 
 import 'package:provider/provider.dart';
+
+import 'abilities/index.dart';
 
 void main() {
   runApp(
@@ -49,10 +51,10 @@ class _MyHomePageState extends State<MyHomePage>
   int _currentIndex = 0;
 
   final List<Widget> _tabList = [
-    MatchesHome(),
-    Abilities(),
-    Heroes(),
-    Stats(),
+    const MatchesHome(),
+    const AbilitiesHome(),
+    const HeroesHome(),
+    const Stats(),
   ];
   late TabController _tabController;
 
