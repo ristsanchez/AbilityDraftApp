@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^3.0.1
   font_awesome_flutter: ^10.1.0
   fl_chart: ^0.51.0
+  flutter_native_splash: ^2.1.6
 
 dev_dependencies:
   flutter_test:

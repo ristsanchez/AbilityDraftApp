@@ -1,9 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../abilities/ability_objects/ability.dart';
 
 Future<List<String>> loadHeroNames(BuildContext context) async {
   String data =
@@ -42,39 +39,39 @@ Future<String> getAbilityNameById(BuildContext context, int id) async {
   return map[id.toString()] ?? 'Error';
 }
 
-Future<List<Ability>> abiDataFuture() async {
-  String data2 = await rootBundle.loadString('lib/gameData/Abilitiesprog.json');
-  String data = await rootBundle.loadString('lib/gameData/HeroesCond.json');
-  String data3 =
-      await rootBundle.loadString('lib/gameData/abilities_english.json');
+// Future<List<Ability>> abiDataFuture() async {
+//   String data2 = await rootBundle.loadString('lib/gameData/Abilitiesprog.json');
+//   String data = await rootBundle.loadString('lib/gameData/HeroesCond.json');
+//   String data3 =
+//       await rootBundle.loadString('lib/gameData/abilities_english.json');
 
-  Map<String, dynamic> map = json.decode(data);
-  Map<String, dynamic> map2 = json.decode(data2);
-  Map<String, dynamic> map3 = json.decode(data3);
+//   Map<String, dynamic> map = json.decode(data);
+//   Map<String, dynamic> map2 = json.decode(data2);
+//   Map<String, dynamic> map3 = json.decode(data3);
 
-  List<Ability> res = [];
-  List<int> djang = [1, 2, 3, 6];
-  Map<String, String> temp = {};
+//   List<Ability> res = [];
+//   List<int> djang = [1, 2, 3, 6];
+//   Map<String, String> temp = {};
 
-  map.forEach((k, v) {
-    // if (k == 'antimage' || k == 'axe') {
-    for (int i in djang) {
-      map3[k].forEach((descKey, descValue) {
-        if (descKey
-            .toString()
-            .contains('DOTA_Tooltip_ability_${v['Ability$i']}')) {
-          temp[descKey] = descValue;
-        }
-      });
+//   map.forEach((k, v) {
+//     // if (k == 'antimage' || k == 'axe') {
+//     for (int i in djang) {
+//       map3[k].forEach((descKey, descValue) {
+//         if (descKey
+//             .toString()
+//             .contains('DOTA_Tooltip_ability_${v['Ability$i']}')) {
+//           temp[descKey] = descValue;
+//         }
+//       });
 
-      res.add(
-        Ability.fromJson(v['Ability$i'], map2[v['Ability$i']], temp),
-      );
-      temp = {};
-    }
-  });
-  return res;
-}
+//       res.add(
+//         Ability.fromJson(v['Ability$i'], map2[v['Ability$i']], temp),
+//       );
+//       temp = {};
+//     }
+//   });
+//   return res;
+// }
 
 
 
