@@ -5,8 +5,8 @@ import 'package:ability_draft/abilities/ability_providers/ability_list_provider.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AbilitiesAll extends StatelessWidget {
-  const AbilitiesAll({Key? key}) : super(key: key);
+class AbilitiesHome extends StatelessWidget {
+  const AbilitiesHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
