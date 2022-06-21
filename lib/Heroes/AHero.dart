@@ -1,4 +1,4 @@
-import 'package:ability_draft/Abilities/Ability.dart';
+import '../abilities/ability_objects/ability.dart';
 
 class AHero {
   List<Ability>? abilityList;

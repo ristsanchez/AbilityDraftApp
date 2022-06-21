@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:ability_draft/Abilities/Ability.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../abilities/ability_objects/ability.dart';
 
 Future<List<String>> loadHeroNames(BuildContext context) async {
   String data =

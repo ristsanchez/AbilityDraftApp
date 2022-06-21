@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:ability_draft/Abilities/Ability.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../ability_objects/ability.dart';
 
 class AbilityListProvider extends ChangeNotifier {
   // List<Ability> abilityList = [];

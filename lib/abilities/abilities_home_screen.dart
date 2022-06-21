@@ -1,13 +1,9 @@
 import 'dart:convert';
 
-import 'package:ability_draft/Abilities/AbilityStatsDialog.dart';
-import 'package:ability_draft/Abilities/ability_list_provider.dart';
-import 'package:ability_draft/Abilities/textFilterPr.dart';
+import 'package:ability_draft/abilities/ability_objects/ability.dart';
+import 'package:ability_draft/abilities/ability_providers/ability_list_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import 'Ability.dart';
 
 class AbilitiesAll extends StatelessWidget {
   const AbilitiesAll({Key? key}) : super(key: key);

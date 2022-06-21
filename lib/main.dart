@@ -1,9 +1,7 @@
-import 'package:ability_draft/Abilities/ability_list_provider.dart';
-import 'package:ability_draft/Abilities/textFilterPr.dart';
-import 'package:ability_draft/Matches/MatchesHome.dart';
+import 'package:ability_draft/Matches/matches_home_screen.dart';
 import 'package:ability_draft/Stats/Stats.dart';
+import 'package:ability_draft/abilities/ability_providers/ability_list_provider.dart';
 import 'package:flutter/material.dart';
-import 'Abilities/index.dart';
 import 'Heroes/index.dart';
 
 import 'package:provider/provider.dart';
@@ -14,7 +12,6 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AbilityListProvider()),
-        ChangeNotifierProvider(create: (_) => AbiFilterProvider()),
       ],
       child: const MyApp(),
     ),

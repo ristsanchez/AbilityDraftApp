@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'Ability.dart';
+import '../ability_objects/ability.dart';
 
 Color? inner = Colors.grey[800];
 Color? outer = Colors.grey[850];
