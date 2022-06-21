@@ -1,4 +1,3 @@
-import 'package:ability_draft/Matches/ScoreboardScreen/ScoreboardBig.dart';
 import 'package:flutter/material.dart';
 
 class Stats extends StatelessWidget {

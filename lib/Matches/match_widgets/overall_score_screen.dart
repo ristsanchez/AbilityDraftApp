@@ -2,7 +2,7 @@ import 'dart:ui';
 import '../match_objects/index.dart';
 
 import 'package:ability_draft/FrostWidgets/clear_container.dart';
-import 'package:ability_draft/Matches/ScoreboardScreen/ScoreboardBig.dart';
+import 'package:ability_draft/Matches/scoreboard_screen/scoreboard_full_screen.dart';
 import 'package:ability_draft/utils/idTable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
