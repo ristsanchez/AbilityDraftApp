@@ -1,21 +1,19 @@
-import 'package:ability_draft/Abilities/Ability.dart';
 import 'package:ability_draft/Abilities/ability_list_provider.dart';
 import 'package:ability_draft/Abilities/textFilterPr.dart';
+import 'package:ability_draft/Matches/MatchesHome.dart';
 import 'package:ability_draft/Stats/Stats.dart';
 import 'package:flutter/material.dart';
 import 'Abilities/index.dart';
 import 'Heroes/index.dart';
-import 'Matches/index.dart';
 
 import 'package:provider/provider.dart';
-import 'gameData/jsonUtil.dart';
 
 void main() {
   runApp(
+    //Move these to the specific place they will be used at
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AbilityListProvider()),
-        // ChangeNotifierProvider.value(value: AbilityListProvider()),
         ChangeNotifierProvider(create: (_) => AbiFilterProvider()),
       ],
       child: const MyApp(),
@@ -25,7 +23,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  //$LATER$ remove top part of app
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage>
   int _currentIndex = 0;
 
   final List<Widget> _tabList = [
-    Matches(),
+    MatchesHome(),
     Abilities(),
     Heroes(),
     Stats(),
