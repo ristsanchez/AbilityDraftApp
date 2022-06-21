@@ -26,7 +26,10 @@ class AbilityListProvider extends ChangeNotifier {
   //only if its not initialized
   initializeList() {
     if (_fullList.isEmpty) {
-      dallAbiData();
+      dallAbiData().whenComplete(() {
+        _abilityList = _fullList;
+        notifyListeners();
+      });
     }
   }
 
@@ -63,11 +66,13 @@ class AbilityListProvider extends ChangeNotifier {
         temp = {};
       }
     });
-    res.forEach((element) {
-      _hintList.add(element.baseName ?? '');
-    });
+    // res.forEach((element) {
+    //   _hintList.add(element.baseName ?? '');
+    // });
     _fullList = res;
-    _abilityList = res;
-    notifyListeners();
+    // _abilityList = res;
+    // notifyListeners();
+
+    // return res;
   }
 }
