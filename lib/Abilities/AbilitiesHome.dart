@@ -56,21 +56,14 @@ _buildAllContents(BuildContext context, AbilitiesModel model) {
 
               //get all from db, count it, display it as string
               child: GestureDetector(
-                onTap: () {
-                  Scaffold.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Colors.redAccent,
-                    duration: Duration(seconds: 1),
-                    content: Text('Working'),
-                  ));
-                },
-                child: CachedNetworkImage(
-                  imageUrl:
-                      'http://cdn.dota2.com/apps/dota2/images/heroes/axe_lg.png',
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Text(error.toString()),
-                ),
-              ),
+                  onTap: () {
+                    Scaffold.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      duration: Duration(seconds: 1),
+                      content: Text('Working'),
+                    ));
+                  },
+                  child: Center()),
             ),
             Expanded(
               // A flexible child that will grow to fit the viewport but
