@@ -6,7 +6,9 @@ class Stats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 230, 203, 122),
+      appBar: AppBar(
+        title: Text("Demo"),
+      ),
       body: Center(
         child: Container(
           color: Colors.deepPurple,
