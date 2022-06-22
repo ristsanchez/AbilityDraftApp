@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ability_draft/Stats/Stats.dart';
@@ -7,29 +11,33 @@ import 'abilities/index.dart';
 import 'heroes/index.dart';
 import 'matches/index.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeStr =
+      await rootBundle.loadString('assets/themes/ad_dark_theme.json');
+  final themeJson = jsonDecode(themeStr);
+  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+
   runApp(
-    //Move these to the specific place they will be used at
+    //later; Move these to the specific place they will be used at
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AbilityListProvider()),
       ],
-      child: const MyApp(),
+      child: MyApp(theme: theme),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final ThemeData theme;
+  const MyApp({Key? key, required this.theme}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      theme: theme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       debugShowCheckedModeBanner: false,
     );
@@ -81,9 +89,6 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.grey,
-        fixedColor: Colors.white,
-        unselectedItemColor: Colors.white54,
         currentIndex: _currentIndex,
         onTap: (currentIndex) {
           setState(() {
