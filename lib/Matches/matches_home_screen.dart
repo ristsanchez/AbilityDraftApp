@@ -70,32 +70,29 @@ class MatchesHome extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return Container(
-        color: Colors.black,
-        child: Container(
-          alignment: Alignment.topCenter,
-          child: Stack(
-            children: <Widget>[
-              Scrollbar(
-                thickness: 2,
-                child: ListView(
-                  children: [
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    getCarousel(),
-                    getOverall(context, MatchEntry.fromJson(matchData)),
-                    getGoldXpGraph(
-                      context,
-                      matchData['radiant_gold_adv'],
-                      matchData['radiant_xp_adv'],
-                    ),
-                    getHeroesAbilityOrder(context, matchData['players']),
-                  ],
-                ),
+        alignment: Alignment.topCenter,
+        child: Stack(
+          children: <Widget>[
+            Scrollbar(
+              thickness: 2,
+              child: ListView(
+                children: [
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  getCarousel(),
+                  getOverall(context, MatchEntry.fromJson(matchData)),
+                  getGoldXpGraph(
+                    context,
+                    matchData['radiant_gold_adv'],
+                    matchData['radiant_xp_adv'],
+                  ),
+                  getHeroesAbilityOrder(context, matchData['players']),
+                ],
               ),
-              getTopBar(),
-            ],
-          ),
+            ),
+            getTopBar(),
+          ],
         ),
       );
     });
