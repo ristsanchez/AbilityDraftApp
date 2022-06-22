@@ -37,8 +37,9 @@ dependencies:
   sqflite: ^2.0.2
   google_fonts: ^3.0.1
   font_awesome_flutter: ^10.1.0
-  fl_chart: ^0.51.0
+  fl_chart: ^0.55.0
   flutter_native_splash: ^2.1.6
+  json_theme: ^4.0.0+3
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
     - graphics/
     - lib/utils/
     - lib/gameData/
+    - assets/themes/ad_dark_theme.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
