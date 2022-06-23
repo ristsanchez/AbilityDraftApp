@@ -1,12 +1,22 @@
 import 'dart:ui';
 
+import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/gameData/jsonUtil.dart';
 import 'package:ability_draft/utils/idTable.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-getHeroesAbilityOrder(BuildContext context, var statsList) {
+import '../ability_path_provider.dart';
+
+getHeroesAbilityOrder(BuildContext context, List<dynamic> statsList) {
   List<Widget> tempColumn = [];
+  List<Widget> iconsRow = [];
   for (int i = 0; i < 10; i++) {
+    iconsRow.add(getElevatedButton(
+      context,
+      getNameById(statsList[i]['hero_id'].toString()),
+      i,
+    ));
     tempColumn.add(
       getAbilitySequence(
         context,
@@ -17,91 +27,83 @@ getHeroesAbilityOrder(BuildContext context, var statsList) {
     );
   }
 
-  return Column(
-    children: tempColumn,
+  //return list of icons to be cliccked
+  // anddd current tab?
+  int currentIndex =
+      Provider.of<AbilityPathProvider>(context, listen: true).index;
+
+  return Padding(
+    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+    child: clearContainer(
+      Column(
+        children: [
+          getHeaderRow(context),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Row(children: iconsRow),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: tempColumn[currentIndex],
+          ),
+        ],
+      ),
+    ),
   );
 }
+
+getHeaderRow(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(15.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Ability upgrades',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        const Icon(
+          Icons.more_horiz,
+          color: Colors.white60,
+        ),
+      ],
+    ),
+  );
+}
+
+getElevatedButton(BuildContext context, String heroIconName, int index) {
+  return GestureDetector(
+    onTap: () {
+      Provider.of<AbilityPathProvider>(context, listen: false).setIndex(index);
+    },
+    child: Image.asset(
+      'assets/hero_icons_small/$heroIconName.jpg',
+      width: MediaQuery.of(context).size.width / 12,
+    ),
+  );
+}
+
+const double sideLength = 34;
 
 getAbilitySequence(
     BuildContext context, List abilityList, int heroname, bool isTeamRadiant) {
   return Container(
-    padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.15),
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
-            border: Border.all(
-              width: 2,
-              color: Colors.white.withOpacity(0.05),
-            ),
+    alignment: Alignment.topCenter,
+    height: (sideLength * 5),
+    child: Stack(
+      children: [
+        GridView(
+          padding: const EdgeInsets.fromLTRB(sideLength, 0, 0, 0),
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            childAspectRatio: 1,
           ),
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                height: 36,
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: Text(
-                        'Ability Build',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Image.asset(
-                          'assets/hero_icons_small/${getNameById(heroname.toString())}.jpg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          (isTeamRadiant ? 'Radiant' : 'Dire'),
-                          style: TextStyle(
-                            color:
-                                isTeamRadiant ? Colors.lightGreen : Colors.red,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                alignment: Alignment.topCenter,
-                height: (32 * 5),
-                child: Stack(
-                  children: [
-                    GridView(
-                      padding: const EdgeInsets.fromLTRB(32, 0, 0, 0),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                        childAspectRatio: 1,
-                      ),
-                      children: getAbilityArray(abilityList),
-                    ),
-                    getAbilitiesColumn(context, abilityList),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          children: getAbilityArray(abilityList),
         ),
-      ),
+        getAbilitiesColumn(context, abilityList),
+      ],
     ),
   );
 }
@@ -130,8 +132,8 @@ makeImageContainer(BuildContext context, int id) {
     child: Container(
       padding: const EdgeInsets.all(2),
       child: SizedBox(
-        height: 28,
-        width: 28,
+        height: sideLength - 4,
+        width: sideLength - 4,
         child: getImageFromFuture(context, id),
       ),
     ),
@@ -197,8 +199,8 @@ emptyBox() {
     child: Container(
       color: const Color.fromARGB(15, 255, 255, 255),
       margin: const EdgeInsets.all(1),
-      height: 30,
-      width: 30,
+      height: sideLength - 2,
+      width: sideLength - 2,
       child: const Center(),
     ),
   );
@@ -208,20 +210,20 @@ nonEmptyBox(var num, int colorIndex) {
   Color temp = Colors.black;
   switch (colorIndex) {
     case 0:
-      temp = const Color.fromARGB(255, 54, 187, 248);
+      temp = Color(0xFF67F5F0);
       break;
     case 1:
-      temp = Color.fromARGB(255, 54, 248, 206);
+      temp = Color(0xFF8DF8B4);
       break;
 
     case 2:
-      temp = Color.fromARGB(255, 54, 248, 70);
+      temp = Color(0xFFB3FA78);
       break;
     case 3:
-      temp = Color.fromARGB(255, 196, 248, 54);
+      temp = Color(0xFFD9FD3C);
       break;
     case 4:
-      temp = Color.fromARGB(255, 251, 255, 0);
+      temp = Color(0xFFFFFF00);
       break;
     default:
   }
@@ -234,8 +236,8 @@ nonEmptyBox(var num, int colorIndex) {
         ),
       ),
       margin: const EdgeInsets.all(1),
-      height: 30,
-      width: 30,
+      height: sideLength - 2,
+      width: sideLength - 2,
       child: Center(
         child: Text(
           '${num + 1}',
