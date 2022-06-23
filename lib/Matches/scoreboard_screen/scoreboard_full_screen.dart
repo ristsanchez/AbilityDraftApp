@@ -15,15 +15,17 @@ class ScoreboardBig extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      backgroundColor: Colors.black87,
       body: Center(
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: getScoreboard(matchData.playerList)),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: getScoreboard(matchData.playerList)),
+            ],
+          ),
         ),
       ),
     );
@@ -55,7 +57,7 @@ getHeroMatchDataHeader(bool isRadiant) {
       children: [
         Container(
           alignment: Alignment.center,
-          width: 100,
+          width: 85,
           child: Text(
             isRadiant ? 'Radiant' : 'Dire',
             style: TextStyle(
@@ -65,6 +67,7 @@ getHeroMatchDataHeader(bool isRadiant) {
             ),
           ),
         ),
+        SizedBox(width: 60),
         colChar('K'),
         colChar('D'),
         colChar('A'),
@@ -79,7 +82,7 @@ getHeroMatchDataHeader(bool isRadiant) {
         colChar('HEAL', width: 50),
         colChar('BLD', width: 50),
         const SizedBox(
-          width: 32,
+          width: 60,
         )
       ],
     ),
@@ -105,21 +108,21 @@ colChar(String name, {bool special = false, int width = 30}) {
 
 rowMaker(Player player) {
   return Container(
-    margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-    color: const Color.fromARGB(45, 255, 255, 255),
+    margin: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+    color: const Color.fromARGB(30, 255, 255, 255),
     child: Row(
       // direction: Axis.horizontal,
       mainAxisAlignment: MainAxisAlignment.start,
       // alignment: WrapAlignment.spaceEvenly,
       children: [
         Image.asset(
-          'assets/hero_icons_small/${getNameById(player.heroId.toString())}.jpg',
+          'assets/hero_portraits_big/${getNameById(player.heroId.toString())}.png',
           fit: BoxFit.fill,
-          height: 40,
-          width: 40,
+          width: 85,
         ),
         Container(
-          width: 50,
+          alignment: Alignment.center,
+          width: 60,
           child: Container(
             width: 30,
             height: 30,
