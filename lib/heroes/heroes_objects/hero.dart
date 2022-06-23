@@ -2,7 +2,8 @@ import '../../abilities/ability_objects/ability.dart';
 
 class AHero {
   List<Ability>? abilityList;
-  String? id,
+
+  late String id,
       base_str,
       base_agi,
       base_int,
@@ -61,36 +62,36 @@ class AHero {
     List<Ability> abs,
   ) {
     return AHero(
-      json["HeroID"],
-      json["workshop_guide_name"],
+      json["HeroID"] ?? '',
+      json["workshop_guide_name"] ?? '',
       baseName,
-      json["Ability1"],
-      json["Ability2"],
-      json["Ability3"],
-      json["Ability6"],
-      json["ArmorPhysical"],
+      json["Ability2"] ?? '',
+      json["Ability1"] ?? '',
+      json["Ability3"] ?? '',
+      json["Ability6"] ?? '',
+      json["ArmorPhysical"] ?? '',
       (json["AttackCapabilities"] == 'DOTA_UNIT_CAP_MELEE_ATTACK'
           ? 'Melee'
           : 'Ranged'),
-      json["AttackDamageMin"],
-      json["AttackDamageMax"],
-      json["AttackRate"],
-      json["AttackRange"],
+      json["AttackDamageMin"] ?? '',
+      json["AttackDamageMax"] ?? '',
+      json["AttackRate"] ?? '',
+      json["AttackRange"] ?? '',
       (json["AttributePrimary"] == 'DOTA_ATTRIBUTE_AGILITY'
           ? 'Agility'
           : json["AttributePrimary"] == 'DOTA_ATTRIBUTE_STRENGTH'
               ? 'Strength'
               : 'Intelligence'), //'DOTA_ATTRIBUTE_INTELLECT'
-      json["AttributeBaseStrength"],
-      json["AttributeStrengthGain"],
-      json["AttributeBaseIntelligence"],
-      json["AttributeIntelligenceGain"],
-      json["AttributeBaseAgility"],
-      json["AttributeAgilityGain"],
-      json["MovementSpeed"],
-      json["Role"],
-      json["Rolelevels"],
-      json["MagicalResistance"],
+      json["AttributeBaseStrength"] ?? '',
+      json["AttributeStrengthGain"] ?? '',
+      json["AttributeBaseIntelligence"] ?? '',
+      json["AttributeIntelligenceGain"] ?? '',
+      json["AttributeBaseAgility"] ?? '',
+      json["AttributeAgilityGain"] ?? '',
+      json["MovementSpeed"] ?? '',
+      json["Role"] ?? '',
+      json["Rolelevels"] ?? '',
+      json["MagicalResistance"] ?? '',
       abs,
     );
   }
