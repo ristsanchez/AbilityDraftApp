@@ -1,14 +1,11 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../heroes_objects/hero.dart';
 
-Color? dom = Colors.grey[800];
-Color? lig = Colors.grey[850];
-
 showHeroDialog(BuildContext context, AHero hero) {
+  Map<String, String> heroAttrs = heroFormattedStrings(hero);
   return showDialog(
     context: context,
     builder: (context) => SimpleDialog(
@@ -36,293 +33,11 @@ showHeroDialog(BuildContext context, AHero hero) {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(15, 15, 0, 15),
-                    color: Colors.transparent,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 60,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  'http://cdn.dota2.com/apps/dota2/images/heroes/${hero.base_name}_lg.png',
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(),
-                              //$LATER$ make sure progess indicator appears centered and right size
-                              errorWidget: (context, url, error) =>
-                                  Text(error.toString().substring(0, 10)),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  text: hero.name,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                              ),
-                              RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  text: hero.primary_attr,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: hero.primary_attr == 'Strength'
-                                        ? Colors.red
-                                        : hero.primary_attr == 'Agility'
-                                            ? Colors.greenAccent
-                                            : Colors.lightBlue,
-                                  ),
-                                ),
-                              ),
-                              RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  text: hero.att_type,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    color: Color.fromARGB(132, 255, 255, 255),
-                    height: 10,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  //$LATER$ make sure progess indicator appears centered and right size
-                                  errorWidget: (context, url, error) =>
-                                      const Text('S'),
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text:
-                                      '${hero.base_str} + ${hero.str_per_level!.substring(0, 3)}',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight:
-                                          (hero.primary_attr == 'Strength')
-                                              ? FontWeight.bold
-                                              : FontWeight.normal),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  //$LATER$ make sure progess indicator appears centered and right size
-                                  errorWidget: (context, url, error) =>
-                                      const Text('S'),
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text:
-                                      '${hero.base_agi} + ${hero.agi_per_level!.substring(0, 3)}',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight:
-                                          (hero.primary_attr == 'Agility')
-                                              ? FontWeight.bold
-                                              : FontWeight.normal),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  //$LATER$ make sure progess indicator appears centered and right size
-                                  errorWidget: (context, url, error) =>
-                                      const Text('I'),
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text:
-                                      '${hero.base_int} + ${hero.int_per_level!.substring(0, 3)}',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight:
-                                          (hero.primary_attr == 'Intelligence')
-                                              ? FontWeight.bold
-                                              : FontWeight.normal),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_damage.png',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  //$LATER$ make sure progess indicator appears centered and right size
-                                  errorWidget: (context, url, error) =>
-                                      const Text('S'),
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text:
-                                      '${hero.base_damage_min}-${hero.base_damage_max}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_armor.png',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  //$LATER$ make sure progess indicator appears centered and right size
-                                  errorWidget: (context, url, error) =>
-                                      const Text('A'),
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text:
-                                      '${heroArmor(hero.base_armor, hero.base_agi).toStringAsFixed(1)}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_movement_speed.png',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  //$LATER$ make sure progess indicator appears centered and right size
-                                  errorWidget: (context, url, error) =>
-                                      const Text('I'),
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: '${hero.base_movement_speed}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    color: Color.fromARGB(132, 255, 255, 255),
-                    height: 10,
-                  ),
+                  _getHeader(hero.base_name, hero.name, '', hero.att_type),
+                  getLowDiv(),
+                  _getIconsCol(heroAttrs),
+                  getLowDiv(),
                   _abilities(context, hero),
-                  const Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    color: Color.fromARGB(132, 255, 255, 255),
-                    height: 10,
-                  ),
                   _heroRolesGrid(
                       hero.roles_condensed, hero.role_levels_condensed),
                 ],
@@ -335,12 +50,131 @@ showHeroDialog(BuildContext context, AHero hero) {
   );
 }
 
+getLowDiv() {
+  return const Divider(
+    indent: 10,
+    endIndent: 10,
+    color: Color.fromARGB(132, 255, 255, 255),
+    height: 10,
+  );
+}
+
+_getHeader(String a, b, c, d) {
+  return Container(
+    padding: const EdgeInsets.fromLTRB(15, 15, 0, 15),
+    color: Colors.transparent,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(
+          height: 60,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.asset(
+              'assets/hero_portraits_big/$a.png',
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              RichText(
+                textAlign: TextAlign.left,
+                text: TextSpan(
+                  text: b,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              ),
+              // RichText(
+              //   textAlign: TextAlign.left,
+              //   text: TextSpan(
+              //     text: hero.primary_attr,
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: hero.primary_attr == 'Strength'
+              //           ? Colors.red
+              //           : hero.primary_attr == 'Agility'
+              //               ? Colors.greenAccent
+              //               : Colors.lightBlue,
+              //     ),
+              //   ),
+              // ),
+              RichText(
+                textAlign: TextAlign.left,
+                text: TextSpan(
+                  text: d,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+_getIconsCol(Map<String, String> values) {
+  List<Widget> icons = [];
+
+  values.forEach((iconName, value) {
+    icons.add(_getIconLegend(iconName, value));
+  });
+
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+    child: Column(
+      children: [
+        Row(
+          children: icons.sublist(0, 3),
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: icons.sublist(3, icons.length),
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        )
+      ],
+    ),
+  );
+}
+
+_getIconLegend(String iconName, value) {
+  return Column(
+    children: <Widget>[
+      Image.asset(
+        'assets/stats_icons_small/$iconName.png',
+        fit: BoxFit.fill,
+        height: 32,
+        width: 32,
+      ),
+      Text(value),
+    ],
+  );
+}
+
 _abilities(BuildContext context, AHero data) {
   return Container(
     width: MediaQuery.of(context).size.width / 2,
     child: Column(
       children: [
         Text('Abilities'),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -361,13 +195,9 @@ abiImg(String name) {
     width: 50,
     child: ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
-      child: CachedNetworkImage(
-        imageUrl:
-            'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${name}.png',
-        placeholder: (context, url) => const CircularProgressIndicator(),
-        //$LATER$ make sure progess indicator appears centered and right size
-        errorWidget: (context, url, error) =>
-            Center(child: Text(error.toString().substring(0, 4))),
+      child: Image.asset(
+        'assets/ability_images/$name.png',
+        fit: BoxFit.fill,
       ),
     ),
   );
@@ -437,9 +267,31 @@ _heroRolesGrid(String? roles, levels) {
   );
 }
 
-double heroArmor(String? base, agi) {
-  return double.parse(base!) + (int.parse(agi!) / 6);
+Map<String, String> heroFormattedStrings(AHero hero) {
+  String attackBase = hero.primary_attr == 'Strength'
+      ? hero.base_str
+      : hero.primary_attr == 'Agility'
+          ? hero.base_agi
+          : hero.base_int;
+
+  return {
+    'hero_strength': '${hero.base_str} + ${hero.str_per_level.substring(0, 3)}',
+    'hero_agility': '${hero.base_agi} + ${hero.agi_per_level.substring(0, 3)}',
+    'hero_intelligence':
+        '${hero.base_int} + ${hero.int_per_level.substring(0, 3)}',
+    'icon_armor': '${heroArmor(hero.base_armor, hero.base_agi)}',
+    'icon_damage':
+        '${int.parse(hero.base_damage_min) + int.parse(attackBase)} - ${int.parse(hero.base_damage_max) + int.parse(attackBase)}',
+    'icon_movement_speed': '${hero.base_movement_speed}',
+  };
 }
+
+heroArmor(String? base, agi) {
+  return double.parse(
+    (double.parse(base!) + (int.parse(agi!) / 6)).toStringAsFixed(2),
+  );
+}
+
 /*
 $LATER$ make 3 rows in the last column 2 rows with a double entry
 
