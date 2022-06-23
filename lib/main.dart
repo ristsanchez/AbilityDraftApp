@@ -10,6 +10,7 @@ import 'package:ability_draft/abilities/ability_providers/ability_list_provider.
 
 import 'abilities/index.dart';
 import 'heroes/index.dart';
+import 'matches/ability_path_provider.dart';
 import 'matches/index.dart';
 
 void main() async {
@@ -24,6 +25,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AbilityListProvider()),
+        ChangeNotifierProvider(create: (_) => AbilityPathProvider()),
       ],
       child: MyApp(theme: theme),
     ),
