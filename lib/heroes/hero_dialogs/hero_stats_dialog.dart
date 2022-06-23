@@ -6,6 +6,12 @@ import '../heroes_objects/hero.dart';
 
 showHeroDialog(BuildContext context, AHero hero) {
   Map<String, String> heroAttrs = heroFormattedStrings(hero);
+  List<String> heroHeaderAtts = [
+    hero.base_name,
+    hero.name,
+    hero.primary_attr,
+    hero.att_type
+  ];
   return showDialog(
     context: context,
     builder: (context) => SimpleDialog(
@@ -33,7 +39,7 @@ showHeroDialog(BuildContext context, AHero hero) {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  _getHeader(hero.base_name, hero.name, '', hero.att_type),
+                  _getHeader(heroHeaderAtts),
                   getLowDiv(),
                   _getIconsCol(heroAttrs),
                   getLowDiv(),
@@ -59,7 +65,7 @@ getLowDiv() {
   );
 }
 
-_getHeader(String a, b, c, d) {
+_getHeader(List<String> att) {
   return Container(
     padding: const EdgeInsets.fromLTRB(15, 15, 0, 15),
     color: Colors.transparent,
@@ -72,7 +78,7 @@ _getHeader(String a, b, c, d) {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
-              'assets/hero_portraits_big/$a.png',
+              'assets/hero_portraits_big/${att[0]}.png',
               fit: BoxFit.fill,
             ),
           ),
@@ -86,31 +92,31 @@ _getHeader(String a, b, c, d) {
               RichText(
                 textAlign: TextAlign.left,
                 text: TextSpan(
-                  text: b,
+                  text: att[1],
                   style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),
               ),
-              // RichText(
-              //   textAlign: TextAlign.left,
-              //   text: TextSpan(
-              //     text: hero.primary_attr,
-              //     style: TextStyle(
-              //       fontSize: 16,
-              //       color: hero.primary_attr == 'Strength'
-              //           ? Colors.red
-              //           : hero.primary_attr == 'Agility'
-              //               ? Colors.greenAccent
-              //               : Colors.lightBlue,
-              //     ),
-              //   ),
-              // ),
               RichText(
                 textAlign: TextAlign.left,
                 text: TextSpan(
-                  text: d,
+                  text: att[2],
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: att[2] == 'Strength'
+                        ? Colors.red
+                        : att[2] == 'Agility'
+                            ? Colors.greenAccent
+                            : Colors.lightBlue,
+                  ),
+                ),
+              ),
+              RichText(
+                textAlign: TextAlign.left,
+                text: TextSpan(
+                  text: att[3],
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
