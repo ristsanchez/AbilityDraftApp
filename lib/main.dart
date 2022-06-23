@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,9 +60,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   final List<Widget> _tabList = [
     const MatchesHome(),
+    const Stats(),
     const AbilitiesHome(),
     const HeroesHome(),
-    const Stats(),
   ];
   late TabController _tabController;
 
@@ -97,10 +98,12 @@ class _MyHomePageState extends State<MyHomePage>
           _tabController.animateTo(_currentIndex);
         },
         items: const [
-          BottomNavigationBarItem(label: ("Matches"), icon: Icon(Icons.apps)),
-          BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.face)),
-          BottomNavigationBarItem(label: ("Heroes"), icon: Icon(Icons.cabin)),
-          BottomNavigationBarItem(label: ("Stats"), icon: Icon(Icons.dangerous))
+          BottomNavigationBarItem(label: ("Matches"), icon: Icon(Icons.list)),
+          BottomNavigationBarItem(
+              label: ("Stats"), icon: Icon(Icons.query_stats)),
+          BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.apps)),
+          BottomNavigationBarItem(
+              label: ("Heroes"), icon: FaIcon(FontAwesomeIcons.userAstronaut)),
         ],
       ),
     );
