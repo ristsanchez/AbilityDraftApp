@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../ability_objects/ability.dart';
@@ -88,14 +87,15 @@ _heading(String? name, url, desc) {
           width: 80,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/$url.png',
-              placeholder: (context, url) => const CircularProgressIndicator(),
-              //$LATER$ make sure progess indicator appears centered and right size
-              errorWidget: (context, url, error) =>
-                  Center(child: Text(error.toString().substring(0, 4))),
-            ),
+            child: Center(),
+            // child: CachedNetworkImage(
+            //   imageUrl:
+            //       'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/$url.png',
+            //   placeholder: (context, url) => const CircularProgressIndicator(),
+            //   //$LATER$ make sure progess indicator appears centered and right size
+            //   errorWidget: (context, url, error) =>
+            //       Center(child: Text(error.toString().substring(0, 4))),
+            // ),
           ),
         ),
         Flexible(
