@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:ability_draft/gameData/jsonUtil.dart';
 import 'package:ability_draft/utils/idTable.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 getHeroesAbilityOrder(BuildContext context, var statsList) {
@@ -146,15 +145,7 @@ getImageFromFuture(BuildContext context, int id) {
       if (snapshot.hasData) {
         String name = snapshot.data.toString();
         if (!name.startsWith('special')) {
-          return CachedNetworkImage(
-            imageUrl:
-                'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${snapshot.data}.png',
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(
-              Icons.star,
-              color: Colors.yellow,
-            ),
-          );
+          return Image.asset('assets/ability_images/${snapshot.data}.png');
         }
         return const Icon(
           Icons.star,
