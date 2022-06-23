@@ -122,7 +122,7 @@ getTopBar() {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         height: 55.0,
         alignment: Alignment.center,
-        color: const Color.fromARGB(129, 0, 0, 0),
+        color: Color.fromARGB(150, 0, 0, 0),
         child: Row(
           children: [
             Expanded(
