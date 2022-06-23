@@ -1,11 +1,11 @@
 {
   "appBarTheme": {
-    "backgroundColor": "#ffc02123",
+    "backgroundColor": "#ff121212",
     "centerTitle": true,
     "elevation": 8,
     "foregroundColor": "#ffffffff",
     "shadowColor": "#00ffffff",
-    "systemOverlayStyle": "dark",
+    "systemOverlayStyle": "light",
     "titleSpacing": 0,
     "toolbarHeight": 50
   },
