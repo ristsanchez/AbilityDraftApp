@@ -11,10 +11,14 @@ class AbilitiesHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //maybe later//List abis = Provider.of<List<Ability>>(context);
-    return Center(
-      child: Container(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
+      body: Container(
         color: Colors.black,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             getSearchPartRENAME(context),
@@ -28,31 +32,27 @@ class AbilitiesHome extends StatelessWidget {
 
 getSearchPartRENAME(BuildContext context) {
   Provider.of<AbilityListProvider>(context, listen: false).list;
-  return Container(
+  return SizedBox(
     height: 230,
-    color: Colors.blue,
     child: Column(
       children: [
         SizedBox(
           height: 59,
         ),
-        Container(
-          color: Colors.white,
-          child: TextField(
-            enableSuggestions: true,
-            // autofillHints:
-            //     Provider.of<AbilityListProvider>(context, listen: false)
-            //         .abilityHintList,
-            onChanged: (value) {
-              Provider.of<AbilityListProvider>(context, listen: false)
-                  .setText(value);
-            },
-            cursorColor: Colors.red,
-            obscureText: false,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Search',
-            ),
+        TextField(
+          enableSuggestions: true,
+          // autofillHints:
+          //     Provider.of<AbilityListProvider>(context, listen: false)
+          //         .abilityHintList,
+          onChanged: (value) {
+            Provider.of<AbilityListProvider>(context, listen: false)
+                .setText(value);
+          },
+          cursorColor: Colors.red,
+          obscureText: false,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Search',
           ),
         ),
         Container(
