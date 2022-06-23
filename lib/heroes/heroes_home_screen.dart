@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'hero_dialogs/hero_stats_dialog.dart';
 import 'heroes_objects/hero.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
-
 class HeroesHome extends StatelessWidget {
   const HeroesHome({Key? key}) : super(key: key);
 
@@ -136,14 +134,9 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                         child: Stack(children: <Widget>[
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroList[index].base_name}.png',
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(),
-                              //$LATER$ make sure progess indicator appears centered and right size
-                              errorWidget: (context, url, error) =>
-                                  Text(error.toString()),
+                            child: Image.asset(
+                              'assets/hero_portraits_big/${heroList[index].base_name}.png',
+                              fit: BoxFit.fill,
                             ),
                           ),
                           Container(
@@ -153,7 +146,7 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                               child: RichText(
                                 textAlign: TextAlign.left,
                                 text: TextSpan(
-                                  text: heroList[index].name ?? "empty",
+                                  text: heroList[index].name,
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
