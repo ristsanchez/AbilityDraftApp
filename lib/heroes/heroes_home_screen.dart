@@ -12,6 +12,9 @@ class HeroesHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: Center(
           child: FutureBuilder(
         future: _allHeroData(context),
@@ -70,20 +73,6 @@ Future<List<AHero>> _allHeroData(BuildContext context) async {
   return list;
 }
 
-//$CHECK$Do this when the app is opened
-// _initializeDB(BuildContext context, Map<String, dynamic> data) {
-//   AHero temp;
-//   data.forEach((key, value) async {
-//     temp = AHero.fromJson(value, key.toString());
-//     await HeroesDBWorker.db.create(temp);
-//   });
-//   Scaffold.of(context).showSnackBar(const SnackBar(
-//     backgroundColor: Colors.green,
-//     duration: Duration(seconds: 1),
-//     content: Text('Success'),
-//   ));
-// }
-
 _buildContents(BuildContext context, List<AHero> heroList) {
   return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -95,13 +84,6 @@ _buildContents(BuildContext context, List<AHero> heroList) {
         child: IntrinsicHeight(
           child: Column(children: <Widget>[
             Container(
-              color: Colors.grey, // Yellow
-              height: 27.0,
-              alignment: Alignment.center,
-            ),
-            Container(
-              // A fixed-height child.
-              color: Colors.grey, // Yellow
               height: 70.0,
               alignment: Alignment.center,
               padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
@@ -112,7 +94,8 @@ _buildContents(BuildContext context, List<AHero> heroList) {
               // A flexible child that will grow to fit the viewport but
               // still be at least as big as necessary to fit its contents.
               child: Container(
-                color: Color.fromARGB(255, 110, 110, 110), // Red
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                // Red
                 height: 120.0,
                 alignment: Alignment.center,
                 child: GridView.builder(
@@ -122,8 +105,8 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 1.78,
                       crossAxisCount: 3,
-                      mainAxisSpacing: 3,
-                      crossAxisSpacing: 3,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6,
                     ),
                     itemCount: heroList.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -133,7 +116,7 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                         },
                         child: Stack(children: <Widget>[
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(8.0),
                             child: Image.asset(
                               'assets/hero_portraits_big/${heroList[index].base_name}.png',
                               fit: BoxFit.fill,
@@ -154,7 +137,6 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                               ),
                             ),
                           ),
-                          //$LAZY$ VERISON, FIND A WAY TO WRITE THE PROPER HERO NAME
                         ]),
                       );
                     }),
