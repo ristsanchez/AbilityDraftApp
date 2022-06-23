@@ -20,6 +20,9 @@ class MatchesHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: Center(
           child: FutureBuilder(
         future: getMatchJson(context),
@@ -115,11 +118,6 @@ Future<Map<String, dynamic>> getMatchJson(BuildContext context) async {
 getTopBar() {
   return Column(
     children: [
-      Container(
-        height: 27.0,
-        alignment: Alignment.center,
-        color: Color.fromARGB(104, 0, 0, 0),
-      ),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         height: 55.0,
