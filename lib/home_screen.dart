@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:ability_draft/abilities/index.dart';
 import 'package:ability_draft/heroes/index.dart';
 import 'package:ability_draft/matches/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'Stats/Stats.dart';
 
@@ -20,7 +24,11 @@ class _MyHomePageState extends State<MyHomePage>
 
   final List<Widget> _tabList = [
     const MatchesHome(),
-    const Stats(),
+    FutureProvider<List?>(
+      initialData: const [],
+      create: (_) => getHeroNames(),
+      child: const Stats(),
+    ),
     const AbilitiesHome(),
     const HeroesHome(),
   ];
@@ -68,4 +76,10 @@ class _MyHomePageState extends State<MyHomePage>
       ),
     );
   }
+}
+
+Future<List<String>> getHeroNames() async {
+  String data = await rootBundle.loadString('lib/gameData/HeroesCond.json');
+  Map<String, dynamic> map = json.decode(data);
+  return map.keys.toList();
 }
