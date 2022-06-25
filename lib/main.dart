@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ability_draft/firebase_options.dart';
+import 'package:ability_draft/firebase/firebase_options.dart';
 import 'package:ability_draft/google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
