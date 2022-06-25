@@ -90,3 +90,5 @@ sample = 'https://www.opendota.com/matches/6298733250/overview'
 6434847199
 
 # https://api.opendota.com/api/matches/{match_id}
+
+revoke steam api key, it was commited since the beginning
