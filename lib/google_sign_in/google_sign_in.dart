@@ -1,4 +1,4 @@
-import 'package:ability_draft/google_sign_in/sign_in_widget.dart';
+import 'package:ability_draft/google_sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class GoogleSignInRename extends StatelessWidget {
