@@ -24,11 +24,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   final List<Widget> _tabList = [
     const MatchesHome(),
-    FutureProvider<List?>(
-      initialData: const [],
-      create: (_) => getHeroNames(),
-      child: const Stats(),
-    ),
+    const Stats(),
     const AbilitiesHome(),
     const HeroesHome(),
   ];
@@ -76,10 +72,4 @@ class _MyHomePageState extends State<MyHomePage>
       ),
     );
   }
-}
-
-Future<List<String>> getHeroNames() async {
-  String data = await rootBundle.loadString('lib/gameData/HeroesCond.json');
-  Map<String, dynamic> map = json.decode(data);
-  return map.keys.toList();
 }
