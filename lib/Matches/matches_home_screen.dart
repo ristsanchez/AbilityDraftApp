@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ability_draft/matches/match_widgets/hero_xp_graph.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -90,6 +91,7 @@ class MatchesHome extends StatelessWidget {
                     matchData['radiant_gold_adv'],
                     matchData['radiant_xp_adv'],
                   ),
+                  getHeroGoldGraph(context, matchData['players']),
                   getHeroesAbilityOrder(context, matchData['players']),
                 ],
               ),
