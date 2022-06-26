@@ -1,4 +1,7 @@
+import 'package:ability_draft/Stats/provider_delete.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Stats extends StatelessWidget {
   const Stats({Key? key}) : super(key: key);
@@ -7,17 +10,9 @@ class Stats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Demo"),
+        toolbarHeight: 0,
       ),
-      body: Center(
-        child: Container(
-          color: Colors.deepPurple,
-          child: TextButton(
-            onPressed: () {},
-            child: Text('testScreen'),
-          ),
-        ),
-      ),
+      body: Center(),
     );
   }
 }
