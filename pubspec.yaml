@@ -75,6 +75,7 @@ flutter:
     - lib/utils/
     - lib/gameData/
     - assets/themes/ad_dark_theme.json
+    - assets/tm/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
