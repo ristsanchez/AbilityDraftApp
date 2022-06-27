@@ -25,13 +25,18 @@ class AbilityListProvider extends ChangeNotifier {
   }
 
   //only if its not initialized
-  initializeList() {
+  void initializeList() {
     if (_fullList.isEmpty) {
       dallAbiData().whenComplete(() {
         _abilityList = _fullList;
         notifyListeners();
       });
     }
+  }
+
+  void resetSearch() {
+    _abilityList = _fullList;
+    notifyListeners();
   }
 
   //refactor this to handle operations on object creation (-> constructor)
