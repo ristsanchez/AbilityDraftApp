@@ -4,6 +4,7 @@ import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/abilities/ability_objects/ability.dart';
 import 'package:ability_draft/abilities/ability_providers/ability_list_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 const double indentation = 60;
@@ -21,59 +22,77 @@ class AbilitiesHome extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           customGrid(context),
-          getSearchPartRENAME(context),
+          getTopBarSearch(context),
         ],
       ),
     );
   }
 }
 
-getSearchPartRENAME(BuildContext context) {
-  Provider.of<AbilityListProvider>(context, listen: false).list;
-  return SizedBox(
+getTopBarSearch(BuildContext context) {
+  return Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
     height: indentation,
-    // width: MediaQuery.of(context).size.width,
     child: clearContainerRect(
-      Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .75,
-                  child: TextField(
-                    enableSuggestions: true,
-                    // autofillHints:
-                    //     Provider.of<AbilityListProvider>(context, listen: false)
-                    //         .abilityHintList,
-                    onChanged: (value) {
-                      Provider.of<AbilityListProvider>(context, listen: false)
-                          .setText(value);
-                    },
-                    cursorColor: Colors.red,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      // labelText: 'Search',
+      Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GestureDetector(
+                onTap: () {
+                  Provider.of<AbilityListProvider>(context, listen: false)
+                      .resetSearch();
+                },
+                child: const Icon(
+                  FontAwesomeIcons.arrowsRotate,
+                  color: Colors.white38,
+                ),
+              ),
+            ),
+            const VerticalDivider(
+              thickness: 2,
+            ),
+            Expanded(
+              child: Center(
+                child: TextField(
+                  enableSuggestions: true,
+                  onChanged: (value) {
+                    Provider.of<AbilityListProvider>(context, listen: false)
+                        .setText(value);
+                  },
+                  obscureText: false,
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: const InputDecoration(
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 15),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white60,
                     ),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    labelText: 'Search',
                   ),
                 ),
-                SizedBox(
-                  width: 1,
-                )
-              ],
+              ),
             ),
-          ),
-          Container(
-            child: Text(
-              Provider.of<AbilityListProvider>(context).list.length.toString(),
+            const VerticalDivider(
+              thickness: 2,
             ),
-          ),
-        ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(
+                FontAwesomeIcons.chevronDown,
+                color: Colors.white38,
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );
@@ -82,7 +101,7 @@ getSearchPartRENAME(BuildContext context) {
 customGrid(BuildContext context) {
   Provider.of<AbilityListProvider>(context, listen: false).initializeList();
   List<Ability> abilityList =
-      Provider.of<AbilityListProvider>(context, listen: false).list;
+      Provider.of<AbilityListProvider>(context, listen: true).list;
 
   return abilityList.isEmpty
       ? smallProg()
@@ -133,10 +152,28 @@ customGrid(BuildContext context) {
 }
 
 smallProg() {
-  return Container(
-    alignment: Alignment.center,
-    child: const CircularProgressIndicator(color: Colors.red),
-    height: 50,
-    width: 50,
+  return Center(
+    child: FutureBuilder(
+      future: waitOneSec(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox(
+            child: CircularProgressIndicator(color: Colors.red),
+            height: 50,
+            width: 50,
+          );
+        }
+        return snapshot.data;
+      },
+    ),
   );
+}
+
+Future<Text> waitOneSec() async {
+  return Future.delayed(const Duration(milliseconds: 1000), () {
+    return const Text(
+      'No Results',
+      style: TextStyle(fontSize: 24),
+    );
+  });
 }
