@@ -211,19 +211,32 @@ LineChartData mainData(List data, List xp) {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        barWidth: 3.5,
+        barWidth: 2,
         isStrokeCapRound: true,
         dotData: FlDotData(
           show: false,
+        ),
+        aboveBarData: BarAreaData(
+          show: true,
+          gradient: LinearGradient(
+            colors:
+                gradientColors.map((color) => color.withOpacity(0.5)).toList(),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          cutOffY: 0,
+          applyCutOffY: true,
         ),
         belowBarData: BarAreaData(
           show: true,
           gradient: LinearGradient(
             colors:
-                gradientColors.map((color) => color.withOpacity(0.15)).toList(),
+                gradientColors.map((color) => color.withOpacity(0.5)).toList(),
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
+          cutOffY: 0,
+          applyCutOffY: true,
         ),
       ),
       LineChartBarData(
