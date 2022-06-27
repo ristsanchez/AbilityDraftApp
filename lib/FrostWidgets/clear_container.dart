@@ -24,14 +24,20 @@ clearContainer(Widget child) {
 
 clearContainerRect(Widget child0) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(15),
+    borderRadius: const BorderRadius.only(
+      bottomLeft: Radius.circular(15),
+      bottomRight: Radius.circular(15),
+    ),
     child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
       child: Container(
-        margin: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          color: Colors.white.withOpacity(0.13),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
           border: Border.all(
             width: 2,
             color: Colors.white.withOpacity(0.05),
