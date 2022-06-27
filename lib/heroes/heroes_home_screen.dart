@@ -1,6 +1,3 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
-
-import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'hero_dialogs/hero_stats_dialog.dart';
@@ -60,17 +57,6 @@ class HeroesHome extends StatelessWidget {
           ),
     );
   }
-}
-
-Future<List<AHero>> _allHeroData(BuildContext context) async {
-  String data = await DefaultAssetBundle.of(context)
-      .loadString('lib/gameData/HeroesCond.json');
-  //starts at the <nameofprojectdirectory> level, in this case "ability_draft"
-  //Then we go to lib/utils and then find the file.
-  Map<String, dynamic> map = json.decode(data);
-  List<AHero> list = [];
-  map.forEach((k, v) => list.add(AHero.fromJson(k, v, [])));
-  return list;
 }
 
 _buildContents(BuildContext context, List<AHero> heroList) {
