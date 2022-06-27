@@ -1,5 +1,7 @@
 import 'dart:ui';
+import 'package:ability_draft/heroes/hero_providers/hero_list_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'hero_dialogs/hero_stats_dialog.dart';
 import 'heroes_objects/hero.dart';
 
@@ -12,49 +14,7 @@ class HeroesHome extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Center(
-          child: FutureBuilder(
-        future: _allHeroData(context),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          List<Widget> children;
-          if (snapshot.hasData) {
-            return _buildContents(context, snapshot.data);
-          } else if (snapshot.hasError) {
-            children = <Widget>[
-              const Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 60,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text('Error: ${snapshot.error}'),
-              )
-            ];
-          } else {
-            children = const <Widget>[
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Loading...'),
-              )
-            ];
-          }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
-          );
-        },
-      )
-
-          // _buildContents(context, model),
-          ),
+      body: Center(child: getHeroesGrid(context)),
     );
   }
 }
@@ -84,48 +44,7 @@ _buildContents(BuildContext context, List<AHero> heroList) {
                 // Red
                 height: 120.0,
                 alignment: Alignment.center,
-                child: GridView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(5),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.78,
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 6,
-                      crossAxisSpacing: 6,
-                    ),
-                    itemCount: heroList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          showHeroDialog(context, heroList[index]);
-                        },
-                        child: Stack(children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.asset(
-                              'assets/hero_portraits_big/${heroList[index].base_name}.png',
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            child: Align(
-                              alignment: Alignment.bottomLeft,
-                              child: RichText(
-                                textAlign: TextAlign.left,
-                                text: TextSpan(
-                                  text: heroList[index].name,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ]),
-                      );
-                    }),
+                child: getHeroesGrid(context),
               ),
             )
           ]),
@@ -133,6 +52,57 @@ _buildContents(BuildContext context, List<AHero> heroList) {
       ),
     );
   });
+}
+
+getHeroesGrid(BuildContext context) {
+  Provider.of<HeroListProvider>(context, listen: false).initList();
+  List<AHero> heroList =
+      Provider.of<HeroListProvider>(context, listen: true).list;
+
+  return heroList.isEmpty
+      ? const Center(child: CircularProgressIndicator(color: Colors.purple))
+      : GridView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(5),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 1.78,
+            crossAxisCount: 3,
+            mainAxisSpacing: 6,
+            crossAxisSpacing: 6,
+          ),
+          itemCount: heroList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                showHeroDialog(context, heroList[index]);
+              },
+              child: Stack(
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset(
+                      'assets/hero_portraits_big/${heroList[index].base_name}.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          text: heroList[index].name,
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          });
 }
 
 getIconsFilterBar(BuildContext context) {
