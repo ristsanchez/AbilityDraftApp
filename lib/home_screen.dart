@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:ability_draft/abilities/index.dart';
+import 'package:ability_draft/heroes/hero_providers/hero_list_provider.dart';
+import 'package:ability_draft/heroes/heroes_objects/hero.dart';
 import 'package:ability_draft/heroes/index.dart';
 import 'package:ability_draft/matches/ability_path_provider.dart';
 import 'package:ability_draft/matches/index.dart';
@@ -34,7 +36,12 @@ class _MyHomePageState extends State<MyHomePage>
     ),
     const Stats(),
     const AbilitiesHome(),
-    const HeroesHome(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HeroListProvider()),
+      ],
+      child: const HeroesHome(),
+    ),
   ];
   late TabController _tabController;
 
