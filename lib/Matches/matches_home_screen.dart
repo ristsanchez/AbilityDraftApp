@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/matches/match_widgets/hero_gold_graph.dart';
 import 'package:ability_draft/matches/match_widgets/hero_xp_graph.dart';
 import 'package:flutter/material.dart';
@@ -121,56 +122,57 @@ Future<Map<String, dynamic>> getMatchJson(BuildContext context) async {
 getTopBar() {
   return Column(
     children: [
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        height: 55.0,
-        alignment: Alignment.center,
-        color: Color.fromARGB(150, 0, 0, 0),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: const FaIcon(
-                  FontAwesomeIcons.circleChevronLeft,
-                  color: Color.fromARGB(123, 255, 255, 255),
-                ),
-              ),
-            ),
-            const Expanded(
-              flex: 3,
-              child: Center(
-                child: Text(
-                  'Ranked - 06/29/20',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+      clearContainerRect(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          height: 55.0,
+          alignment: Alignment.center,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: const FaIcon(
+                    FontAwesomeIcons.circleChevronLeft,
+                    color: Color.fromARGB(123, 255, 255, 255),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  FaIcon(
-                    FontAwesomeIcons.circleChevronRight,
-                    color: const Color.fromARGB(123, 255, 255, 255),
+              const Expanded(
+                flex: 3,
+                child: Center(
+                  child: Text(
+                    'Ranked - 06/29/20',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  FaIcon(
-                    FontAwesomeIcons.magnifyingGlass,
-                    color: const Color.fromARGB(123, 255, 255, 255),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    FaIcon(
+                      FontAwesomeIcons.circleChevronRight,
+                      color: const Color.fromARGB(123, 255, 255, 255),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    FaIcon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      color: const Color.fromARGB(123, 255, 255, 255),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ],
