@@ -1,9 +1,13 @@
 import 'dart:ui';
+import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/heroes/hero_providers/hero_list_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'hero_dialogs/hero_stats_dialog.dart';
 import 'heroes_objects/hero.dart';
+
+const double indentation = 60;
 
 class HeroesHome extends StatelessWidget {
   const HeroesHome({Key? key}) : super(key: key);
@@ -14,47 +18,80 @@ class HeroesHome extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Center(child: getHeroesGrid(context)),
+      body: Stack(
+        children: <Widget>[
+          _getHeroesGrid(context),
+          getTopBarSearch(context),
+        ],
+      ),
     );
   }
 }
 
-_buildContents(BuildContext context, List<AHero> heroList) {
-  return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints viewportConstraints) {
-    return SingleChildScrollView(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minHeight: viewportConstraints.maxHeight,
-        ),
-        child: IntrinsicHeight(
-          child: Column(children: <Widget>[
-            Container(
-              height: 70.0,
-              alignment: Alignment.center,
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-              //get all from db, count it, display it as string
-              child: getIconsFilterBar(context),
+getTopBarSearch(BuildContext context) {
+  return Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+    height: indentation,
+    child: clearContainerRect(
+      Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(
+                FontAwesomeIcons.arrowsRotate,
+                color: Colors.white38,
+              ),
+            ),
+            const VerticalDivider(
+              thickness: 2,
             ),
             Expanded(
-              // A flexible child that will grow to fit the viewport but
-              // still be at least as big as necessary to fit its contents.
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                // Red
-                height: 120.0,
-                alignment: Alignment.center,
-                child: getHeroesGrid(context),
+              child: Center(
+                child: TextField(
+                  enableSuggestions: true,
+                  onChanged: (value) {
+                    Provider.of<HeroListProvider>(context, listen: false)
+                        .setText(value);
+                  },
+                  obscureText: false,
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: const InputDecoration(
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 15),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white60,
+                    ),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    labelText: 'Search',
+                  ),
+                ),
+              ),
+            ),
+            const VerticalDivider(
+              thickness: 2,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(
+                FontAwesomeIcons.chevronDown,
+                color: Colors.white38,
               ),
             )
-          ]),
+          ],
         ),
       ),
-    );
-  });
+    ),
+  );
 }
 
-getHeroesGrid(BuildContext context) {
+_getHeroesGrid(BuildContext context) {
   Provider.of<HeroListProvider>(context, listen: false).initList();
   List<AHero> heroList =
       Provider.of<HeroListProvider>(context, listen: true).list;
@@ -63,7 +100,7 @@ getHeroesGrid(BuildContext context) {
       ? const Center(child: CircularProgressIndicator(color: Colors.purple))
       : GridView.builder(
           shrinkWrap: true,
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.fromLTRB(5, indentation, 5, 5),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1.78,
             crossAxisCount: 3,
@@ -86,7 +123,7 @@ getHeroesGrid(BuildContext context) {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.fromLTRB(5, 5, 5, 3),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: RichText(
@@ -98,7 +135,7 @@ getHeroesGrid(BuildContext context) {
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             );
@@ -107,7 +144,7 @@ getHeroesGrid(BuildContext context) {
 
 getIconsFilterBar(BuildContext context) {
   return Container(
-    margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+    margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: BackdropFilter(
@@ -139,7 +176,7 @@ getIconsFilterBar(BuildContext context) {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  child: Text('co'),
+                  child: const Text('co'),
                 ),
               )
             ],
@@ -181,9 +218,9 @@ getElevatedButton(String icon) {
       ],
     ),
     style: ElevatedButton.styleFrom(
-      shape: CircleBorder(),
-      padding: EdgeInsets.all(4),
-      primary: Color.fromARGB(255, 126, 126, 126), // <-- Button color
+      shape: const CircleBorder(),
+      padding: const EdgeInsets.all(4),
+      primary: const Color.fromARGB(255, 126, 126, 126), // <-- Button color
       onPrimary: Colors.white, // <-- Splash color
     ),
   );
