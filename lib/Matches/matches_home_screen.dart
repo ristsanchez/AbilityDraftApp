@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ability_draft/matches/match_widgets/hero_gold_graph.dart';
 import 'package:ability_draft/matches/match_widgets/hero_xp_graph.dart';
 import 'package:flutter/material.dart';
 
