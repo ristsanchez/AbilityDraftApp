@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:ability_draft/abilities/index.dart';
 import 'package:ability_draft/heroes/index.dart';
+import 'package:ability_draft/matches/ability_path_provider.dart';
 import 'package:ability_draft/matches/index.dart';
+import 'package:ability_draft/matches/index_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,7 +25,13 @@ class _MyHomePageState extends State<MyHomePage>
   int _currentIndex = 0;
 
   final List<Widget> _tabList = [
-    const MatchesHome(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => IndexChangeProvider()),
+        ChangeNotifierProvider(create: (_) => AbilityPathProvider()),
+      ],
+      child: const MatchesHome(),
+    ),
     const Stats(),
     const AbilitiesHome(),
     const HeroesHome(),
