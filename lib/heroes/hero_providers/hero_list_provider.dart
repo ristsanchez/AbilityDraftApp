@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 
 class HeroListProvider extends ChangeNotifier {
   List<AHero> _fullList = [];
-  List<AHero> _abilityList = [];
+  List<AHero> _heroList = [];
 
-  List<AHero> get list => _abilityList;
+  List<AHero> get list => _heroList;
 
   HeroListProvider();
 
   void setText(String text) {
-    // _textNotifier.value = text;
-    _abilityList =
-        _fullList.where((ability) => (ability.name.contains(text))).toList();
+    _heroList =
+        _fullList.where((hero) => (hero.base_name.contains(text))).toList();
     notifyListeners();
   }
 
@@ -25,7 +24,7 @@ class HeroListProvider extends ChangeNotifier {
     if (_fullList.isEmpty) {
       _fullList = await getAllHeroInfoList();
 
-      _abilityList = _fullList;
+      _heroList = _fullList;
       notifyListeners();
     }
   }
