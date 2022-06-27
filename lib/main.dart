@@ -27,7 +27,6 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AbilityListProvider()),
-        ChangeNotifierProvider(create: (_) => AbilityPathProvider()),
       ],
       child: GoogleSignInRename(theme: theme),
     ),
