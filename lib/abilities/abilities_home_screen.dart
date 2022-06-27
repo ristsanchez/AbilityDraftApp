@@ -6,7 +6,7 @@ import 'package:ability_draft/abilities/ability_providers/ability_list_provider.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const double indentation = 100;
+const double indentation = 60;
 
 class AbilitiesHome extends StatelessWidget {
   const AbilitiesHome({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ getSearchPartRENAME(BuildContext context) {
   return SizedBox(
     height: indentation,
     // width: MediaQuery.of(context).size.width,
-    child: clearContainer(
+    child: clearContainerRect(
       Column(
         children: [
           SizedBox(
@@ -58,7 +58,7 @@ getSearchPartRENAME(BuildContext context) {
                     obscureText: false,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Search',
+                      // labelText: 'Search',
                     ),
                   ),
                 ),
