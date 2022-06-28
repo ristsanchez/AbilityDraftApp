@@ -125,7 +125,7 @@ getTopBar() {
       clearContainerRect(
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          height: 55.0,
+          height: 52.0,
           alignment: Alignment.center,
           child: Row(
             children: [
