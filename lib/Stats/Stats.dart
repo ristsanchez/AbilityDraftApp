@@ -1,3 +1,4 @@
+import 'package:ability_draft/Stats/steam_login_webview.dart';
 import 'package:flutter/material.dart';
 
 class Stats extends StatelessWidget {
@@ -9,7 +10,15 @@ class Stats extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Center(),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const WebViewApp()));
+          },
+          child: const Text('Sign in with steam'),
+        ),
+      ),
     );
   }
 }
