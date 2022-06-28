@@ -9,13 +9,13 @@ import '../ability_objects/ability.dart';
 class AbilityListProvider extends ChangeNotifier {
   // List<Ability> abilityList = [];
   List<String> _hintList = [];
-  List<Ability> _fullList = [];
+  List<Ability> _fullList;
   List<Ability> _abilityList = [];
   // UnmodifiableListView<Ability> get abilist => UnmodifiableListView(_fullList);
   List<Ability> get list => _abilityList;
   List<String> get abilityHintList => _hintList;
 
-  AbilityListProvider();
+  AbilityListProvider() : _fullList = [];
 
   void setText(String text) {
     // _textNotifier.value = text;
