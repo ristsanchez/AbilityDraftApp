@@ -9,7 +9,7 @@ clearContainer(Widget child) {
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 2, 0, 0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.12),
+          color: Colors.white.withOpacity(0.10),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           border: Border.all(
             width: 2,
@@ -33,7 +33,7 @@ clearContainerRect(Widget child0) {
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.13),
+          color: Colors.white.withOpacity(0.12),
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(15),
             bottomRight: Radius.circular(15),
