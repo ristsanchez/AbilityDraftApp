@@ -14,7 +14,7 @@ getHeroesAbilityOrder(BuildContext context, List<dynamic> statsList) {
   for (int i = 0; i < 10; i++) {
     iconsRow.add(getElevatedButton(
       context,
-      getNameById(statsList[i]['hero_id'].toString()),
+      getNameById(statsList[i]['hero_id']),
       i,
     ));
     tempColumn.add(
