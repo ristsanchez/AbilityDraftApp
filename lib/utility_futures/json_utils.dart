@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ability_draft/heroes/heroes_objects/hero.dart';
+import 'package:ability_draft/matches/match_objects/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -40,4 +41,10 @@ Future<List<AHero>> getAllHeroInfoList() async {
   List<AHero> list = [];
   map.forEach((k, v) => list.add(AHero.fromJson(k, v, [])));
   return list;
+}
+
+Future<MatchEntry> getTestMatchInfo() async {
+  String data = await rootBundle.loadString('lib/utils/match1.json');
+  Map<String, dynamic> map = json.decode(data);
+  return MatchEntry.fromJson(map);
 }
