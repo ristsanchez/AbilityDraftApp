@@ -58,4 +58,23 @@ class MatchEntry {
   // String toString() {
   //   return '{ ${this.name}, ${this.id}, ${this.base_str}, ${this.base_agi}, ${this.base_int}, ${this.base_damage_min}, ${this.base_damage_max}, ${this.base_movement_speed}, ${this.base_armor}, ${this.name}, ${this.type}, ${this.primary_attr}, ${this.str_per_level}, ${this.agi_per_level}, ${this.int_per_level} }';
   // }
+  List<Player> getRadiantPlayers() {
+    List<Player> temp = [];
+    playerList.forEach((player) {
+      if (player.isRadiant) {
+        temp.add(player);
+      }
+    });
+    return temp;
+  }
+
+  List<Player> getDirePlayers() {
+    List<Player> temp = [];
+    playerList.forEach((player) {
+      if (!player.isRadiant) {
+        temp.add(player);
+      }
+    });
+    return temp;
+  }
 }
