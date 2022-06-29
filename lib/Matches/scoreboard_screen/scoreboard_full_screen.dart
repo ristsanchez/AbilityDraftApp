@@ -116,7 +116,7 @@ rowMaker(Player player) {
       // alignment: WrapAlignment.spaceEvenly,
       children: [
         Image.asset(
-          'assets/hero_portraits_big/${getNameById(player.heroId.toString())}.png',
+          'assets/hero_portraits_big/${getNameById(player.heroId)}.png',
           fit: BoxFit.fill,
           width: 85,
         ),
