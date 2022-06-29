@@ -237,7 +237,7 @@ getHeroMatchData(BuildContext context, Player player, bool isRadiant) {
             SizedBox(
               width: 32,
               child: Image.asset(
-                'assets/hero_icons_small/${getNameById(player.heroId.toString())}.jpg',
+                'assets/hero_icons_small/${getNameById(player.heroId)}.jpg',
                 fit: BoxFit.fill,
               ),
             ),
