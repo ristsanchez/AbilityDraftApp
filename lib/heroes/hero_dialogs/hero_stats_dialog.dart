@@ -12,12 +12,14 @@ showHeroDialog(BuildContext context, AHero hero) {
     hero.primary_attr,
     hero.att_type
   ];
+
   return showDialog(
     context: context,
     builder: (context) => SimpleDialog(
       backgroundColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+      ),
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 10),
       children: [
         ClipRRect(
@@ -44,8 +46,8 @@ showHeroDialog(BuildContext context, AHero hero) {
                   _getIconsCol(heroAttrs),
                   getLowDiv(),
                   _abilities(context, hero),
-                  _heroRolesGrid(
-                      hero.roles_condensed, hero.role_levels_condensed),
+                  getLowDiv(),
+                  _heroRolesGrid(context, hero.roles),
                 ],
               ),
             ),
@@ -56,10 +58,63 @@ showHeroDialog(BuildContext context, AHero hero) {
   );
 }
 
+_heroRolesGrid(BuildContext context, Map roles) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+    child: Column(
+      children: [
+        const Text('Roles'),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: (roles.length / 3).round() * 40,
+          child: GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 2.3,
+              crossAxisSpacing: 1,
+            ),
+            itemCount: roles.length,
+            itemBuilder: (BuildContext context, int index) {
+              List current = List.from(roles.keys);
+
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+                child: Column(
+                  children: [
+                    RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        text: '${current[index]}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: LinearProgressIndicator(
+                        color: const Color.fromARGB(181, 255, 255, 255),
+                        minHeight: 5,
+                        value: roles[current[index]] / 3,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 getLowDiv() {
   return const Divider(
-    indent: 10,
-    endIndent: 10,
+    indent: 15,
+    endIndent: 15,
     color: Color.fromARGB(132, 255, 255, 255),
     height: 10,
   );
@@ -104,11 +159,12 @@ _getHeader(List<String> att) {
                 text: TextSpan(
                   text: att[2],
                   style: TextStyle(
+                    fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: att[2] == 'Strength'
                         ? Colors.red
                         : att[2] == 'Agility'
-                            ? Colors.greenAccent
+                            ? Color.fromARGB(255, 13, 247, 5)
                             : Colors.lightBlue,
                   ),
                 ),
@@ -139,9 +195,15 @@ _getIconsCol(Map<String, String> values) {
   });
 
   return Padding(
-    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+    padding: const EdgeInsets.fromLTRB(0, 8, 0, 10),
     child: Column(
       children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
+          child: Text(
+            'Attributes',
+          ),
+        ),
         Row(
           children: icons.sublist(0, 3),
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -174,15 +236,16 @@ _getIconLegend(String iconName, value) {
 
 _abilities(BuildContext context, AHero data) {
   return Container(
+    padding: const EdgeInsets.fromLTRB(15, 8, 15, 10),
     width: MediaQuery.of(context).size.width / 2,
     child: Column(
       children: [
-        Text('Abilities'),
-        SizedBox(
-          height: 20,
+        const Text('Abilities'),
+        const SizedBox(
+          height: 12,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             abiImg(data.a1.toString()),
             abiImg(data.a2.toString()),
@@ -197,77 +260,13 @@ _abilities(BuildContext context, AHero data) {
 
 abiImg(String name) {
   return SizedBox(
-    height: 50,
-    width: 50,
+    height: 58,
+    width: 58,
     child: ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Image.asset(
         'assets/ability_images/$name.png',
         fit: BoxFit.fill,
-      ),
-    ),
-  );
-}
-
-_heroRolesGrid(String? roles, levels) {
-  return Container(
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(12, 10, 0, 0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Center(
-            child: Text('Roles'),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Flexible(
-                flex: 1,
-                child: RichText(
-                  textAlign: TextAlign.left,
-                  text: TextSpan(
-                    text: 'M: ${roles!.substring(0, 8)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const VerticalDivider(
-                width: 10,
-              ),
-              Flexible(
-                flex: 1,
-                child: RichText(
-                  textAlign: TextAlign.left,
-                  text: TextSpan(
-                    text: roles.substring(0, 8),
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const VerticalDivider(
-                width: 10,
-              ),
-              Flexible(
-                flex: 1,
-                child: RichText(
-                  textAlign: TextAlign.left,
-                  text: TextSpan(
-                    text: roles.substring(0, 8),
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     ),
   );
@@ -297,15 +296,3 @@ heroArmor(String? base, agi) {
     (double.parse(base!) + (int.parse(agi!) / 6)).toStringAsFixed(2),
   );
 }
-
-/*
-$LATER$ make 3 rows in the last column 2 rows with a double entry
-
--
--
--
- 
-- -
-- 
-
-*/
