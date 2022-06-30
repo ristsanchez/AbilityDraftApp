@@ -3,6 +3,8 @@ import '../../abilities/ability_objects/ability.dart';
 class AHero {
   List<Ability>? abilityList;
 
+  Map roles;
+
   late String id,
       base_str,
       base_agi,
@@ -25,8 +27,6 @@ class AHero {
       ult,
       att_rate,
       att_range,
-      roles_condensed,
-      role_levels_condensed,
       magic_resist;
 
   AHero(
@@ -51,8 +51,7 @@ class AHero {
     this.base_agi,
     this.agi_per_level,
     this.base_movement_speed,
-    this.roles_condensed,
-    this.role_levels_condensed,
+    this.roles,
     this.magic_resist,
     this.abilityList,
   );
@@ -61,6 +60,17 @@ class AHero {
     dynamic json,
     List<Ability> abs,
   ) {
+    Map myRoles = {};
+    String roles = json["Role"] ?? '';
+    String levels = json["Rolelevels"] ?? '';
+
+    List rolesList = roles.split(',');
+    List levs = levels.split(',');
+
+    for (var i = 0; i < rolesList.length; i++) {
+      myRoles[rolesList[i]] = double.parse(levs[i]);
+    }
+
     return AHero(
       json["HeroID"] ?? '',
       json["workshop_guide_name"] ?? '',
@@ -89,8 +99,7 @@ class AHero {
       json["AttributeBaseAgility"] ?? '',
       json["AttributeAgilityGain"] ?? '',
       json["MovementSpeed"] ?? '',
-      json["Role"] ?? '',
-      json["Rolelevels"] ?? '',
+      myRoles,
       json["MagicalResistance"] ?? '',
       abs,
     );
