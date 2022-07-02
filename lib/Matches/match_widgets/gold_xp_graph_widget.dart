@@ -13,7 +13,7 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
         children: [
           Container(
             alignment: Alignment.center,
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+            margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             height: 50,
             child: Row(
               children: const [
@@ -31,14 +31,11 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
                   Icons.more_horiz_outlined,
                   color: Color.fromARGB(167, 255, 255, 255),
                 ),
-                SizedBox(
-                  width: 15,
-                )
               ],
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             height: 200,
             child: Stack(
               children: [
