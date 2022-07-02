@@ -53,3 +53,20 @@ Widget getTopBar() {
   );
 }
 
+getThemeTile() {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+    child: Column(
+      children: const [
+        ListTile(
+          leading: Padding(
+            padding: EdgeInsets.only(top: 7),
+            child: Icon(Icons.invert_colors),
+          ),
+          title: Text('Theme'),
+          subtitle: Text('Dark'),
+        ),
+      ],
+    ),
+  );
+}
