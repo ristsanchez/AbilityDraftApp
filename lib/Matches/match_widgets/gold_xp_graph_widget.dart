@@ -35,7 +35,8 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
                 SizedBox(width: 8),
                 Icon(
                   Icons.more_horiz_outlined,
-                  color: Color.fromARGB(167, 255, 255, 255),
+                  color: Color.fromARGB(132, 255, 255, 255),
+                  size: 24,
                 ),
               ],
             ),
