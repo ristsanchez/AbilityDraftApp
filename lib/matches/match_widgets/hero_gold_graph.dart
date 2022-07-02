@@ -1,6 +1,3 @@
-//pass: match data players array
-//      make each hero xp/ gold pere minute array
-//
 import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/constants/colors.dart';
 import 'package:ability_draft/matches/index_provider.dart';
@@ -66,6 +63,8 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
 }
 
 LineChart purelife(BuildContext context, List<dynamic> xpLists, bool isxp) {
+//Graph methods
+//-----------------------------------------------------------------------------
   int max = 0;
   List<LineChartBarData> lines = [];
   List<List> heroDataList = [];
@@ -99,7 +98,6 @@ LineChart purelife(BuildContext context, List<dynamic> xpLists, bool isxp) {
   return LineChart(_mainData(lines, length, max));
 }
 
-//-----------------------------------------------------------------------------
 LineChartBarData _getLinesData(List<FlSpot> cur, int index) {
   return LineChartBarData(
     spots: cur,
