@@ -15,13 +15,13 @@ class _WebViewAppState extends State<WebViewApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Steam Login'),
+        title: const Text('Steam Login'),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
             ElevatedButton(
-              child: Text('Login'),
+              child: const Text('Login'),
               onPressed: () async {
                 // Navigate to the login page.
                 final result = await Navigator.of(context).push(
