@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
   bool showXp = Provider.of<IndexChangeProvider>(context, listen: true).show;
   List<Widget> graphs = [
-    purelife(context, playerData, true),
-    purelife(context, playerData, false)
+    _heroGoldXpGraph(context, playerData, true),
+    _heroGoldXpGraph(context, playerData, false)
   ];
   //get provider ionital index
   return Container(
