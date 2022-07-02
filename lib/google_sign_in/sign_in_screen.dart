@@ -186,8 +186,8 @@ getSome(BuildContext context) {
   yobeibi.add(const Expanded(
       child: Center(
           child: Text(
-    'All Dota 2 hero images are a trademark of Valve, all rights reserved.',
-    style: TextStyle(fontSize: 10),
+    'Dota 2 is a registered trademark of Valve Corporation. All game images are property of Valve Corporation',
+    style: TextStyle(fontSize: 7, color: Colors.white60),
   ))));
   return Column(
     children: yobeibi,
