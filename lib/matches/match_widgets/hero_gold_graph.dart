@@ -62,9 +62,10 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
   );
 }
 
-LineChart purelife(BuildContext context, List<dynamic> xpLists, bool isxp) {
 //Graph methods
 //-----------------------------------------------------------------------------
+LineChart _heroGoldXpGraph(
+    BuildContext context, List<dynamic> xpLists, bool isxp) {
   int max = 0;
   List<LineChartBarData> lines = [];
   List<List> heroDataList = [];
