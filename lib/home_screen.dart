@@ -36,13 +36,13 @@ class _MyHomePageState extends State<MyHomePage>
       child: const MatchesHome(),
     ),
     const Stats(),
-    const AbilitiesHome(),
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HeroListProvider()),
       ],
       child: const HeroesHome(),
     ),
+    const AbilitiesHome(),
   ];
   late TabController _tabController;
 
@@ -78,12 +78,11 @@ class _MyHomePageState extends State<MyHomePage>
           _tabController.animateTo(_currentIndex);
         },
         items: const [
-          BottomNavigationBarItem(label: ("Matches"), icon: Icon(Icons.list)),
           BottomNavigationBarItem(
               label: ("Stats"), icon: Icon(Icons.query_stats)),
-          BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.apps)),
           BottomNavigationBarItem(
               label: ("Heroes"), icon: FaIcon(FontAwesomeIcons.userAstronaut)),
+          BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.apps)),
         ],
       ),
     );
