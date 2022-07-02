@@ -70,3 +70,24 @@ getThemeTile() {
     ),
   );
 }
+
+getLanguage() {
+  return const Padding(
+    padding: EdgeInsets.symmetric(vertical: 5.0),
+    child: ListTile(
+      leading: Padding(
+        padding: EdgeInsets.only(top: 4),
+        child: Icon(
+          Icons.language,
+          size: 24,
+        ),
+      ),
+      title: Text('Language'),
+      subtitle: Text('English'),
+      trailing: Text(
+        'More coming soon',
+        style: TextStyle(color: Colors.white30),
+      ),
+    ),
+  );
+}
