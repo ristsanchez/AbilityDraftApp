@@ -23,20 +23,6 @@ class SignInScreen extends StatelessWidget {
         child: Stack(
           children: [
             getSome(context),
-            Container(
-              margin: const EdgeInsets.only(
-                  top: 250, bottom: 200, left: 40, right: 40),
-              child: clearContainer(
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const SizedBox(
-                      height: 60,
-                      child: Text(
-                        "Sign in",
-                        style: TextStyle(
-                            fontSize: 36, fontWeight: FontWeight.bold),
-                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 30, right: 30),
@@ -59,6 +45,17 @@ class SignInScreen extends StatelessWidget {
                             ),
                             const SizedBox(
                               width: 20,
+                    child: clearContainer(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: 150,
+                            child: const Text(
+                              "Sign in",
+                              style: TextStyle(
+                                  fontSize: 36, fontWeight: FontWeight.bold),
                             ),
                             const Text(
                               "Sign In with Google",
