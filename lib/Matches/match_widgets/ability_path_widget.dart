@@ -6,7 +6,7 @@ import 'package:ability_draft/utils/idTable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../ability_path_provider.dart';
+import '../match_providers/ability_path_provider.dart';
 
 getHeroesAbilityOrder(BuildContext context, List<dynamic> statsList) {
   List<Widget> tempColumn = [];

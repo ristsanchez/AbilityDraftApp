@@ -1,6 +1,6 @@
 import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/constants/colors.dart';
-import 'package:ability_draft/matches/index_provider.dart';
+import 'package:ability_draft/matches/match_providers/index_provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
