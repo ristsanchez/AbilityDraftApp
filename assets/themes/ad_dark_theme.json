@@ -344,6 +344,9 @@
     "isCollapsed": false,
     "isDense": false
   },
+  "listTileTheme":{
+    "tileColor": "1affffff"
+  },
   "materialTapTargetSize": "shrinkWrap",
   "outlinedButtonTheme": {
     "style": {
