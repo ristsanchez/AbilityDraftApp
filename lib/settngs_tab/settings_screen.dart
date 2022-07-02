@@ -38,3 +38,18 @@ class SettingsHome extends StatelessWidget {
     );
   }
 }
+
+Widget getTopBar() {
+  return clearContainerRect(
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      height: 50.0,
+      alignment: Alignment.center,
+      child: const Text(
+        'More',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
+}
+
