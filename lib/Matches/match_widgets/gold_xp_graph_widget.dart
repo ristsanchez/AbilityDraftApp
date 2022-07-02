@@ -27,6 +27,12 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
                     ),
                   ),
                 ),
+                FaIcon(
+                  FontAwesomeIcons.upRightAndDownLeftFromCenter,
+                  color: Color.fromARGB(132, 255, 255, 255),
+                  size: 14,
+                ),
+                SizedBox(width: 8),
                 Icon(
                   Icons.more_horiz_outlined,
                   color: Color.fromARGB(167, 255, 255, 255),
