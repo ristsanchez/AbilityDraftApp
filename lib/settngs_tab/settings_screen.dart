@@ -156,3 +156,32 @@ getSocials() {
     ),
   );
 }
+
+getBottomThanks() {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 5),
+    height: 500,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        FaIcon(
+          FontAwesomeIcons.faceSmile,
+          semanticLabel: 'Thanks for the support',
+          color: Colors.white24,
+        ),
+        Divider(
+          color: Color.fromARGB(0, 0, 0, 0),
+          height: 10,
+        ),
+        Text(
+          'Thanks, for the support',
+          style: TextStyle(color: Colors.white24),
+        ),
+        Divider(
+          color: Color.fromARGB(0, 0, 0, 0),
+          height: 10,
+        ),
+      ],
+    ),
+  );
+}
