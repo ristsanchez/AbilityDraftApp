@@ -43,7 +43,6 @@ dependencies:
   firebase_core: ^1.18.0
   firebase_auth: ^3.3.20
   steam_login: ^1.1.0
-  flutter_webview_plugin: ^0.4.0
 
 dev_dependencies:
   flutter_test:
