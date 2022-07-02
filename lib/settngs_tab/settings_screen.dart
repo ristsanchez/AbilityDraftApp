@@ -91,3 +91,29 @@ getLanguage() {
     ),
   );
 }
+
+getExportables() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
+    child: Column(
+      children: const [
+        ListTile(
+          leading: Padding(
+            padding: EdgeInsets.only(top: 6),
+            child: Icon(Icons.cloud),
+          ),
+          title: Text('Cloud backup'),
+          subtitle: Text('Google Drive'),
+        ),
+        Divider(
+          thickness: 3,
+          height: 3,
+        ),
+        ListTile(
+          leading: Icon(Icons.sim_card_download_rounded),
+          title: Text('Export Entries'),
+        ),
+      ],
+    ),
+  );
+}
