@@ -11,7 +11,7 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
     _heroGoldXpGraph(context, playerData, true),
     _heroGoldXpGraph(context, playerData, false)
   ];
-  //get provider ionital index
+
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
     height: 236,
