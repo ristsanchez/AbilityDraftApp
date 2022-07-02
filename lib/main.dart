@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ability_draft/abilities/ability_providers/ability_list_provider.dart';
 
-import 'matches/ability_path_provider.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
