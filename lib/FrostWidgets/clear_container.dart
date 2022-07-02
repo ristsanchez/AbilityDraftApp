@@ -22,6 +22,15 @@ clearContainer(Widget child) {
   );
 }
 
+clearContainer2(Widget child) {
+  return ClipRRect(
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+      child: child,
+    ),
+  );
+}
+
 clearContainerRect(Widget child0) {
   return ClipRRect(
     borderRadius: const BorderRadius.only(
