@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage>
       child: const HeroesHome(),
     ),
     const AbilitiesHome(),
+    SettingsHome(),
   ];
   late TabController _tabController;
 
@@ -80,9 +81,12 @@ class _MyHomePageState extends State<MyHomePage>
         items: const [
           BottomNavigationBarItem(
               label: ("Stats"), icon: Icon(Icons.query_stats)),
+          BottomNavigationBarItem(label: ("Matches"), icon: Icon(Icons.list)),
           BottomNavigationBarItem(
               label: ("Heroes"), icon: FaIcon(FontAwesomeIcons.userAstronaut)),
           BottomNavigationBarItem(label: ("Abilities"), icon: Icon(Icons.apps)),
+          BottomNavigationBarItem(
+              label: ('More'), icon: Icon(Icons.more_horiz)),
         ],
       ),
     );
