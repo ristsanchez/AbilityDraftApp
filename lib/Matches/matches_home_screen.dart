@@ -72,7 +72,8 @@ class MatchesHome extends StatelessWidget {
     );
   }
 
-  _buildMatchesContents(BuildContext context, Map<String, dynamic> matchData) {
+  _buildMatchesContents(BuildContext context, Map<String, dynamic> data) {
+    MatchEntry matchData = MatchEntry.fromJson(data);
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return Container(
@@ -86,15 +87,15 @@ class MatchesHome extends StatelessWidget {
                   const SizedBox(
                     height: 60,
                   ),
-                  getCarousel(),
-                  getOverall(context, MatchEntry.fromJson(matchData)),
+                  // getCarousel(),
+                  getOverall(context, matchData),
                   getGoldXpGraph(
                     context,
-                    matchData['radiant_gold_adv'],
-                    matchData['radiant_xp_adv'],
+                    data['radiant_gold_adv'],
+                    data['radiant_xp_adv'],
                   ),
-                  getHeroGoldGraph(context, matchData['players']),
-                  getHeroesAbilityOrder(context, matchData['players']),
+                  getHeroGoldGraph(context, data['players']),
+                  getHeroesAbilityOrder(context, data['players']),
                 ],
               ),
             ),
