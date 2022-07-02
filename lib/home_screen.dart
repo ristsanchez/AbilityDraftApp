@@ -4,9 +4,10 @@ import 'package:ability_draft/abilities/index.dart';
 import 'package:ability_draft/heroes/hero_providers/hero_list_provider.dart';
 import 'package:ability_draft/heroes/heroes_objects/hero.dart';
 import 'package:ability_draft/heroes/index.dart';
-import 'package:ability_draft/matches/ability_path_provider.dart';
+import 'package:ability_draft/matches/match_providers/ability_path_provider.dart';
 import 'package:ability_draft/matches/index.dart';
-import 'package:ability_draft/matches/index_provider.dart';
+import 'package:ability_draft/matches/match_providers/index_provider.dart';
+import 'package:ability_draft/settngs_tab/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
