@@ -117,3 +117,42 @@ getExportables() {
     ),
   );
 }
+
+getSocials() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
+    child: Column(
+      children: const [
+        ListTile(
+          leading: FaIcon(FontAwesomeIcons.solidHeart),
+          title: Text('Connect with us'),
+          trailing: FaIcon(
+            FontAwesomeIcons.twitter,
+            color: Colors.white24,
+          ),
+        ),
+        Divider(
+          thickness: 3,
+          height: 3,
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.handshake,
+            size: 24,
+          ),
+          title: Text('Share app with friends'),
+        ),
+        Divider(
+          thickness: 3,
+          height: 3,
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.info,
+          ),
+          title: Text('About'),
+        ),
+      ],
+    ),
+  );
+}
