@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 clearContainer(Widget child) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(15),
+    borderRadius: BorderRadius.circular(20),
     child: BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       child: Container(
