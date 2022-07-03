@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'hero_dialogs/hero_stats_dialog.dart';
 import 'heroes_objects/hero.dart';
 
-const double indentation = 60;
+const double indentation = 50;
 
 class HeroesHome extends StatelessWidget {
   const HeroesHome({Key? key}) : super(key: key);
@@ -30,7 +30,6 @@ class HeroesHome extends StatelessWidget {
 
 getTopBarSearch(BuildContext context) {
   return Container(
-    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
     height: indentation,
     child: clearContainerRect(
       Padding(
@@ -100,7 +99,7 @@ _getHeroesGrid(BuildContext context) {
       ? const Center(child: CircularProgressIndicator(color: Colors.purple))
       : GridView.builder(
           shrinkWrap: true,
-          padding: const EdgeInsets.fromLTRB(5, indentation, 5, 5),
+          padding: const EdgeInsets.fromLTRB(5, indentation + 5, 5, 5),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1.78,
             crossAxisCount: 3,

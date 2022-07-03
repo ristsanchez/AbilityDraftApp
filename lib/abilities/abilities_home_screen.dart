@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-const double indentation = 60;
+const double indentation = 50;
 
 class AbilitiesHome extends StatelessWidget {
   const AbilitiesHome({Key? key}) : super(key: key);
@@ -31,7 +31,6 @@ class AbilitiesHome extends StatelessWidget {
 
 getTopBarSearch(BuildContext context) {
   return Container(
-    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
     height: indentation,
     child: clearContainerRect(
       Padding(
@@ -107,7 +106,7 @@ customGrid(BuildContext context) {
       ? smallProg()
       : GridView.builder(
           shrinkWrap: true,
-          padding: const EdgeInsets.fromLTRB(5, indentation, 5, 5),
+          padding: const EdgeInsets.fromLTRB(5, indentation + 5, 5, 5),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 5,
             crossAxisSpacing: 5,
