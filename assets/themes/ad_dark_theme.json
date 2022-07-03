@@ -13,7 +13,7 @@
   "backgroundColor": "#ffd36465",
   "bottomAppBarColor": "#ff424242",
   "bottomNavigationBarTheme": {
-    "backgroundColor": "#ffc02123",
+    "backgroundColor": "#ff000000",
     "elevation": 8,
     "selectedItemColor": "#deffffff",
     "showSelectedLabels": true,
