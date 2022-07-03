@@ -10,7 +10,8 @@ class MatchEntry {
       duration,
       gameMode,
       humanPlayers,
-      lobbyType;
+      lobbyType,
+      start_time;
 
   MatchEntry(
     this.radiantWin,
@@ -28,6 +29,7 @@ class MatchEntry {
     // this.bae,
     // },
     this.playerList,
+    this.start_time,
   );
 
   factory MatchEntry.fromJson(Map<String, dynamic> jsonData) {
@@ -51,6 +53,7 @@ class MatchEntry {
       jsonData['human_players'] ?? 0,
       jsonData['lobby_type'] ?? 0,
       playerList,
+      jsonData['start_time'] ?? 0,
     );
   }
   //$FINISH LATER$
