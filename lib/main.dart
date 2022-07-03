@@ -21,7 +21,6 @@ void main() async {
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
   runApp(
-    //later; Move these to the specific place they will be used at
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AbilityListProvider()),
