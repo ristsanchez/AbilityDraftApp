@@ -24,6 +24,24 @@ class Stats extends StatelessWidget {
   }
 }
 
+buildList(BuildContext context) {
+  //list from prov
+
+  Provider.of<StatsProvider>(context).initList();
+  List<MatchEntry> mlist = [];
+  mlist = Provider.of<StatsProvider>(context, listen: true).list;
+
+  return mlist.isEmpty
+      ? const Center(child: CircularProgressIndicator())
+      : ListView.builder(
+          padding: const EdgeInsets.only(top: 55),
+          itemCount: mlist.length,
+          itemBuilder: (BuildContext context, int index) {
+            return getMatchEntry(context, mlist[index], index == 0);
+          },
+        );
+}
+
 getMatchEntriesHeaders(BuildContext context) {
   return SizedBox(
     width: MediaQuery.of(context).size.width,
