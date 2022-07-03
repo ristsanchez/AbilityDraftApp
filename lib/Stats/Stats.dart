@@ -46,7 +46,7 @@ getMatchEntriesHeaders(BuildContext context) {
   return SizedBox(
     width: MediaQuery.of(context).size.width,
     child: ListTile(
-      trailing: Icon(
+      trailing: const Icon(
         Icons.abc,
         color: Color.fromARGB(0, 0, 0, 0),
       ),
@@ -54,7 +54,7 @@ getMatchEntriesHeaders(BuildContext context) {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: const [
           Text('Match Id'),
           Text('Game Mode'),
           Text('Result'),
