@@ -36,6 +36,7 @@ class Stats extends StatelessWidget {
             return CircularProgressIndicator();
           },
         ),
+          getTopBarSearch(context),
       ),
     );
   }
@@ -125,6 +126,69 @@ getTeamImageRow(BuildContext context, List<Player> playerList) {
     child: Row(
       children: list,
       mainAxisAlignment: MainAxisAlignment.center,
+    ),
+  );
+}
+
+getTopBarSearch(BuildContext context) {
+  return Container(
+    height: 50,
+    child: clearContainerRect(
+      Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  FontAwesomeIcons.arrowsRotate,
+                  color: Colors.white38,
+                ),
+              ),
+            ),
+            const VerticalDivider(
+              thickness: 2,
+            ),
+            Expanded(
+              child: Center(
+                child: TextField(
+                  enableSuggestions: true,
+                  onChanged: (value) {},
+                  obscureText: false,
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: const InputDecoration(
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 15),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white60,
+                    ),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    labelText: 'Search',
+                  ),
+                ),
+              ),
+            ),
+            const VerticalDivider(
+              thickness: 2,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.0),
+              child: Icon(
+                FontAwesomeIcons.chevronDown,
+                color: Colors.white38,
+                size: 16,
+              ),
+            )
+          ],
+        ),
+      ),
     ),
   );
 }
