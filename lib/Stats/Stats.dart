@@ -121,7 +121,7 @@ getTeamImageRow(BuildContext context, List<Player> playerList) {
       Image.asset(
         'assets/hero_portraits_big/${getNameById(player.heroId)}.png',
         fit: BoxFit.fill,
-        width: MediaQuery.of(context).size.width / 5,
+        width: (MediaQuery.of(context).size.width - 20) / 5,
       ),
     );
   });
