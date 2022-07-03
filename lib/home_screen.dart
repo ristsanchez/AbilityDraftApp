@@ -8,6 +8,7 @@ import 'package:ability_draft/matches/match_providers/ability_path_provider.dart
 import 'package:ability_draft/matches/index.dart';
 import 'package:ability_draft/matches/match_providers/index_provider.dart';
 import 'package:ability_draft/settngs_tab/settings_screen.dart';
+import 'package:ability_draft/stats/stats_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,7 +36,12 @@ class _MyHomePageState extends State<MyHomePage>
       ],
       child: const MatchesHome(),
     ),
-    const Stats(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => StatsProvider()),
+      ],
+      child: const Stats(),
+    ),
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HeroListProvider()),
@@ -50,7 +56,6 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(vsync: this, length: _tabList.length);
   }
 
