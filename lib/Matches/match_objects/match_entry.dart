@@ -31,12 +31,12 @@ class MatchEntry {
   );
 
   factory MatchEntry.fromJson(Map<String, dynamic> jsonData) {
-    List<Player> turtle = [];
+    List<Player> playerList = [];
 
     List<dynamic> rawPlayerList = jsonData['players'] ?? [];
 
     for (var player in rawPlayerList) {
-      turtle.add(Player.fromJson(player));
+      playerList.add(Player.fromJson(player));
     }
 
     return MatchEntry(
@@ -50,7 +50,7 @@ class MatchEntry {
       jsonData['game_mode'] ?? 0,
       jsonData['human_players'] ?? 0,
       jsonData['lobby_type'] ?? 0,
-      turtle,
+      playerList,
     );
   }
   //$FINISH LATER$
