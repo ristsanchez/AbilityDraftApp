@@ -107,8 +107,7 @@ getLabels(BuildContext context, MatchEntry match) {
             'Radiant vict',
             style: TextStyle(color: Colors.red),
           ),
-          Text('37:52')
-        ]), //REsult/duration
+        ),
       ],
     ),
   );
