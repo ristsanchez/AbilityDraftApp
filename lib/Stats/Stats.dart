@@ -18,24 +18,6 @@ class Stats extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Center(
-        child: FutureBuilder(
-          future: getTestMatchInfo(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    getMatchEntriesHeaders(context),
-                    getMatchEntry(context, snapshot.data),
-                  ],
-                ),
-              );
-            }
-            return CircularProgressIndicator();
-          },
-        ),
           getTopBarSearch(context),
       ),
     );
