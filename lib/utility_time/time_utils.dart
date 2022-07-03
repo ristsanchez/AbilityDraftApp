@@ -10,3 +10,9 @@ String getMinFromSecsForm(int duration) {
   return '${duration ~/ 60}:$secs';
 }
 
+String getTimeSinceEpoch(int startTime) {
+  var date = DateTime.fromMillisecondsSinceEpoch(startTime * 1000);
+
+  return date.toString();
+}
+
