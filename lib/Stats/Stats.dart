@@ -105,7 +105,18 @@ getLabels(BuildContext context, MatchEntry match) {
           ),
         ), //MatchID
 
-        Column(
+        Expanded(
+          flex: 1,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text('Single Draft'),
+                Text(
+                  'Ranked',
+                  style: TextStyle(color: Colors.white60),
+                )
+              ]),
+        ),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [Text('Single Draft'), Text('Ranked')]), //GAMEMODE
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
