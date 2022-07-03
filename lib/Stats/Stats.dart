@@ -86,7 +86,6 @@ getLabels(BuildContext context, MatchEntry match) {
   return SizedBox(
     width: MediaQuery.of(context).size.width,
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
