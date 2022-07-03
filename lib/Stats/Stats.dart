@@ -117,12 +117,32 @@ getLabels(BuildContext context, MatchEntry match) {
                 )
               ]),
         ),
+        Expanded(
+          flex: 1,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('Single Draft'), Text('Ranked')]), //GAMEMODE
-        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            'Radiant vict',
-            style: TextStyle(color: Colors.red),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    match.radiantWin ? 'Radiant ' : 'Dire ',
+                    style: TextStyle(
+                      color: match.radiantWin ? Colors.lightGreen : Colors.red,
+                    ),
+                  ),
+                  const FaIcon(
+                    FontAwesomeIcons.crown,
+                    color: Colors.yellow,
+                    size: 14,
+                  ),
+                ],
+              ),
+              Text(
+                getMinFromSecsForm(match.duration),
+                style: const TextStyle(color: Colors.white60),
+              ),
+            ],
           ),
         ),
       ],
