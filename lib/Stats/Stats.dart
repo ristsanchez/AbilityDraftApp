@@ -18,7 +18,11 @@ class Stats extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
+      body: Stack(
+        children: <Widget>[
+          buildList(context),
           getTopBarSearch(context),
+        ],
       ),
     );
   }
