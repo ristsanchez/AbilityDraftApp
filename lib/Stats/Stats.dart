@@ -70,8 +70,9 @@ getMatchEntriesHeaders(BuildContext context) {
 
 //scrollable row/listview
 
-getMatchEntry(BuildContext context, MatchEntry match) {
+getMatchEntry(BuildContext context, MatchEntry match, bool showHeroes) {
   return ExpansionTile(
+    initiallyExpanded: showHeroes,
     textColor: Colors.white,
     title: getLabels(context, match),
     children: [
