@@ -88,15 +88,21 @@ getLabels(BuildContext context, MatchEntry match) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              match.matchId.toString(),
-              style: TextStyle(color: Colors.blue),
-            ),
-            Text('3 minutes ago')
-          ],
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                match.matchId.toString(),
+                style: const TextStyle(color: Colors.blue),
+              ),
+              Text(
+                getTimeAgoEpoch(match.start_time + match.duration),
+                style: TextStyle(color: Colors.white60),
+              )
+            ],
+          ),
         ), //MatchID
 
         Column(
