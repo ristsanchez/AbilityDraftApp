@@ -75,6 +75,19 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
                   VerticalDivider(
                     width: 10,
                   ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        children: boxies.sublist(0, 5),
+                      ),
+                      Row(
+                        children: boxies.sublist(5, 10),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
           Container(
