@@ -36,22 +36,6 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                Switch(
-                  value: showXp,
-                  onChanged: (bool newval) {
-                    Provider.of<IndexChangeProvider>(context, listen: false)
-                        .toggleSwitch(newval);
-
-                    //call provider setnew thing
-                  },
-                ),
-                const Icon(Icons.more_horiz_outlined,
-                    color: Color.fromRGBO(255, 255, 255, 0.655)),
-                const SizedBox(
-                  width: 15,
-                )
-              ],
             ),
           ),
           Container(
