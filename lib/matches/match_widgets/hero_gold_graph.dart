@@ -199,7 +199,7 @@ Widget _leftTitleWidgets(double value, TitleMeta meta) {
     fontSize: 10,
   );
   String text = '';
-  if (value % 1000 == 0) {
+  if (value % 1000 == 0 && value != 0) {
     text = '${value ~/ 1000}k';
   }
   return Text(text, style: style, textAlign: TextAlign.right);
