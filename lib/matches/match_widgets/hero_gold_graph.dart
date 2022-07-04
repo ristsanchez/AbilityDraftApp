@@ -38,10 +38,15 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
   }
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-    height: 236,
+    height: 270,
     child: clearContainerUnclipped(
       Column(
         children: [
+          getTeamAdvantagesHeader(),
+          SizedBox(
+            height: 170,
+            child: showXp ? graphs[0] : graphs[1],
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 15.0),
@@ -89,11 +94,6 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
                 ],
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            height: 180,
-            child: showXp ? graphs[0] : graphs[1],
           ),
         ],
       ),
