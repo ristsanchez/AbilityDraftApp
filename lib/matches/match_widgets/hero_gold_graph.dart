@@ -42,20 +42,6 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
     child: clearContainerUnclipped(
       Column(
         children: [
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            height: 50,
-            child: Row(
-              children: [
-                const Expanded(
-                  child: Text(
-                    'Gold/Xp graph',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 15.0),
@@ -98,6 +84,33 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
           ),
         ],
       ),
+    ),
+  );
+}
+
+getTeamAdvantagesHeader() {
+  return Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+    height: 50,
+    child: Row(
+      children: const [
+        Expanded(
+          child: Text(
+            'Player Gold / Exp',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Icon(Icons.more_horiz_outlined,
+            color: Color.fromRGBO(255, 255, 255, 0.655)),
+        SizedBox(
+          width: 15,
+        )
+      ],
     ),
   );
 }
