@@ -214,7 +214,7 @@ LineChartData mainData(List data, List xp) {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        barWidth: 2,
+        barWidth: 1.5,
         isStrokeCapRound: true,
         dotData: FlDotData(
           show: false,
