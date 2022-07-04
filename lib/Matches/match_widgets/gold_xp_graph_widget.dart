@@ -7,14 +7,14 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
   //min max lenght of matchData Array
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-    height: 256,
+    height: 255,
     child: clearContainer(
       Column(
         children: [
           Container(
             alignment: Alignment.center,
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            height: 50,
+            margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),
+            height: 24,
             child: Row(
               children: const [
                 Expanded(
@@ -32,7 +32,7 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
                   color: Color.fromARGB(132, 255, 255, 255),
                   size: 14,
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 15),
                 Icon(
                   Icons.more_horiz_outlined,
                   color: Color.fromARGB(132, 255, 255, 255),
