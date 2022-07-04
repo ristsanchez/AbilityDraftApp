@@ -35,6 +35,12 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                   FlutterSwitch(
                     padding: 0,
                     height: 30,
@@ -59,6 +65,8 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
                           .toggleSwitch(val);
                     },
                   ),
+                  VerticalDivider(
+                    width: 10,
                   ),
             ),
           ),
