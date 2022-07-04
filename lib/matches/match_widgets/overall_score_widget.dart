@@ -244,10 +244,6 @@ getHeroMatchData(BuildContext context, Player player, bool isRadiant) {
                   : const Color.fromARGB(255, 255, 94, 94))
               .withOpacity(0.1),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          // border: Border.all(
-          //   width: 2,
-          //   color: Colors.white.withOpacity(0.1),
-          // ),
         ),
         child: Padding(
           padding: const EdgeInsets.only(right: 8.0),
