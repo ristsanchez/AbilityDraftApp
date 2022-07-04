@@ -35,6 +35,30 @@ getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
+                  FlutterSwitch(
+                    padding: 0,
+                    height: 30,
+                    width: 68,
+                    toggleSize: 30,
+                    valueFontSize: 12,
+                    showOnOff: true,
+                    toggleColor: Color.fromARGB(69, 0, 0, 0),
+                    activeColor: const Color.fromARGB(123, 76, 175, 79),
+                    inactiveColor: const Color.fromARGB(123, 255, 235, 59),
+                    activeIcon:
+                        const Icon(Icons.keyboard_double_arrow_up_sharp),
+                    inactiveIcon: const Icon(Icons.attach_money),
+                    inactiveText: 'Gold·',
+                    inactiveTextFontWeight: FontWeight.normal,
+                    activeTextFontWeight: FontWeight.normal,
+                    inactiveTextColor: const Color.fromARGB(146, 255, 255, 255),
+                    activeText: '  ' 'Exp',
+                    value: showXp,
+                    onToggle: (val) {
+                      Provider.of<IndexChangeProvider>(context, listen: false)
+                          .toggleSwitch(val);
+                    },
+                  ),
                   ),
             ),
           ),
