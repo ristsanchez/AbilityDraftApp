@@ -347,58 +347,59 @@ getHeroMatchData(BuildContext context, Player player, bool isRadiant) {
 }
 
 getHeroMatchDataHeader() {
-  return Row(
-    // direction: Axis.horizontal,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    // alignment: WrapAlignment.spaceEvenly,
-    children: const [
-      SizedBox(
-        width: 32,
-      ),
-      Expanded(
-        flex: 1,
-        child: Center(
-          child: Text(
-            'K',
-            style: TextStyle(
-              color: Color.fromARGB(200, 255, 255, 255),
-              fontSize: 12,
+  return Padding(
+    padding: const EdgeInsets.only(right: 8.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        SizedBox(
+          width: 30,
+        ),
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(
+              'K',
+              style: TextStyle(
+                color: Color.fromARGB(200, 255, 255, 255),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
-      ),
-      Expanded(
-        flex: 1,
-        child: Center(
-          child: Text(
-            'D',
-            style: TextStyle(
-              color: Color.fromARGB(200, 255, 255, 255),
-              fontSize: 12,
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(
+              'D',
+              style: TextStyle(
+                color: Color.fromARGB(200, 255, 255, 255),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
-      ),
-      Expanded(
-        flex: 1,
-        child: Center(
-          child: Text(
-            'A',
-            style: TextStyle(
-              color: Color.fromARGB(200, 255, 255, 255),
-              fontSize: 12,
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(
+              'A',
+              style: TextStyle(
+                color: Color.fromARGB(200, 255, 255, 255),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
-      ),
-      Expanded(
-        flex: 2,
-        child: Center(
-          child: Text(
-            'NET',
-            style: TextStyle(
-              color: Color.fromARGB(200, 255, 223, 0),
-              fontSize: 12,
+        Expanded(
+          flex: 2,
+          child: Center(
+            child: Text(
+              'NET',
+              style: TextStyle(
+                color: Color.fromARGB(200, 255, 223, 0),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
