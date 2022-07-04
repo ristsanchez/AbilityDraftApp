@@ -249,16 +249,17 @@ getHeroMatchData(BuildContext context, Player player, bool isRadiant) {
           //   color: Colors.white.withOpacity(0.1),
           // ),
         ),
-        child: Row(
-          // direction: Axis.horizontal,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // alignment: WrapAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              width: 32,
-              child: Image.asset(
-                'assets/hero_icons_small/${getNameById(player.heroId)}.jpg',
-                fit: BoxFit.fill,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 30,
+                child: Image.asset(
+                  'assets/hero_icons_small/${getNameById(player.heroId)}.jpg',
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             Expanded(
