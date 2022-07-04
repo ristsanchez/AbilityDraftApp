@@ -191,19 +191,22 @@ getGroups(BuildContext context, List<Player> matchData) {
   Map<String, List<Player>> teams = getTeamsMap(context, matchData);
 
   return Expanded(
-    child: Row(
-      children: [
-        getGroup(
-          context,
-          teams['radiant'] ?? [],
-          true,
-        ),
-        getGroup(
-          context,
-          teams['dire'] ?? [],
-          false,
-        ),
-      ],
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Row(
+        children: [
+          getGroup(
+            context,
+            teams['radiant'] ?? [],
+            true,
+          ),
+          getGroup(
+            context,
+            teams['dire'] ?? [],
+            false,
+          ),
+        ],
+      ),
     ),
   );
 }
