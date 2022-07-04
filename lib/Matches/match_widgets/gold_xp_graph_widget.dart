@@ -285,6 +285,9 @@ Widget leftTitleWidgets(double value, TitleMeta meta) {
   String text = '';
   if (value % 1000 == 0) {
     text = '${value ~/ 1000}k';
+    if (value == 0) {
+      text = '0';
+    }
   }
   return Text(text, style: style, textAlign: TextAlign.right);
 }
