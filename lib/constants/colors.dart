@@ -14,3 +14,6 @@ const List<Color> heroGraphColors = [
   Color(0xFF4C71F5),
   Color(0xFFf032e6),
 ];
+
+const Color graphLineColor = Color.fromARGB(20, 255, 255, 255);
+const Color graphLegendColor = Color.fromARGB(40, 255, 255, 255);
