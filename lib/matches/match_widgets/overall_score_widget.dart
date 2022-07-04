@@ -10,7 +10,7 @@ import '../scoreboard_screen/scoreboard_full_screen.dart';
 getOverall(BuildContext context, MatchEntry matchData) {
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 0, 15, 5),
-    height: 270,
+    height: 260,
     child: clearContainer(
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -123,15 +123,15 @@ getSubheader(BuildContext context, MatchEntry matchData) {
 
 getHeader(BuildContext context, MatchEntry matchData) {
   return Container(
-    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+    margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
     width: MediaQuery.of(context).size.width,
-    height: 40,
+    height: 30,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Expanded(
           child: Text(
-            'Score',
+            'Overview',
             style: TextStyle(
               fontSize: 18,
               color: Colors.white,
