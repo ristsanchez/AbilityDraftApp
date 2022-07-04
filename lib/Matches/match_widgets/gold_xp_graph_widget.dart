@@ -262,8 +262,13 @@ Widget bottomTitleWidgets(double value, TitleMeta meta) {
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
+  String val = "";
+
+  if (value % 10 == 0) {
+    val = "${value ~/ 1}'";
+  }
   Widget text = Text(
-    '${value.toInt()}"',
+    val,
     style: style,
   );
 
