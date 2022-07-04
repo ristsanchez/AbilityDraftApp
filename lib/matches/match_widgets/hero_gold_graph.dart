@@ -211,14 +211,19 @@ LineChartData _mainData(List<LineChartBarData> lines, int length, int maxY) {
   );
 }
 
-SideTitleWidget _bottomTitleWidgets(double value, TitleMeta meta) {
+Widget _bottomTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
     color: graphLegendColor,
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
+  String val = "";
+
+  if (value % 10 == 0) {
+    val = "${value ~/ 1}'";
+  }
   Widget text = Text(
-    '${value.toInt()}"',
+    val,
     style: style,
   );
 
