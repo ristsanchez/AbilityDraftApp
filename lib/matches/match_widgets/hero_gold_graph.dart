@@ -125,13 +125,13 @@ LineChartData _mainData(List<LineChartBarData> lines, int length, int maxY) {
       verticalInterval: 10,
       getDrawingHorizontalLine: (value) {
         return FlLine(
-          color: const Color.fromARGB(60, 255, 255, 255),
+          color: graphLineColor,
           strokeWidth: 1,
         );
       },
       getDrawingVerticalLine: (value) {
         return FlLine(
-          color: const Color.fromARGB(60, 255, 255, 255),
+          color: graphLineColor,
           strokeWidth: 1,
         );
       },
@@ -176,7 +176,7 @@ LineChartData _mainData(List<LineChartBarData> lines, int length, int maxY) {
 
 SideTitleWidget _bottomTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
-    color: Color(0xff68737d),
+    color: graphLegendColor,
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
@@ -194,7 +194,7 @@ SideTitleWidget _bottomTitleWidgets(double value, TitleMeta meta) {
 
 Widget _leftTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
-    color: Color(0xff67727d),
+    color: graphLegendColor,
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
