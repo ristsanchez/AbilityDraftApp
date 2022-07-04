@@ -127,10 +127,8 @@ List<Color> gradientColors = [
   const Color.fromARGB(255, 45, 240, 19),
   const Color.fromARGB(255, 245, 54, 54),
 ];
-List<Color> gradientColors2 = [
-  const Color.fromARGB(255, 236, 250, 38),
-  const Color.fromARGB(255, 212, 192, 6),
-];
+
+const Color goldColor = Color.fromARGB(255, 252, 203, 41);
 
 LineChartData mainData(List data, List xp) {
   int min0 = data.reduce((value, element) => value < element ? value : element);
@@ -159,13 +157,13 @@ LineChartData mainData(List data, List xp) {
       verticalInterval: 10,
       getDrawingHorizontalLine: (value) {
         return FlLine(
-          color: const Color.fromARGB(60, 255, 255, 255),
+          color: graphLineColor,
           strokeWidth: 1,
         );
       },
       getDrawingVerticalLine: (value) {
         return FlLine(
-          color: const Color.fromARGB(60, 255, 255, 255),
+          color: graphLineColor,
           strokeWidth: 1,
         );
       },
@@ -225,7 +223,7 @@ LineChartData mainData(List data, List xp) {
           show: true,
           gradient: LinearGradient(
             colors:
-                gradientColors.map((color) => color.withOpacity(0.5)).toList(),
+                gradientColors.map((color) => color.withOpacity(0.4)).toList(),
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -245,7 +243,7 @@ LineChartData mainData(List data, List xp) {
         ),
       ),
       LineChartBarData(
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: goldColor,
         spots: goldPerMin,
         isCurved: true,
         barWidth: 1,
@@ -260,7 +258,7 @@ LineChartData mainData(List data, List xp) {
 
 Widget bottomTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
-    color: Color(0xff68737d),
+    color: graphLegendColor,
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
@@ -278,7 +276,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta) {
 
 Widget leftTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
-    color: Color(0xff67727d),
+    color: graphLegendColor,
     fontWeight: FontWeight.bold,
     fontSize: 10,
   );
