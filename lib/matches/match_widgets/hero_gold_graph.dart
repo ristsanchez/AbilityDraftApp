@@ -1,9 +1,12 @@
 import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/constants/colors.dart';
 import 'package:ability_draft/matches/match_providers/index_provider.dart';
+import 'package:ability_draft/matches/match_widgets/hero_xp_graph.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_switch/flutter_switch.dart';
 
 getHeroGoldGraph(BuildContext context, List<dynamic> playerData) {
   bool showXp = Provider.of<IndexChangeProvider>(context, listen: true).show;
