@@ -113,12 +113,36 @@ class SignInScreen extends StatelessWidget {
 
                               ),
                             ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            const Text("Sign in with Steam")
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(54, 0, 54, 0),
+                            child: ClipRRect(
+                              clipBehavior: Clip.hardEdge,
+                              borderRadius: BorderRadius.circular(10),
+                              child: MaterialButton(
+                                height: 50,
+                                color: const Color(0xFF2a475e),
+                                elevation: 10,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    VerticalDivider(
+                                      width: 2,
+                                    ),
+                                    FaIcon(
+                                      FontAwesomeIcons.steam,
+                                      size: 34,
+                                    ),
+                                    VerticalDivider(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "Sign in with Steam",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
 
                         // by onpressed we call the function signup function
                         onPressed: () {
