@@ -72,12 +72,44 @@ class SignInScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const Text(
-                              "Sign In with Google",
-                              style: TextStyle(color: Colors.black),
-                            )
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 54, right: 54),
+                            child: ClipRRect(
+                              clipBehavior: Clip.hardEdge,
+                              borderRadius: BorderRadius.circular(10),
+                              child: MaterialButton(
+                                height: 50,
+                                color: Colors.white,
+                                elevation: 10,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const VerticalDivider(
+                                      width: 1,
+                                    ),
+                                    Container(
+                                      height: 34.0,
+                                      width: 34.0,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/tm/google_logo.png'),
+                                            fit: BoxFit.cover),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    const VerticalDivider(
+                                      width: 8,
+                                    ),
+                                    const Text(
+                                      "Sign In with Google",
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
 
                         // by onpressed we call the function signup function
                         onPressed: () async {
