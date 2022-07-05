@@ -198,10 +198,7 @@ LineChartData mainData(List data, List xp) {
         ),
       ),
     ),
-    borderData: FlBorderData(
-        show: false,
-        border:
-            Border.all(color: const Color.fromARGB(82, 217, 255, 0), width: 1)),
+    borderData: FlBorderData(show: false),
     minX: 0,
     maxX: (length - 1).toDouble(),
     minY: (min - 500).toDouble(),
