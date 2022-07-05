@@ -19,27 +19,35 @@ class SignInScreen extends StatelessWidget {
         child: Stack(
           children: [
             getSome(context),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: clearContainer2(const Center()),
+              ),
+            ),
+            Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 105, 0, 100),
+                  height: 130.0,
+                  width: 130.0,
                   child: Image.asset(
                     'assets/tm/dota_logo.png',
                     fit: BoxFit.cover,
                     color: const Color(0xFFA72714),
                     colorBlendMode: BlendMode.srcATop,
                   ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      top: 5,
+                      bottom: 90,
+                      left: 35,
+                      right: 35,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: MaterialButton(
-                        color: Colors.white,
-                        elevation: 10,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 38.0,
-                              width: 38.0,
-                            ),
-                            const SizedBox(
-                              width: 20,
                     child: clearContainer(
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
