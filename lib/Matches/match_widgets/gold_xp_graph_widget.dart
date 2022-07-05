@@ -51,71 +51,6 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
                 LineChart(
                   mainData(matchData, other),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(27, 0, 0, 0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 45,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                height: 10,
-                                color: Color.fromARGB(223, 255, 255, 255),
-                              ),
-                            ),
-                            const Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Gold',
-                                style: TextStyle(
-                                  color: Color.fromARGB(155, 255, 255, 255),
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 45,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                height: 10,
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Color.fromARGB(169, 45, 240, 19),
-                                        Color.fromARGB(171, 245, 54, 54),
-                                      ]),
-                                ),
-                              ),
-                            ),
-                            const Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Exp',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color.fromARGB(137, 255, 255, 255),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
@@ -246,7 +181,7 @@ LineChartData mainData(List data, List xp) {
           showTitles: true,
           interval: 5000,
           getTitlesWidget: leftTitleWidgets,
-          reservedSize: 25,
+          reservedSize: 30,
         ),
       ),
     ),
