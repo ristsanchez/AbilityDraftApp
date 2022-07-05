@@ -172,17 +172,38 @@ class SignInScreen extends StatelessWidget {
                                 shape: BoxShape.circle,
                               ),
                             ),
-                            const Text("Skip sign-in")
-                          ],
-                        ),
-
-                        // by onpressed we call the function signup function
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MyHomePage()));
-                        },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 54, right: 54, top: 40),
+                            child: GestureDetector(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    "Just browsing? ",
+                                    style: TextStyle(
+                                        color: Colors.white60, fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Skip sign in",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MyHomePage()));
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
