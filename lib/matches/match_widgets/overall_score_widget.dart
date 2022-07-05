@@ -220,7 +220,7 @@ getGroup(BuildContext context, List<Player> team, bool isRadiant) {
 
   return Expanded(
     child: Container(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
       child: Column(
         children: [
           getHeroMatchDataHeader(),
@@ -403,7 +403,7 @@ getHeroMatchDataHeader() {
             ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
