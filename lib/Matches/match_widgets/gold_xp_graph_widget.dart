@@ -47,6 +47,7 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
             height: 200,
             child: Stack(
               children: [
+                getGraphLabels(),
                 LineChart(
                   mainData(matchData, other),
                 ),
@@ -120,6 +121,57 @@ getGoldXpGraph(BuildContext context, var matchData, var other) {
           ),
         ],
       ),
+    ),
+  );
+}
+
+getGraphLabels() {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(35, 10, 0, 25),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 5),
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: gradientColors,
+                ),
+              ),
+            ),
+            const Text(
+              ' Exp',
+              style: TextStyle(
+                  fontSize: 12, color: Color.fromARGB(153, 154, 255, 22)),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 5),
+              width: 10,
+              height: 10,
+              color: goldColor,
+            ),
+            Text(
+              ' Gold',
+              style: TextStyle(
+                color: goldColor.withOpacity(.6),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ],
     ),
   );
 }
