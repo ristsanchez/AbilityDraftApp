@@ -19,6 +19,12 @@ class SignInScreen extends StatelessWidget {
         child: Stack(
           children: [
             getSome(context),
+                  child: Image.asset(
+                    'assets/tm/dota_logo.png',
+                    fit: BoxFit.cover,
+                    color: const Color(0xFFA72714),
+                    colorBlendMode: BlendMode.srcATop,
+                  ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 30, right: 30),
