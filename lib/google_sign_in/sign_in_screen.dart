@@ -111,29 +111,6 @@ class SignInScreen extends StatelessWidget {
                                   ],
                                 ),
 
-                        // by onpressed we call the function signup function
-                        onPressed: () async {
-                          await signup(context);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: MaterialButton(
-                        color: Color.fromARGB(255, 9, 60, 102),
-                        elevation: 10,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 38.0,
-                              width: 30.0,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/stats_icons_small/hero_strength.png'),
-                                    fit: BoxFit.cover),
-                                shape: BoxShape.circle,
                               ),
                             ),
                             const SizedBox(
