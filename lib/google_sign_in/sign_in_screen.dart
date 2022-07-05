@@ -54,11 +54,23 @@ class SignInScreen extends StatelessWidget {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            height: 150,
-                            child: const Text(
-                              "Sign in",
-                              style: TextStyle(
-                                  fontSize: 36, fontWeight: FontWeight.bold),
+                            height: 180,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Login",
+                                  style: Theme.of(context).textTheme.headline3,
+                                ),
+                                const SizedBox(height: 15),
+                                const Text(
+                                  "Sign in to continue",
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white70),
+                                ),
+                              ],
                             ),
                             const Text(
                               "Sign In with Google",
