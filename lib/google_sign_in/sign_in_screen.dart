@@ -162,7 +162,7 @@ getSome(BuildContext context) {
       CarouselSlider(
         items: getCarousellist(context),
         options: CarouselOptions(
-          initialPage: isEven ? i : 30 - i,
+          initialPage: ((i * 2) % 30), //isEven ? i : 30 - i,
           viewportFraction: 1,
           height: 50,
           autoPlayCurve: Curves.linear,
