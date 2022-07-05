@@ -37,13 +37,6 @@ class SignInScreen extends StatelessWidget {
                             Container(
                               height: 38.0,
                               width: 38.0,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/tm/google_logo.png'),
-                                    fit: BoxFit.cover),
-                                shape: BoxShape.circle,
-                              ),
                             ),
                             const SizedBox(
                               width: 20,
