@@ -53,6 +53,7 @@ class SignInScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 24),
                             alignment: Alignment.center,
                             height: 180,
                             child: Column(
@@ -111,6 +112,10 @@ class SignInScreen extends StatelessWidget {
                                   ],
                                 ),
 
+                                // by onpressed we call the function signup function
+                                onPressed: () async {
+                                  await signup(context);
+                                },
                               ),
                             ),
                           ),
@@ -144,6 +149,14 @@ class SignInScreen extends StatelessWidget {
                                   ],
                                 ),
 
+                                // by onpressed we call the function signup function
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MyHomePage()));
+                                },
                               ),
                             ),
                           ),
@@ -180,9 +193,9 @@ class SignInScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
