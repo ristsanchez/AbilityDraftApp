@@ -97,6 +97,7 @@ getTopBarSearch(BuildContext context) {
   );
 }
 
+/// Returns a gridView containing the current hero list (if filtered)
 _getHeroesGrid(BuildContext context) {
   Provider.of<HeroListProvider>(context, listen: false).initList();
   List<AHero> heroList =
