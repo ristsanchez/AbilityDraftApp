@@ -1,8 +1,19 @@
 import '../../abilities/ability_objects/ability.dart';
 
+/// A Hero object containing information, about its basic stats, abilities, etc.
+///
+/// This object represents the latest values of the current game patch
+/// Source data comes directly from the game source files and is updated,
+/// preprocessed and maintained by a separate python subsystem
+///
+/// Note: the class [Hero] was already taken by dart, therefore the name AHero
 class AHero {
+  ///
+
+  /// Usually 3 regular and 1 ultimate abilities. Note: so many exceptions
   List<Ability>? abilityList;
 
+  /// Map of roles in the form of String and Integer e.g., {"support" : 3, ...}
   Map roles;
 
   late String id,
@@ -55,6 +66,10 @@ class AHero {
     this.magic_resist,
     this.abilityList,
   );
+
+  /// Creates a [AHero] object from a json object
+  ///
+  /// It assumes data is in place, it's pre-made by a separate python subsystem
   factory AHero.fromJson(
     String baseName,
     dynamic json,
