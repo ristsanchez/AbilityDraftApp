@@ -1,9 +1,23 @@
 import 'player_entry.dart';
 
+/// A summary of a match in (level 2) detailed data (parsed from a json object)
+///
+/// Level 2 stands for detailed enough to have a better understanding of
+/// All the players levels, items, kills, deaths, etc.
+///
+/// Also, the data comes from the dota open api: [https://docs.opendota.com/]
+/// And it is preprocessed before introducing it to the (whole) App component
 class MatchEntry {
+  ///
+  ///List of [Player] objects in a particular match (commonly 10)
   List<Player> playerList;
-  bool radiantWin;
+
+  /// Lists of gold and xp, where the index represent a minute of the match
+  /// and the value the respective advantage for the radiant team
+  /// Note: a negative value means radiant is losing, or Dire has an advantage
   List<int> radiantGoldAdv, radiantXpAdv;
+
+  bool radiantWin;
   int matchId,
       direScore,
       radiantScore,
@@ -24,21 +38,25 @@ class MatchEntry {
     this.gameMode,
     this.humanPlayers, //number of players in match eg 5v5 = 10 players
     this.lobbyType,
-    //optional arguments
-    // {
-    // this.bae,
-    // },
+
+    /// optional arguments
+    /// ```dart
+    /// { this.variable,},
+    /// ```
     this.playerList,
     this.start_time,
   );
 
+  /// Creates a Match entry object from [json] data
+  ///
+  /// It assumes data is in place, it's pre-made by a separate python subsystem
   factory MatchEntry.fromJson(Map<String, dynamic> jsonData) {
     List<Player> playerList = [];
 
-    List<dynamic> rawPlayerList = jsonData['players'] ?? [];
+    List<dynamic> jsonPlayerList = jsonData['players'] ?? [];
 
-    for (var player in rawPlayerList) {
-      playerList.add(Player.fromJson(player));
+    for (var jsonPlayer in jsonPlayerList) {
+      playerList.add(Player.fromJson(jsonPlayer));
     }
 
     return MatchEntry(
@@ -56,11 +74,10 @@ class MatchEntry {
       jsonData['start_time'] ?? 0,
     );
   }
-  //$FINISH LATER$
-  // @override
-  // String toString() {
-  //   return '{ ${this.name}, ${this.id}, ${this.base_str}, ${this.base_agi}, ${this.base_int}, ${this.base_damage_min}, ${this.base_damage_max}, ${this.base_movement_speed}, ${this.base_armor}, ${this.name}, ${this.type}, ${this.primary_attr}, ${this.str_per_level}, ${this.agi_per_level}, ${this.int_per_level} }';
-  // }
+
+  //Missing toString method with @overridE toString()
+
+  /// Returns the Radiant players marked using the [isRadiant] condition
   List<Player> getRadiantPlayers() {
     List<Player> temp = [];
     playerList.forEach((player) {
@@ -71,6 +88,7 @@ class MatchEntry {
     return temp;
   }
 
+  /// Returns the Dire players marked using the [isRadiant] condition
   List<Player> getDirePlayers() {
     List<Player> temp = [];
     playerList.forEach((player) {
