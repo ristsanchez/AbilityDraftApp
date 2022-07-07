@@ -74,7 +74,7 @@ getMatchEntry(BuildContext context, MatchEntry match, bool showHeroes) {
   return ExpansionTile(
     initiallyExpanded: showHeroes,
     textColor: Colors.white,
-    title: getLabels(context, match),
+    title: getMatchLabels(context, match),
     children: [
       getTeamImageRow(context, match.getRadiantPlayers()),
       getTeamImageRow(context, match.getDirePlayers()),
@@ -82,7 +82,7 @@ getMatchEntry(BuildContext context, MatchEntry match, bool showHeroes) {
   );
 }
 
-getLabels(BuildContext context, MatchEntry match) {
+getMatchLabels(BuildContext context, MatchEntry match) {
   return SizedBox(
     width: MediaQuery.of(context).size.width,
     child: Row(
