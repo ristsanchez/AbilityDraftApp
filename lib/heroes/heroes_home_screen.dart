@@ -9,6 +9,12 @@ import 'heroes_objects/hero.dart';
 
 const double indentation = 50;
 
+/// Heroes Home Screen displaying all heroes information
+///
+/// Has a search bar component that filters which heroes to display, it also
+/// has a panel with custom buttons to filter with e.g., type, complexity, etc.
+///
+/// Data is initiated by returning [Future] by reading a json file
 class HeroesHome extends StatelessWidget {
   const HeroesHome({Key? key}) : super(key: key);
 
@@ -28,6 +34,7 @@ class HeroesHome extends StatelessWidget {
   }
 }
 
+/// Returns a widget containing the top search bar panel used to filter heroes
 getTopBarSearch(BuildContext context) {
   return Container(
     height: indentation,
