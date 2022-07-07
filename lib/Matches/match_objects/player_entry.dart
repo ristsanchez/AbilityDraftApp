@@ -1,10 +1,24 @@
+/// A player in a Dota 2 match, it only contains information regarding a match
+///
+/// The data to make a [Player] object is a subset of the Match Data
+/// Both [MatchEntry] and [Player] objects are initialized sequentially
 class Player {
-  List<int> abilityUpgrades, goldTime, xpTime, items;
+  //
+  /// List of gold and experience during the match,
+  ///
+  /// Where the index of the list represents the minute of the match,
+  /// e.g. xpTime[10] = 4000, at minute 10 this player had 4000 xp
+  List<int> goldTime, xpTime;
 
-  //units killed durring the game, creeps, heroes, neutrals etc
+  List<int> items, abilityUpgrades;
+
+  /// Units killed during the match, including creeps, heroes, neutrals, etc.
   Map<String, dynamic> killed;
 
-  //hero name & number of times killed by
+  /// Hero unit names & numbers of times killed by
+  /// ```dart
+  /// killedBy = { "Lich" : 5, ... }
+  /// ```
   Map<String, dynamic> killedBy;
 
   List<dynamic> killsLog;
@@ -24,6 +38,8 @@ class Player {
       heroDamage,
       heroHealing,
       itemNeutral,
+
+      /// Level of the player (hero) by the end of the match
       level,
       towerDamage,
       observerUses,
@@ -51,7 +67,7 @@ class Player {
     this.heroDamage,
     this.heroHealing,
     this.itemNeutral,
-    this.level, //level at the end of game e.g., 27
+    this.level,
     this.towerDamage,
     this.sentryUses,
     this.observerUses,
@@ -61,6 +77,9 @@ class Player {
     // },
   );
 
+  /// Creates a [Player] object from a json object
+  ///
+  /// It assumes data is in place, it's pre-made by a separate python subsystem
   factory Player.fromJson(Map<String, dynamic> jsonData) {
     List<int> itemList = [];
     for (int i = 0; i < 6; i++) {
@@ -75,7 +94,7 @@ class Player {
       jsonData['killed'] ?? {},
       jsonData['killed_by'] ?? {},
       jsonData['kills_log'] ?? {},
-      jsonData['isRadiant'] ?? false, //camelcase exception in json file
+      jsonData['isRadiant'] ?? false, //camel-case exception in json file
       jsonData['hero_id'] ?? -1,
       jsonData['player_slot'] ?? -1,
       jsonData['kills'] ?? -1,
@@ -95,9 +114,6 @@ class Player {
       jsonData['sentry_uses'] ?? -1,
     );
   }
-  //$FINISH LATER$
-  // @override
-  // String toString() {
+  //Missing toString() method
 
-  // }
 }
