@@ -1,3 +1,15 @@
+/// Ability object containing, different types of information
+///
+/// This object contains the latest ability values of the current game patch
+/// Source data comes directly from the game source files and is updated,
+/// preprocessed and maintained by a separate python subsystem
+///
+/// The source data comes from 2 different quantity and language files
+/// One contains the raw ability quantities, values, percentages, numbers, etc.
+/// The second the language (English default) descriptions associated with
+///
+/// NOTE: there is a heavy leaning in regular expression to correctly place the
+/// value data within its associated language data
 class Ability {
   Map<String, String> propertyDescriptions;
   String id, name, description;
