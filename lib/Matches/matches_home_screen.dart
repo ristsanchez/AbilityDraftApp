@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ability_draft/FrostWidgets/clear_container.dart';
 import 'package:ability_draft/matches/match_widgets/hero_gold_graph.dart';
 import 'package:ability_draft/matches/match_widgets/hero_xp_graph.dart';
+import 'package:ability_draft/matches/match_widgets/match_info_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -88,6 +89,7 @@ class MatchesHome extends StatelessWidget {
                     height: 60,
                   ),
                   // getCarousel(),
+                  MatchInfo(),
                   getOverall(context, matchData),
                   getGoldXpGraph(
                     context,
