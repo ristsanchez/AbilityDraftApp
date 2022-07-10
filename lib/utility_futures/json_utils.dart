@@ -48,3 +48,18 @@ Future<MatchEntry> getTestMatchInfo() async {
   Map<String, dynamic> map = json.decode(data);
   return MatchEntry.fromJson(map);
 }
+
+Future<List<MatchEntry>> getMatchDataList() async {
+  String data;
+  Map<String, dynamic> map = {};
+  List<MatchEntry> temp = [];
+
+  //Temporary way to read json match data
+  for (var i = 0; i < 8; i++) {
+    data = await rootBundle.loadString('lib/utils/match$i.json');
+    map = json.decode(data);
+    temp.insert(i, MatchEntry.fromJson(map));
+  }
+
+  return temp;
+}
