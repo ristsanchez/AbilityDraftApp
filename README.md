@@ -6,7 +6,7 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Daily Places App</h3>
+  <h3 align="center">Ability Draft App (for Dota 2)</h3>
 
   <p align="center">
     An awesome Flutter App to track the places and moods associated with them!
